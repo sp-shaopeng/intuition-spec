@@ -98,7 +98,7 @@ the one-primary-action / Von Restorff principle (the CTA should be the highest-c
   button has no visible edge either.
 - secondary (16) is cream **text** on transparent (designed for dark/navy surfaces); ghost (17) is
   navy text on a cream-border outline. There is **no** solid, high-contrast CTA variant for light surfaces.
-- Real consequence on a light surface: Login's submit <Button type is submit … size is lg>
+- Real consequence on a light surface: Login's large submit button
   (Login implementation reference) and Register's submit are cream-on-cream — the primary conversion CTA is the
   lowest-contrast element on the page.
 
@@ -148,7 +148,7 @@ The Input renders a visible error message but **does not associate it with the i
 user tabs into the field and hears the label only, never that it's invalid or why. Sighted-only error user experience.
 
 ### Current state (file:line)
-- Input implementation reference — the <input> has id, focus styles, and (37) error  and 
+- Input implementation reference — the input field has id, focus styles, and (37) error  and
   'border-clay'colour-only error indication , but **noaria-invalid** and **noaria-describedby**.
 - 43-44 — hint and error render as  siblings with **no id**, so nothing can point at them.
 - error is colour-only at the field boundary → WCAG **1.4.1 Use of Color** as well (colour is the only
@@ -156,7 +156,7 @@ user tabs into the field and hears the label only, never that it's invalid or wh
 
 ### Design
 - Give the hint and error s stable ids derived from input Id: a unique identifier for the field error, a unique identifier for the field hint.
-- On the <input>: mark the field invalid only when it has an error and
+- On the input field: mark the field invalid only when it has an error and
   associate the field with its error if present, otherwise its hint if present (error takes precedence over hint, matching
   the existing hint and !error render guard at 43).
 - Keep the visible ⚠ glyph (it already pairs an icon with colour → satisfies 1.4.1; ensure the ⚠ has
@@ -221,7 +221,7 @@ email/password — friction on the highest-traffic conversion surface (mobile es
 and Jakob's Law: users expect autofill to work). Register has the same gap.
 
 ### Current state (file:line)
-- Login implementation reference — the email and password <Input>s pass type, required, placeholder,
+- Login implementation reference — the email and password input fields pass type, required, placeholder,
   error but **no auto Complete**. grep confirms zero auto Complete in Login implementation reference (the only
   auto Complete usages in the app are Reset Password implementation reference, Forgot Password implementation reference, Otp Input implementation reference,
   Combobox implementation reference — Login/Register were missed).
@@ -229,7 +229,7 @@ and Jakob's Law: users expect autofill to work). Register has the same gap.
   none with auto Complete.
 
 ### Design
-Input already spreads ...props onto the <input> (Input implementation reference), so auto Complete is a pass-through —
+Input already spreads ...props onto the input field (Input implementation reference), so auto Complete is a pass-through —
 no component change. Add the standard tokens:
 
 - Login: email auto Complete is email + input Mode is email; password auto Complete is current-password.
@@ -267,7 +267,7 @@ On-blur inline validation cuts abandonment ~10% (research lesson) and matches th
   surfaces the error adjacent to the field (already wired once H3 lands), and keeps submit as the final net.
 - Pair with re Validate Mode: on Change (RHF default) so once a field has errored, fixing it clears the error
   live — the standard "error on blur, clear on change" user experience.
-- **Keep no Validate on the <form>** (Form Layout already sets it; SHARED-LESSONS Wave-4 rule) so zod owns
+- **Keep no Validate on the form** (Form Layout already sets it; SHARED-LESSONS Wave-4 rule) so zod owns
   validation, not native popups.
 - Login is lower value (2 fields) — apply for consistency but it's optional; the win is the long forms.
 - This is additive config; no schema or copy change. Error copy improvements (adaptive "what + how to fix")
@@ -400,14 +400,14 @@ on first load, especially on mobile/3G; Vite will emit the >500 kB chunk advisor
 - App implementation reference — all pages imported eagerly (Login from ./pages/Login,
   Register …, all pages/admin/*, pages/tutor/*, pages/tutee/*, pages/browse/*).
 - Only lazy usage in the app: Landing implementation reference (Active Tutors Strip, Recent Requests Strip behind
-  <Suspense> at 105).
+  Suspense component at 105).
 - vite config implementation reference has **no build rollup Options output.manual Chunks** and no build block at all (it's a
   Vitest config; the prod build uses Vite defaults → a single vendor+app chunk).
 
 ### Design
 Apply the SHARED-LESSONS Vite bundle-splitting playbook (split by change cadence, not just package):
 
-- **Route-level React lazy** for the heavy / role-gated route groups behind a shared <Suspense> boundary
+- **Route-level React lazy** for the heavy / role-gated route groups behind a shared Suspense component boundary
   in each layout (Admin Layout, Tutor Layout, Tutee Layout Outlets). Prime split points: the entire
   admin/* group (incl. Analytics + any charts), the wizard flows (Create Request/Create Listing), and the
   authenticated dashboards. Public/auth pages (Landing, Login, Register) can stay eager (first-paint critical).
@@ -428,7 +428,7 @@ Apply the SHARED-LESSONS Vite bundle-splitting playbook (split by change cadence
 - AC4: lazy boundaries have layout-reserving fallbacks (no CLS regression).
 
 ### Test notes
-- Lazy routing is covered by existing route render tests (they must still pass through <Suspense> — wrap
+- Lazy routing is covered by existing route render tests (they must still pass through Suspense component — wrap
   test renders accordingly). Add a build-artifact check in the pull request notes (chunk sizes before/after). No unit
   test asserts chunk layout; the gate is the documented operational check succeeding + the documented chunk report.
 

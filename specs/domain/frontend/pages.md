@@ -121,10 +121,10 @@ All routes are client-side (React Router v6). The Cloudflare Pages redirects fil
 
 ## Page Metadata (SEO pages only)
 
-| Route | <title> |  |
+| Route | page title element |  |
 |---|---|---|
 | / | InTuition — Find a Private Tutor in Singapore | Singapore's curated tuition marketplace. Meet your tutor before you commit. |
 | /tutors | Browse Tutors — InTuition Singapore | Find verified private tutors for PSLE, O-Level, A-Level and more. |
 | /tutors/:slug | the listing headline — InTuition Singapore | the tutor’s subjects, teaching levels, hourly price range and service area |
 
-Open Graph tags (og:title, og:description, og:type) mirror the <title> and  values.
+Open Graph tags (og:title, og:description, og:type) mirror the page title element and  values.

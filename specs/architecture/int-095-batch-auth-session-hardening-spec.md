@@ -228,7 +228,7 @@ cache is empty at the moment the public tree mounts. Document this ordering in a
 ### Problem
 handle Unauthorized is registered in a -dependency effect, freezing location at first render. Any later
 401 (session expiry, or — today — a failed *login* POST) navigates to
-/login?return To=<the path the app first mounted on>, not the page the user was actually on. A failed login
+/login?return To=`<the path the app first mounted on>`, not the page the user was actually on. A failed login
 POST additionally **clobbers a legitimate return To** the user arrived with.
 
 ### Current state (verified)
@@ -365,7 +365,7 @@ rotate, so the limiter is not a sufficient control against a determined enumerat
   - **Implementation note (avoid a NEW oracle):** do the phone-existence check and the generic failure in a way
     that does not leak via *timing* or via *which field the form highlights*. The simplest correct shape: keep
     the exists By Phone check, but on hit throw App Exception unprocessable Entity("REGISTRATION FAILED",
-    <neutral msg>)with **no field attribution tophone**. Do not return afield Errors phone entry (that
+    `<neutral msg>`)with **no field attribution tophone**. Do not return afield Errors phone entry (that
     would re-create the oracle on the frontend). The frontend renders the neutral banner, not a phone-specific error.
   - **Unique-constraint backstop:** save User Or Conflict already maps the database unique violation
     (Auth Service implementation reference); ensure the phone-unique violation also maps to the **same** generic
@@ -376,7 +376,7 @@ rotate, so the limiter is not a sufficient control against a determined enumerat
   exposed to an unauthenticated party. Closing the distinct-code oracle is a Personal Data Protection Act data-protection improvement;
   note it in the change log for the privacy reviewer (mirrors the INT-122/contact-reveal audit-trail posture).
 - **Consider a per-account throttle (optional, dba-assisted):** the IP limiter is evadable; a secondary
-  **per-phone** attempt counter (Redis key ratelimit:register-phone:<normalized Phone>, low cap e g. 3/day)
+  **per-phone** attempt counter (Redis key ratelimit:register-phone:`<normalized Phone>`, low cap e g. 3/day)
   blunts targeted enumeration even across rotating IPs. This is a *defence-in-depth* extra, not required for
   the oracle fix — flag for the team to decide (it adds a tiny write per registration attempt). Normalize the
   phone to E.164 first (INT-082 normalization) so the key is canonical.

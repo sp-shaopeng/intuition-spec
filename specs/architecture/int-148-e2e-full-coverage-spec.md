@@ -32,7 +32,7 @@ import app source). The right metric is **FLOW coverage**: of the application pr
   (2) **declares it** via a // @covers METHOD ... interface operation annotation — the honest, reviewer-checkable bridge
   for endpoints a BROWSER spec exercises indirectly (a page render that fetches them).
   Path comparisons treat concrete record identifiers and placeholder identifiers as the same route, so a test call can be matched to the operation inventory.
-- Output: a per-module table + overall %, with min <pct> to **fail continuous integration below the gate** and gaps to list
+- Output: a per-module table + overall %, with min `<pct>` to **fail continuous integration below the gate** and gaps to list
   uncovered flows.
 - Provide a coverage report and a separate minimum-coverage check. Add them to the frontend-regression
   workflow as a non-blocking report first, then a hard gate at the agreed floor.

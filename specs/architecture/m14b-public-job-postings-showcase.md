@@ -61,7 +61,7 @@ Mirror M14a 1:1 — same infra, second cache key.
 - **Endpoint:** read operation for showcase requests on Showcase Controller
   (already showcase interface operation). Unauthenticated; per-IP rate-limited via the
   existing Rate Limit Service showcase Key ;  Cache-Control: public, max-age is 60.
-  Returns Showcase Envelope<Showcase Request Response>.
+  Returns Showcase Envelope`<Showcase Request Response>`.
 - **data transfer object:** new Showcase Request Response record — the §3 "shown" fields only. Add a
   personal information-free contract test asserting the record has no forbidden components.
 - **Service:** extend Showcase Service (or a sibling) with a second cached pool —
@@ -124,7 +124,7 @@ Implementation example omitted. This public edition retains the written requirem
 
 
   (Plain support efficient lookup with an index, not CONCURRENTLY — Testcontainers transactional build.)
-- **O-3 (structure):** Generify into a reusable Showcase Pool<T> engine
+- **O-3 (structure):** Generify into a reusable Showcase Pool`<T>` engine
   (owns its Caffeine key + Redis blob/built At keys + single-flight lock +
   Supplier loader + mapper + isolated the refresh operation/fail-closed serve + per-pool
   telemetry). Showcase Service holds TWO Showcase Pool instances. A failing
@@ -173,7 +173,7 @@ Mapper touches SCALAR columns only — never the get venue preferences operation
   relative recency, title dropped) — proven by forbidden-field AND frozen
   positive-allow-list tests. If any slips, location reverts to region-only.
 - Mapper scalar-only; N+1 guard test (no extra database query language per element).
-- Showcase Pool<T> isolation test: forced requests-pool refresh failure leaves
+- Showcase Pool`<T>` isolation test: forced requests-pool refresh failure leaves
   the tutors pool serving fresh.
 - Showcase Health Indicator → per-pool reporting (requests at lower severity);
   document the new /actuator/health showcase detail shape (changes a deployed

@@ -68,7 +68,7 @@ test-blast-radius (strict-JSON assertions) must be agreed before build.
   object Mapper value To Tree→structured response object (Map/bean/record/Page Response → gains trace Id, content intact; NO-OP for
   array/primitive/Problem Detail/binary/204; idempotent; never throws). Global error handler build Error adds
   the trace identifier in the error response. X-Correlation-ID header on all (cross-origin request permissions-exposed). frontend: api implementation reference/extract Trace Id capture trace Id (body→
-  header fallback) → copyable "Reference: <trace Id>" on error toasts + Error Boundary. **Blast-radius: NO existing app
+  header fallback) → copyable "Reference: `<trace Id>`" on error toasts + Error Boundary. **Blast-radius: NO existing app
   test broke** (all use json Path); 1 IT (Registration Enumeration IT, regression/excluded) noted. **Live convergence
   PROVEN:** success body trace Id  equals  X-Correlation-ID header (dc5bb979…); GEH 400 error body has the trace identifier in the error response.
   **Known gap (follow-up):** security 401/403 entry-point responses carry the header but not a body trace Id (bypass GEH).
@@ -77,6 +77,6 @@ test-blast-radius (strict-JSON assertions) must be agreed before build.
   choke point), REQ-002 (trace Id in every JSON-**object** SUCCESS body via a response customization component with the relevant response information that NO-OPs on
   arrays/primitives/empty/binary/Problem Detail), REQ-003 (keep X-Correlation-ID on every response — verified already
   present + cross-origin request permissions-exposed; the body's universal carrier), and REQ-004 (frontend api-client/error handler surfaces the trace Id on
-  error toasts/pages as a copyable "Reference: <trace Id>"). Grounded against the real code on 2026-06-21
+  error toasts/pages as a copyable "Reference: `<trace Id>`"). Grounded against the real code on 2026-06-21
   (request correlation filter, Global error handler build Error, Security Config cross-origin request permissions, api implementation reference / api Error implementation reference).
   Additive, non-breaking (NOT an envelope). status DRAFT pending the scoped team-review (Task 1).

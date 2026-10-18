@@ -4,6 +4,8 @@
 
 This review separates three things: an agreed requirement, behaviour supported by the current files, and evidence that the behaviour works when run. A missing feature stays a missing feature; rewriting a requirement to match the older application would hide the problem. InTuition remains unlaunched.
 
+The [workflow improvement plan](workflow-improvement-plan.md) sets out the proposed repair order and the evidence each fix needs. The [user-flow guide](user-flows.md) connects these findings to 21 main journeys. Those plans do not close any finding below; closure needs checked implementation and test evidence.
+
 ## What was compared
 
 - The current specification working copy, including its uncommitted corrections and additional documents.
@@ -106,5 +108,7 @@ The source comparison also found business conditions damaged by conversion to pr
 All three reviewers accepted the corrected documentation within their separate scopes after rechecking it. The source reviewer verified 66 restored explanations across 25 documents; the frontend reviewer checked all 56 current route entries; the backend reviewer checked that the gap descriptions match the inspected implementation. Final publication checks found 358 Markdown files, complete specification indexes, no broken local links, and no credential-candidate or retained company-identity matches. None of those results closes the application gaps above.
 
 The documentation can accurately describe an incomplete application. Full product alignment requires implementing the remaining agreed behaviour, resolving the genuinely open decisions, and collecting fresh evidence for the affected versions. The original six publication reviews and this later comparison do not replace those checks. The inspected private application files were not changed during this documentation review.
+
+The source comparison also found a timing disagreement across the retained requirements: AC-05 starts the seven-day confirmation period when the email is sent, §7.7.1 and AC-11 start it at match activation, and BRD BR-010 says when the notification is received. No later controlling decision settles that difference. It remains open separately from O12, which concerns the reminder delivery deadline and detection schedule. The BRD also permits staff to override confirmation at their discretion before timeout, while other clauses describe override after seven days. That permission boundary needs a decision as well.
 
 [Back to the README](../README.md) · [Current requirements](../specs/CURRENT-REQUIREMENTS.md) · [Testing and release](testing-and-release.md)

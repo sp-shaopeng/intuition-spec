@@ -75,7 +75,7 @@ the wrong row?). That classification is the first deliverable.
 
 | Surface | File | Gating | Confirm dialog? | Error feedback |
 |---|---|---|---|---|
-| Matching Dashboard | Matching implementation reference | can Cancel status equals PENDING \|\| ACTIVE (385) — button rendered only when cancellable (451-460) | **Yes** — cancel Confirm Id opens a <Modal> whose "Cancel match" button fires cancel Mutation mutate (334-367, 356-360) | Generic: the error operation (135-136) — does **not** read the error code |
+| Matching Dashboard | Matching implementation reference | can Cancel status equals PENDING \|\| ACTIVE (385) — button rendered only when cancellable (451-460) | **Yes** — cancel Confirm Id opens a modal component whose "Cancel match" button fires cancel Mutation mutate (334-367, 356-360) | Generic: the error operation (135-136) — does **not** read the error code |
 | Commission Ledger | Commission implementation reference | Same PENDING \|\| ACTIVE gate (367-368) | **No** — clicking "Cancel Match" fires the mutate operation **directly, no confirm** (370) | Generic: the error operation (92) |
 
 - Route constant exists and is correct: the match cancel operation →

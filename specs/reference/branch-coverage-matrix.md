@@ -82,7 +82,7 @@ precursor, not asserted as its own case) · ✗ = **GAP** (no test) · 🚫 = ex
 | 363 | MFA NOT CONFIGURED | 400 | multi-factor authentication step, no secret | 🚫 multi-factor authentication deferred |
 | 372 | INVALID time-based one-time passcode | 401 | wrong time-based one-time passcode | 🚫 multi-factor authentication deferred |
 | 524/529/540 | INVALID OTP | 400 | reset, wrong/expired one-time passcode | ✓ Password Reset Journey IT wrong Otp… + otp is Single Use |
-| 591 | OTP ATTEMPTS EXCEEDED | 429 | reset, too many one-time passcode tries | ✓ **INT-088 FIXED** (Auth Service reset Password value (withheld)). The cap is now read from a Redis counter otp-attempts:<token Id> incremented OUTSIDE the rolled-back tx (the wrong-one-time passcode branch at 600 does the increment operation then throw INVALID one-time passcode at 605; the Redis bump survives the rollback, unlike the database increment Attempt Count which still rolls back). The cap guard (591) is now reachable. Proof: Password Reset Journey IT reset exceeding Otp Attempt Cap is429 and Password Unchanged (@Disabled removed, green — 5 wrong then correct one-time passcode → 429, password unchanged) + units tests for excessive reset attempts and wrong-passcode attempt tracking. (Line refs shift +interim-rate-limit block; pre-fix the cap was the unreachable 562.) |
+| 591 | OTP ATTEMPTS EXCEEDED | 429 | reset, too many one-time passcode tries | ✓ **INT-088 FIXED** (Auth Service reset Password value (withheld)). The cap is now read from a Redis counter otp-attempts:`<token Id>` incremented OUTSIDE the rolled-back tx (the wrong-one-time passcode branch at 600 does the increment operation then throw INVALID one-time passcode at 605; the Redis bump survives the rollback, unlike the database increment Attempt Count which still rolls back). The cap guard (591) is now reachable. Proof: Password Reset Journey IT reset exceeding Otp Attempt Cap is429 and Password Unchanged (@Disabled removed, green — 5 wrong then correct one-time passcode → 429, password unchanged) + units tests for excessive reset attempts and wrong-passcode attempt tracking. (Line refs shift +interim-rate-limit block; pre-fix the cap was the unreachable 562.) |
 | 498 | REGRESSION EMAIL REQUIRED | 400 | local one-time passcode fixture, non-band email | ✓ Password Reset Journey IT issue Otp Fixture refuses… |
 | 562 | INVALID CREDENTIALS (delete acct) | 401 | delete account, wrong password | ✓ Account Lifecycle IT delete Account wrong Password… |
 
@@ -175,7 +175,7 @@ honestly** (both unreachable defensive 404s):
   the brute-force cap was DEAD because the reset password operation is a database transaction that saves all related changes together and the wrong-one-time passcode branch did
   the increment attempt count operation **then** throw INVALID one-time passcode, so the database increment rolled back with the tx →
   attempt count never accumulated → the cap guard was unreachable. **Fix:** the attempt counter now
-  lives in Redis (otp-attempts:<token Id>), incremented OUTSIDE the rolled-back tx at 600 (it survives
+  lives in Redis (otp-attempts:`<token Id>`), incremented OUTSIDE the rolled-back tx at 600 (it survives
   the throw, mirroring the multi-factor authentication counter and the login-lockout precedent), so the is at least one-time passcode MAX ATTEMPTS cap (591)
   fires.
   **Proof:** Password Reset Journey IT reset exceeding Otp Attempt Cap is429 and Password Unchanged (@Disabled

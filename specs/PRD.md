@@ -387,7 +387,18 @@ A publicly accessible reference page showing typical Singapore private tuition r
 ### 4.1 Tutee Journey
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+These steps preserve the original journey. They describe requirements, not verified delivery. Current requirements C01 and C04 allow bounded public browsing and restrict contact disclosure to authorized assigned participants. C06 and C07 replace the older interview eligibility and limit rules noted below.
+
+1. **Register.** The parent or adult learner chooses “Post a Request” or “Sign Up as Tutee” and provides their name, email, phone and password. The original journey then sends an email verification link, activates the account when it is followed, and presents privacy consent. The current consent and registration sequence takes priority over this historical order; see [parent registration](sequences/01-register-tutee.md). Contact storage follows the readable-text amendment, with disclosure restrictions unchanged.
+2. **Understand privacy.** On first login, show an explanation that contact stays private while browsing and choosing, and becomes available to the assigned participants after activation. Record the user's “I Understand” acknowledgement.
+3. **Create a request.** Collect the fields in §5.2, allow a draft to be saved, and submit the request as Pending Review. Show “Post Under Review” and acknowledge receipt by email with the stated two-business-day review expectation.
+4. **Receive the review outcome.** Approval makes the request Active and sends an approval email. A revision request includes a reason and lets the parent edit and resubmit for review. Rejection includes the recorded reason. The original approved-tutors-only discovery wording is historical; C01 governs public browsing and restricted details/actions retain their own access checks.
+5. **Wait and consider tutors.** The live request exposes subject, level, area, schedule and budget without private name, phone or email. Staff may review suitable tutors while the parent browses tutor listings.
+6. **Optionally request an interview.** The original listing-based path lets the parent choose a tutor and add a note of up to 300 characters. A REQUESTED interview alerts staff through N-21. Staff contact the tutor to agree a 15-minute slot, enter a meeting link and date/time, and mark it SCHEDULED. N-22 gives the parent the link, time and instructions; N-23 gives the tutor the link, time and anonymised request summary. Both join independently. Staff record COMPLETED, CANCELLED or NO_SHOW and follow up about a formal match. No interview alone releases contact details. The original limit of three open interviews per account, counted only as REQUESTED or SCHEDULED, is superseded by C07's per-post limits and negotiation states; the original 30-day repeat restriction after completion or no-show is retained for traceability. C06 also allows initiation from the parent's own pending request.
+7. **Receive an admin-created match.** The original path pairs a parent request with a tutor post; under C05 a tutor listing is optional and assignment uses the eligible tutor profile. Assignment moves the request to Matched, removes it from discovery and creates commission in PENDING. The parent receives email and a dashboard notice that a coordinator will contact them within one business day.
+8. **Agree the arrangement.** Staff use their authorized, audited access to contact both people off-platform and discuss the introduction. Staff then mark the match ACTIVE. Under C03 activation fixes the agreed first-month plan; under C04 the website can now reveal contact to the assigned participants.
+9. **Confirm the first session.** Activation starts the confirmation workflow and commission becomes AWAITING_CONFIRMATION. The parent receives the confirmation email and confirms that the session occurred; commission then becomes CONFIRMED. No response leads to the seven-day reminder and admin alert, with an authorized override path. The start of those seven days is unresolved; see AC-05. Confirmation alone does not complete the match.
+10. **After confirmation.** Staff generate the invoice and send it to the tutor. The source's general “closed when arrangement ends” wording is superseded by C02/C03: agency receipt marked PAID completes the match, which does not mean all teaching has ended. A satisfaction survey remains a post-MVP or manually triggered possibility.
 
 
 ---
@@ -395,7 +406,17 @@ Implementation example omitted. This public edition retains the written requirem
 ### 4.2 Tutor Journey
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+These steps retain the original tutor journey with explicit later corrections. They do not show that the website has implemented every step.
+
+1. **Register.** The tutor chooses “List as Tutor” or “Sign Up as Tutor” and supplies their name, email, phone and password. The original diagram placed account creation, email verification and privacy consent before commission acknowledgement. That order is superseded by [the current tutor registration sequence](sequences/02-register-tutor.md): collect the required legal and commission acknowledgements before final account creation, offer optional and skippable profile capture, and save acknowledgements and account audit together atomically. Later actions still require the approved profile completeness.
+2. **Read and acknowledge commission terms.** The disclosure remains a mandatory standalone step. Explain the 50% first-month commission, calculation method, a worked numerical example, the first-session confirmation trigger, the tutor as payer and the one-time-per-match charge with no recurring fee. An unchecked acknowledgement blocks progression. Record tutor identity, timestamp, terms version and affirmative action; staff cannot approve a profile without that record. See §8.1 for calculation details and [the UX wireframes](domain/uiux/wireframes.md) for presentation.
+3. **Optionally publish an offering.** The original journey required a tutor post; C05 makes publication optional for application and assignment. If the tutor chooses to publish, collect §5.1 fields, permit saving a draft, and submit it as Pending Review. Acknowledge receipt by email with the two-business-day review expectation.
+4. **Receive the listing review.** Staff see the post, contact information and commission acknowledgement. Approval makes the listing Active and sends a “listing is live” email; the public listing excludes private contact. Revision and rejection include reasons. These publication checks do not impose a listing requirement on an otherwise eligible tutor.
+5. **Browse and apply.** The original discovery screen shows level, subject, area, budget and schedule without parent contact. C01 governs bounded public browsing; application and detail access have their own checks. Applying expresses interest only, parent choice requests staff action, and only staff assignment creates the match. No pre-assignment contact is released.
+6. **Receive an assignment.** Staff assign the tutor to a request, using the eligible profile whether or not a tutor listing exists. The tutor receives email and a dashboard message that a coordinator will contact them within one business day.
+7. **Agree the arrangement.** Staff contact the tutor using authorized stored details and facilitate the introduction. Activation fixes the first-month plan and makes eligible participant contact available. The dashboard says the arrangement is active and commission will be invoiced after first-session confirmation.
+8. **Complete the commission process.** The parent confirms the first session, or staff use the authorized override process. Staff send the tutor an invoice due within 14 days and record PAID only when the agency receives payment. A parent paying for lessons is a separate event. A later satisfaction survey is optional, as in the original journey.
+9. **Maintain availability and any listing.** A published tutor post remains Active after a match because a tutor may have multiple simultaneous matches. Changes to availability, rates or subjects return the listing to review under the applicable moderation rules. C05 keeps listing-specific overrides separate from the main tutor profile.
 
 
 ---
@@ -403,7 +424,16 @@ Implementation example omitted. This public edition retains the written requirem
 ### 4.3 Admin Journey
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+The following is the original operational journey with current-rule caveats. Each step remains a requirement unless explicitly superseded; the list is not a statement that all admin screens are available.
+
+1. **Sign in.** The original flow requires email, password and a time-based one-time passcode before admin access, with no bypass. C09 and [production account setup](027-aws-production-deployment/spec.md) keep admin authentication and session controls specific to the environment; the original universal wording does not replace those rules.
+2. **Review posts.** The queue lists Pending Review posts oldest first. Detail includes name, email, phone, subject, level, rate or budget, availability, location and qualifications, plus the tutor's commission acknowledgement. Every contact-field view creates an immutable audit entry. Approve makes the post Active and notifies its owner. Reject records a selected reason and notifies the owner. Request Revision records a message and notifies the owner. C04 separately governs assigned participant access; “admin only” in the old diagram means this staff view, not a ban on authorized participant contact after activation.
+3. **Manage interviews alongside post review.** The original queue lists REQUESTED interviews by submission time, showing parent display name and note, tutor summary and audited parent contact. Staff agree a slot with the tutor, enter a future date/time, required meeting link and optional notes, then schedule it. Send N-22 to the parent and N-23 to the tutor. Afterward, record completion and follow up off-platform, cancellation, or no-show with the absent person identified. The old diagram names only the parent for N-24; AC-19 requires cancellation notice to both participants. C06/C07 add pending-post initiation, per-post limits and negotiation states to this earlier queue description.
+4. **Assign a tutor.** The original matching dashboard places active requests and tutor offerings side by side, filtered by subject, level, venue, area or MRT and budget/rate overlap. C05 allows assignment without a published offering. Staff choose an eligible tutor for one request. Block a second pending or active match for the same request. Notify both people, mark the request Matched and remove it from discovery.
+5. **Manage the match.** Keep arrangement status PENDING, ACTIVE, COMPLETED or CANCELLED separate from commission status. Activation fixes the plan, requests first-session confirmation and advances commission to AWAITING_CONFIRMATION. Monitor the seven-day follow-up, whose start is unresolved in AC-05. Staff can use the authorized confirmation override, invoice after CONFIRMED, and record payment actually received by the agency. Receipt marked PAID completes the match; first-session confirmation alone does not. Cancellation notifies both people and reopens an eligible request under §20.4. After invoicing, staff must explicitly decide WAIVED or DISPUTED for commission; cancellation must not silently choose a billing outcome.
+6. **Review the commission ledger.** Show matches, commission states and amounts, with status, date-range and tutor filters. Accounting export remains a future feature. Dedicated dispute/waiver screens remain P1 while the required states and manual notes remain in MVP scope (§1.6).
+7. **Manage users.** Show parent and tutor accounts with authorized, audited contact access. The original actions are suspend, reactivate, ban and force-close posts. Apply the current related-request closure and record-retention rules when changing account or post status.
+8. **Review audit records.** Senior staff or the data-protection role can inspect contact-access and commission-acknowledgement logs. They cannot edit or delete those records through an application interface.
 
 
 ---
@@ -652,6 +682,8 @@ No contact information of the other party is included in this notification.
 
 #### 7.7.1 First-Session Confirmation Timeout Job
 
+**Separate unresolved start:** The activation-based seven-day clock below conflicts with AC-05's email-send start and the original BR-010 notification-receipt start. See [AC-05](#ac-05-first-session-confirmation-before-commission-invoice-br-010). No start is selected here; this is distinct from O12's detection-versus-delivery timing question.
+
 > **Timing dependency O12:** This retained six-hour detector/window conflicts with the five-minute-from-trigger target when “trigger” means the seven-day threshold. The service-level agreement clock must be reconciled in [CURRENT-REQUIREMENTS md](CURRENT-REQUIREMENTS.md) before timing acceptance is closed. Both values below remain source requirements pending that decision.
 
 - **Job name:** first session confirmation timeout
@@ -697,7 +729,7 @@ Key fields for the matches table:
 **Index recommendation:**
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+The executable SQL index example is omitted from this documentation-only edition. Its purpose is to support lookup by tutor post and match status.
 
 
 This index supports efficient querying of all active matches per tutor post.
@@ -808,7 +840,13 @@ The calculated commission is displayed in the match detail view and saved on the
 ### 8.2 Commission Status Flow
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+1. **PENDING:** Creating a match creates its commission record in PENDING.
+2. **AWAITING_CONFIRMATION:** Staff mark the match ACTIVE, advancing commission and sending the parent's confirmation email. The source diagram puts the seven-day window beside this email event; AC-05, §7.7.1/AC-11 and BR-010 disagree on whether the clock starts at send, activation or receipt. No start is selected here.
+3. **CONFIRMED:** The parent confirms that the first session occurred. Staff may then generate the invoice.
+4. **No response within the seven-day window:** Staff may override confirmation to CONFIRMED, contact the parent for confirmation, or cancel the match and explicitly waive commission. Silence alone does not confirm the session.
+5. **INVOICED:** Send the invoice to the tutor with payment due in 14 days.
+6. **PAID, DISPUTED or WAIVED:** Record PAID when the agency receives payment. A dispute moves commission to DISPUTED for staff resolution with notes. A staff waiver moves it to WAIVED with notes. A dispute decision without receipt cannot be recorded as PAID; unresolved financial adjustments remain O10.
+7. **Cancellation after invoicing:** Staff must explicitly set commission to WAIVED or DISPUTED. Do not apply an automatic terminal billing state because the match was cancelled.
 
 
 **Match status and commission status are separate fields with coupled transitions.** Agency receipt recorded as commission PAID moves the match to COMPLETED; first-session confirmation alone does not. Match status tracks the arrangement lifecycle (PENDING → ACTIVE → COMPLETED/CANCELLED). Commission status tracks the billing lifecycle on the commissions table.
@@ -1156,12 +1194,17 @@ Responses include a next cursor field (null if no further pages). Cursor encodes
 **Feature:** Contact field access control
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+1. **GIVEN** a registered parent or tutor has stored email and phone details, **WHEN** a public, discovery, applicant or other pre-assignment interface returns their profile or post to another user, **THEN** it must not expose private email, phone or full name.
+2. **GIVEN** the requester is an authorized participant of the assigned match, **WHEN** they request the other person's contact, **THEN** the interface enforces ownership and an eligible match state of PENDING, ACTIVE or COMPLETED. The website reveals phone/email only for ACTIVE or COMPLETED. Post approval, invitation acceptance and selection alone never release contact.
+3. **GIVEN** an administrator opens the contact section of a post, **WHEN** the contact details are accessed, **THEN** an immutable audit entry records the admin identity, Singapore-time timestamp, record type, record identity and fields accessed.
+4. **GIVEN** an unauthenticated visitor browses tutor listings, **WHEN** the listing is rendered, **THEN** no tutor email, phone, home address or profile photo URL is present in either the page content or the underlying response.
 
 
 ---
 
 ### AC-02: Post Approval Gate (BR-002)
+
+**Current scope:** Moderation still gates publication. C01 replaces the older approved-tutors-only browsing assumption with bounded public access; C05 permits eligible tutors to apply or be assigned without a published tutor listing. The original cases below do not override those changes.
 
 **Feature:** Post visibility gated on admin approval
 
@@ -1186,7 +1229,12 @@ The illustration for ac-02: post approval gate br-002 contains the following inf
 **Feature:** Standalone commission disclosure step
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+**Current sequence takes priority:** [Tutor registration sequence 02](sequences/02-register-tutor.md) requires legal and commission acknowledgements before final account creation and saves them with the account audit atomically. Profile capture is optional and skippable. The first historical case below documents the earlier order, not permission to create an account before acknowledgement. The final case retains the guard for a missing acknowledgement; it does not authorize such incomplete signup.
+
+1. **Historical order, superseded:** **GIVEN** a user selects “Register as Tutor”, **WHEN** they finish account creation and email verification, **THEN** the original case presents mandatory standalone commission disclosure as step two and blocks progress to profile creation. Replace this order with the current sequence above; keep disclosure mandatory.
+2. **GIVEN** the tutor is on the disclosure screen, **WHEN** they continue without checking acknowledgement, **THEN** prevent progression and show “You must accept the commission terms to continue”.
+3. **GIVEN** the tutor checks acknowledgement and continues, **WHEN** the form is submitted, **THEN** record tutor identity, an ISO 8601 acknowledgement timestamp, commission terms version and the affirmative checkbox action in an immutable audit record.
+4. **GIVEN** an existing tutor account lacks commission acknowledgement, **WHEN** staff view its post in the review queue, **THEN** show “Commission acknowledgement not yet completed” and disable approval.
 
 
 ---
@@ -1196,7 +1244,12 @@ Implementation example omitted. This public edition retains the written requirem
 **Feature:** Match creation is admin-exclusive
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+**Current listing rule:** C05 permits application and assignment without a published tutor listing. The original “tutor post B” case below retains its historical wording for traceability; an eligible tutor profile is sufficient under the current rule.
+
+1. **GIVEN** a logged-in tutor opens a parent request from discovery, **WHEN** its detail is shown, **THEN** show neither a “Contact Tutee” nor a “Request Match” action and expose no private contact. An “Apply / Express interest” action is available under M18, but it creates only an application and never a match.
+2. **GIVEN** staff create a match between parent request A and tutor post B in the original listing-based flow, **WHEN** that match is confirmed, **THEN** mark request A Matched, remove it from discovery and email both people. Apply the current listing-optional rule above.
+3. **GIVEN** request A already has a PENDING match, **WHEN** staff attempt another match for it, **THEN** block creation and show “This tutee request already has an active match”.
+4. **GIVEN** a parent chooses a tutor, **WHEN** that selection is recorded, **THEN** it is only a request for staff action. No match exists until staff create it, and §7.4 cardinality still applies.
 
 
 > **M18 note:** the free-market change lets a tutor *apply* (/tutor/applications), and a parent
@@ -1210,12 +1263,20 @@ Implementation example omitted. This public edition retains the written requirem
 **Feature:** Tutee first-session confirmation gate
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+**Unresolved start of the seven-day window:** Case 3 below counts from the confirmation email being **sent**. Section 7.7.1 and AC-11 count from match **activation**. The original [BR-010](BRD.md#br-010-first-session-confirmation-before-commission-invoice) counts from the parent **receiving** the notification. These are three different events; no approved rule has reconciled them. Preserve the confirmation, reminder and admin follow-up obligations, but do not claim one start is settled. This is separate from O12, which asks whether the five-minute delivery target starts at the seven-day threshold or when the six-hour detector notices it.
+
+1. **GIVEN** staff mark a match ACTIVE, **WHEN** the change is saved, **THEN** commission becomes AWAITING_CONFIRMATION, a “Confirm First Session” email is sent to the parent within the five-minute delivery target in §14, and the admin ledger shows “Awaiting Tutee Confirmation”.
+2. **GIVEN** the parent follows “Confirm First Session Occurred” from the email, **WHEN** they submit confirmation on the authenticated confirmation page for their match, **THEN** commission becomes CONFIRMED, the confirmation timestamp is recorded, and the ledger shows “Commission Due: Ready to Invoice”.
+3. **Historical email-send start, unresolved:** **GIVEN** seven calendar days have passed since the confirmation email was sent without parent action, **WHEN** the timeout is reached, **THEN** send a parent reminder and admin alert, and show “Overdue Confirmation” in the admin panel. The start remains subject to the conflict above.
+4. **GIVEN** staff choose “Override Confirmation” on an overdue match, **WHEN** they confirm the override, **THEN** commission becomes CONFIRMED and the audit records the admin identity and timestamp.
+5. **GIVEN** a match is cancelled before commission reaches CONFIRMED, **WHEN** cancellation is saved, **THEN** commission becomes WAIVED, no invoice is generated, and both people receive cancellation email.
 
 
 ---
 
 ### AC-06: Tutor Discovery Index — Anonymisation (BR-001, BR-003)
+
+**Current scope:** The privacy and matched-request removal requirements remain. C01 and C05 replace the older assumption that all discovery access requires an approved tutor listing.
 
 **Feature:** Tutees browseable to tutors without contact info
 
@@ -1233,6 +1294,8 @@ The illustration for ac-06: tutor discovery index — anonymisation br-001, br-0
 ---
 
 ### AC-07: Admin multi-factor authentication Enrollment Enforcement
+
+**Environment scope:** Read these original admin security cases with C09 and specification 027. Admin authentication rules are defined separately for each environment; the original universal wording does not erase that distinction.
 
 **Feature:** Admin multi-factor authentication requirement
 
@@ -1254,12 +1317,15 @@ The illustration for ac-07: admin multi-factor authentication enrollment enforce
 **Feature:** Immutable audit log for admin contact field access
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+1. **GIVEN** staff view a phone or email field on any admin page, **WHEN** the page renders and includes that field in its response, **THEN** create an audit entry with admin identity, Singapore-time timestamp in ISO 8601 format, resource type such as tutor post or user, resource identity, and the particular phone and/or email fields accessed.
+2. **GIVEN** an audit entry exists, **WHEN** any application interface, including an admin interface, attempts to modify or delete it, **THEN** return an error and leave the entry unchanged. No application interface permits either action.
 
 
 ---
 
 ### AC-09: Admin Session Idle Timeout
+
+**Environment scope:** These original admin session cases remain subject to C09 and the separately specified admin environment rules. They do not define the parent or tutor session contract.
 
 **Feature:** Admin session controls
 
@@ -1281,12 +1347,15 @@ The illustration for ac-09: admin session idle timeout contains the following in
 **Feature:** Commission acknowledgement terms versioning
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+1. **GIVEN** a tutor completes commission acknowledgement, **WHEN** the record is saved, **THEN** include the user identity, ISO 8601 acknowledgement timestamp, semantic terms version such as 1.0.0, IP address and the affirmative checkbox action.
+2. **GIVEN** an acknowledgement record is being created, **WHEN** its terms version is set, **THEN** it must equal the active version in platform configuration. A mismatch raises an error and prevents creation.
 
 
 ---
 
 ### AC-11: Reminder Email Timing (N-12)
+
+**Separate unresolved start:** This case starts the seven days at activation, while AC-05 starts them at email send and original BR-010 at notification receipt. See [AC-05](#ac-05-first-session-confirmation-before-commission-invoice-br-010). O12 below concerns the later detection and delivery window, not which of these three events starts the seven days.
 
 **Feature:** 7-day first-session confirmation reminder timing
 
@@ -1324,7 +1393,8 @@ The illustration for ac-12: tutee pseudonym format on invoice contains the follo
 **Feature:** Idempotent tutee session confirmation
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+1. **GIVEN** the parent has already confirmed the first session and commission is CONFIRMED or later, **WHEN** they submit confirmation again for the same match, **THEN** return HTTP 200 with the current commission status.
+2. **GIVEN** that repeat confirmation is processed, **WHEN** the request is handled, **THEN** create no duplicate commission record and emit no duplicate events.
 
 
 ---
@@ -1345,6 +1415,8 @@ The illustration for ac-14: one commission per match — br-005 contains the fol
 
 ### AC-15: No Direct Messaging — BR-006
 
+**Current disclosure rule:** The ban on a direct messaging feature remains. The historical phrase “contact-exchange endpoint” below must not prohibit C04's authorized assigned-participant contact interface in AC-01; pre-assignment contact remains hidden.
+
 **Feature:** No messaging or contact exchange between tutees and tutors
 
 
@@ -1363,7 +1435,12 @@ The illustration for ac-15: no direct messaging — br-006 contains the followin
 **Feature:** Interview request eligibility enforcement
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+**Historical eligibility cases:** C06 and [specification 021](021-tutee-request-flow/spec.md) also allow initiation from the parent's own pending post. C07 replaces the old per-account cap and REQUESTED/SCHEDULED-only counting with per-post limits and the current negotiation states. Retaining the old cases below does not reinstate those superseded restrictions.
+
+1. **GIVEN** a logged-in parent views an approved tutor listing, **WHEN** that listing is ACTIVE, **THEN** show “Request Interview” on its detail page. This listing-based entry point is not the only permitted current entry point.
+2. **Historical account cap, superseded:** **GIVEN** a parent already has three open interviews counted as REQUESTED or SCHEDULED, **WHEN** they submit another request for any tutor post, **THEN** the original case returns HTTP 422 and asks them to wait until one completes. Apply C07's per-post limit and current open states instead of this account-wide predicate.
+3. **GIVEN** an interview with a tutor post ended COMPLETED or NO_SHOW, **WHEN** fewer than 30 calendar days have passed since that interview's completion, **THEN** a new request for the same tutor post returns HTTP 422 and asks the parent to wait 30 days before requesting another interview.
+4. **GIVEN** a visitor is not logged in, **WHEN** they view a tutor listing detail page, **THEN** replace “Request Interview” with “Log in to Request Interview”, subject to the current authentication rule for viewing the detail itself.
 
 
 ---
@@ -1393,7 +1470,11 @@ The illustration for ac-17: interview scheduling — meeting link required br-01
 **Feature:** Contact privacy preserved throughout interview workflow
 
 
-Implementation example omitted. This public edition retains the written requirements in this section.
+**Disclosure boundary:** These interview cases retain privacy before assignment. Under C04, holding or scheduling an interview never releases contact. Authorized contact access after assignment and activation follows the separate participant rule in AC-01.
+
+1. **GIVEN** an interview is SCHEDULED, **WHEN** the parent views its detail page, **THEN** show the tutor post title, subjects, levels, rate range, area, date/time and meeting link, but no tutor full name, phone or email.
+2. **GIVEN** an interview is SCHEDULED, **WHEN** N-23 is sent to the tutor, **THEN** include the parent request's subject, level, area and budget, but no parent full name, phone or email.
+3. **GIVEN** staff view interview details, **WHEN** parent phone or email is displayed in the admin panel, **THEN** create an immutable audit entry meeting AC-08.
 
 
 ---

@@ -169,7 +169,7 @@ INT-077, on a money path. Commission has no @Version (grep confirms).
 1. Add a required whole-number version to each commission record, initially zero. The database update must detect when another transaction has changed that version since it was read.
 2. **Migration 0048-commission-optimistic-version implementation reference** mirroring 0028c:
    add Column commissions version bigint default Value Numeric is 0 not no value + a rollback drop Column + the
-   <include> in db changelog-master implementation reference after the 0047 line (81). Schema head is 0047.
+   include entry in db changelog-master implementation reference after the 0047 line (81). Schema head is 0047.
 3. **DECISION — the 409 error code.** Global error handler already maps
    Object Optimistic Locking Failure Exception → 409 but **hardcodes JOB ALREADY ASSIGNED / "This job has already been
    assigned."** — wrong copy for a commission. Two options:

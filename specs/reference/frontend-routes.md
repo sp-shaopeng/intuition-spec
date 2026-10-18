@@ -232,4 +232,4 @@ Founder rule: **the only path to /register is an explicit "Create account" contr
 | M10 | Search & Favourites — filter sidebar, heart, favourites page | Complete |
 | M11 | Review & Rating — post-match stars, aggregate on tutor cards | Complete |
 | M12 | Admin Analytics — platform metrics dashboard | Complete (verification pending) |
-| M17 | Marketplace user experience overhaul — public /assignments Browse page; /tutors/:id + /assignments/:id login-gated via <Require Auth>; auth CTAs default to login (register only on create-account); friendly subject/level labels; Nav intent labels + mobile parity; landing order Jobs → Tutors | Deployed (no migration) |
+| M17 | Marketplace user experience overhaul — public /assignments Browse page; /tutors/:id + /assignments/:id login-gated via authentication wrapper; auth CTAs default to login (register only on create-account); friendly subject/level labels; Nav intent labels + mobile parity; landing order Jobs → Tutors | Deployed (no migration) |

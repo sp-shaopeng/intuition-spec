@@ -15,7 +15,7 @@
 | **013-tutee-dashboard-and-invitations** | #207.1 edit/view post; #207.2 venue display; #208 invite/interview not in active requests; sent-invitations list | bff-specialist, software-engineer, frontend-expert, uiux-designer | **2×S2**, 1×S3, 1×S2 | 4 |
 | **014-interview-scheduling-ux-and-admin-visibility** | #210.1 admin list filter gap; #210.2 auto-fill slot; #210.3 clipped No-Show; #211 datetime picker; raw-handle display | frontend-expert, uiux-designer, bff-specialist, software-engineer | **1×S2**, 4×S3 | 5 |
 | **015-mobile-responsive-fixes** | INT-210 grid page overflow; ADM-nav 390px; T-04 nav breakpoint | frontend-expert, uiux-designer | **1×S2**, 2×S3 | 3 |
-| **016-error-copy-and-handling** | INT-211 raw "not found: <uuid>"; bare-path 500→404; ADM-400 field naming; tel: escaping | software-engineer, frontend-expert, bff-specialist | 1×S3, 3×S4 | 4 |
+| **016-error-copy-and-handling** | INT-211 raw "not found: `<uuid>`"; bare-path 500→404; ADM-400 field naming; tel: escaping | software-engineer, frontend-expert, bff-specialist | 1×S3, 3×S4 | 4 |
 | **017-admin-analytics-and-financial-safety** | conversion >100% cohort bug; avg-commission calc; **Mark-Paid confirm (financial safety)** | data-engineer, business-analyst, software-engineer, frontend-expert | 2×S3, 1×S4 | 3 |
 | **018-flag-hygiene-seeder-and-fe-hygiene** | T-05 WhatsApp toast OFF; T-08 seeder tutor user id; demo-data variety; T-01 /dashboard 404; T-03 step copy; CTA-intent | frontend-expert, software-engineer, uiux-designer | 2×S3, 3×S4, 1×low | 6 |
 

@@ -249,7 +249,7 @@ instead).
 
 ## SDD / governance
 
-On approval this becomes a versioned spec under intuition-spec/specs/<NNN-aws-production-deployment>/
+On approval this becomes a versioned spec under intuition-spec/specs/`<NNN-aws-production-deployment>`/
 (requirements + design + tasks + changelog), Boss-driven phase by phase, specialists dispatched per
 phase, evidence under private evidence grouped by requirement. **Phase A0 ships first** (backend code/config the infra
 depends on) via team-review→Boss, then the infrastructure as code phases. The deferred premium items (multi-account,

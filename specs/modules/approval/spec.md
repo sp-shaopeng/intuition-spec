@@ -101,7 +101,7 @@ Default sort: submitted at ASC (oldest first). No alternative sort exposed in v1
 
 ### 3.4 Pagination
 
-20 posts per page, cursor-based (keyed on submitted at + id). No offset pagination. Cursor is base64-encoded and passed as ?cursor=<value>.
+20 posts per page, cursor-based (keyed on submitted at + id). No offset pagination. Cursor is base64-encoded and passed as ?cursor=`<value>`.
 
 ---
 

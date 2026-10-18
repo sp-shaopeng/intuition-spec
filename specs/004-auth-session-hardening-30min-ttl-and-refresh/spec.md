@@ -52,7 +52,7 @@ APPROVED — scoped spec-review gate passed after one SEND-BACK revision cycle (
 ## Changelog
 
 - 1.4 (2026-06-21) **RE-HISTORICALLY MARKED IMPLEMENTED — REQ-005 fix verified live.** MODIFIED REQ-005 — logout AND delete-account now
-  revoke ALL refresh families for the authenticated the user id operation via a new refresh:user-families:<uid>
+  revoke ALL refresh families for the authenticated the user id operation via a new refresh:user-families:`<uid>`
   Redis index (maintained on mint + every revoke path incl. the Lua reuse-revoke), eliminating the cookie-dependent
   the revoke family operation no-op. The Refresh Session IT was hardened to send logout WITHOUT the refresh cookie
   (reproducing the live Sev-1). Also fixed the REQ-011 429 retry After mislabel (3600→60). Gate re-green (BUILD
@@ -84,10 +84,10 @@ APPROVED — scoped spec-review gate passed after one SEND-BACK revision cycle (
   reuse-check-before-mint). MODIFIED REQ-009 — frontend single-flight refresh, interceptor runs before should Trigger Logout,
   /auth/refresh excluded (no recursion), decision moved to a pure exported should Attempt Refresh helper for the
   coverage gate. MODIFIED REQ-004 — opaque-token epoch semantics: family created At Epoch compared is at most against
-  pwreset:after:<id>; epoch-missing fail-safe. MODIFIED REQ-007 Should→**Must** + idle-vs-absolute precedence
+  pwreset:after:`<id>`; epoch-missing fail-safe. MODIFIED REQ-007 Should→**Must** + idle-vs-absolute precedence
   (absolute check runs even on a valid rotation). ADDED REQ-011 — per-IP/user rate-limit → 429 RATE LIMITED
   (refresh-grinding). MODIFIED REQ-010 — admin refresh returns a DEFINED 401 REFRESH INVALID. Design: named the hash
-  (SHA-256, constant-time compare, bcrypt forbidden — ADR-003), pinned ≥256-bit Secure Random entropy + <family Id>.<secret>
+  (SHA-256, constant-time compare, bcrypt forbidden — ADR-003), pinned ≥256-bit Secure Random entropy + `<family Id>`.`<secret>`
   wire format, refresh:revoked tombstone expiry period = absolute Expiry Epoch − now, refresh cookie omits the domain operation,
   shared Auth Error Code enum (no magic strings). Tasks: ADDED Security Config the permit all operation (kept out of
   cross-site request forgery protection-ignore) to Task 8, ADDED Task 4a (Auth Error Code) + Task 14a (single-flight), Task 1 asserts effective access

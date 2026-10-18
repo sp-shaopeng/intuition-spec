@@ -422,7 +422,7 @@ Implementation example omitted. This public edition retains the written requirem
 - **Effort:** M
 - **Implementation outline:**
   1. submit operation for me data-export enqueues a job; worker assembles bundle, uploads to a private bucket, emails signed link.
-  2. submit operation for admin users id erase performs cascading personal information redaction inside a transaction; replaces names/emails/phone with REDACTED:<sha256> tombstones in audit log.
+  2. submit operation for admin users id erase performs cascading personal information redaction inside a transaction; replaces names/emails/phone with REDACTED:`<sha256>` tombstones in audit log.
   3. Retention policy doc at intuition-spec/policy/retention md enumerating per-entity expiry period.
   4. Quartz job runs daily to expire data per the retention schedule (e g. soft-deleted posts purged after 90d).
 - **Acceptance criteria:**
@@ -998,7 +998,7 @@ Architecture Decision Records live here. Append-only. Entries up to ADR-009 are 
 
 | # | Decision | Context | Status | Date |
 | --- | --- | --- | --- | --- |
-| ADR-001 | A shared page-of-results response for paginated responses | Spring's Page<T> leaks Pageable internals over the wire and makes the contract brittle for the private implementation folder A flat a result list with its page, size, total records and total pages is easier to version and document. | Accepted | 2026-02-10 |
+| ADR-001 | A shared page-of-results response for paginated responses | Spring's Page`<T>` leaks Pageable internals over the wire and makes the contract brittle for the private implementation folder A flat a result list with its page, size, total records and total pages is easier to version and document. | Accepted | 2026-02-10 |
 | ADR-002 | Auth transport via HttpOnly session cookie | Bearer token in Authorization header requires frontend to handle storage (XSS risk in local Storage) and complicates cross-site request forgery protection. HttpOnly cookie + cross-site request forgery protection token (item #3) is the standard browser-safe pattern. | Accepted | 2026-02-12 |
 | ADR-003 | personal information encryption via Tink AES-SIV | Deterministic encryption needed for searchable personal information (email lookup at login). Tink AES-SIV provides this without the IV-reuse pitfalls of GCM-SIV used carelessly. | Accepted | 2026-02-20 |
 | ADR-004 | Schema migrations via Liquibase XML changesets only | Mixing Flyway/Liquibase/raw database structure definitions causes drift. XML chosen over YAML for stricter validation and IDE tooling. No raw database structure definitions anywhere in the codebase. | Accepted | 2026-02-22 |

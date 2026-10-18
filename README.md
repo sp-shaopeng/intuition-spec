@@ -10,7 +10,7 @@ This repository explains the business, the product and how I work with AI to bui
 
 **The specifications are ahead of the current application in several areas.** A fresh independent comparison found gaps in guest filtering, contact changes, interview times and the first-session billing flow. The [current-file alignment review](docs/current-file-alignment.md) separates the agreed requirements from what the inspected files actually support.
 
-**[Business and product](docs/business-and-product.md)** · [How I work](docs/how-i-work.md) · [Testing](docs/testing-and-release.md) · [All specifications](docs/specification-index.md)
+**[Business and product](docs/business-and-product.md)** · [User flows](docs/user-flows.md) · [Workflow improvement plan](docs/workflow-improvement-plan.md) · [Testing](docs/testing-and-release.md) · [All specifications](docs/specification-index.md)
 
 ## Why I want to build it
 
@@ -61,7 +61,7 @@ The current requirements still leave some commercial decisions open, including t
 5. **Confirm the arrangement.** Staff assign the tutor and activate the agreed plan. Only authorized participants in the required match state can see the other person’s contact details.
 6. **Follow through.** The first lesson is confirmed, the commission process proceeds and staff record the agency’s receipt of payment. Cancellations and changes must leave related records in a consistent state.
 
-[Walk through the product](docs/business-and-product.md#the-main-product-journey) · [Read the current decisions](specs/CURRENT-REQUIREMENTS.md)
+[Read the 21 main user flows](docs/user-flows.md) · [Walk through the business](docs/business-and-product.md#the-main-product-journey) · [Read the current decisions](specs/CURRENT-REQUIREMENTS.md)
 
 ## How the frontend and backend fit together
 
@@ -81,7 +81,7 @@ AI helps with writing specifications, implementing changes, examining the work a
 
 The working process is:
 
-**Business need → specification → clear pass/fail examples → independent specification approval → tracked issue → implementation → review → tests → release decision**
+**Business need → specification and pass/fail examples → independent specification approval → tracked issue → failing check → implementation and tests → independent result review → release decision**
 
 | Step | What I expect before moving on |
 |---|---|
@@ -89,16 +89,15 @@ The working process is:
 | Write the specification | Business rules, limits and examples of what must and must not happen |
 | Approve the specification | Reviewers other than the author approve the corrected plan and examples before building; unresolved business decisions block dependent work |
 | Track the issue | A bounded task connected to those requirements, with dependencies visible |
-| Implement | Changes follow the approved specification in the relevant frontend, backend or test repository |
-| Review | Challenges from the business, product and engineering perspectives, including failure cases |
-| Test | Checks for the new behaviour and for existing behaviour that the change might break |
+| Implement and test | Reproduce the defect or add the acceptance check, make the change, and check both the new behaviour and existing behaviour it might break |
+| Review the result | Reviewers inspect the change and test evidence from the business, product and engineering perspectives, including failure cases |
 | Close and release | Findings resolved, the relevant checks recorded and the documentation updated |
 
 When a review or test fails, the task goes back to the relevant step. A requirements change can require changes to the design and tests as well as the implementation. A passing old test does not prove a newly clarified requirement.
 
 The issue IDs, review records and requirement lists in the specification collection show how that process developed. They also show inconsistencies and follow-up work. They are not all equivalent to a freshly verified result. Named review roles in those working records refer to AI-assisted roles; they should not be read as a claim that I employ a large business or engineering team.
 
-[See the workflow and examples](docs/how-i-work.md).
+[See the workflow and examples](docs/how-i-work.md), then read the [improvement plan](docs/workflow-improvement-plan.md) for linking each rule to its change, test evidence and independent review.
 
 ## How I check that changes have not broken the product
 
@@ -111,7 +110,7 @@ There are several kinds of checks because they catch different mistakes:
 
 The configured coverage targets are 97.5% of lines and branches for the backend, and 97.5% of lines and 88% of branches for the frontend. Coverage measures how much of the measured code the tests exercise. It does not prove that every business rule is right, that every file is included or that the service is ready to launch.
 
-The inspected source inventory contains **182 backend test files, 177 frontend test files and 57 Playwright test files**. These are file counts, not counts of passing test cases. The application test suites were not rerun as part of publishing this documentation.
+The inspected source inventory contains **182 backend test files, 177 frontend test files and 57 Playwright test files**. These are file counts, not counts of passing test cases. A later backend baseline passed 2,222 tests across its main and integration phases, but excluded the live regression lab. The frontend baseline did not finish. [Read the exact limits of that check](docs/testing-and-release.md#follow-up-baseline-check).
 
 Useful regression questions are concrete: can a second click create a duplicate assignment; can an unassigned person see a phone number; can an old interview reminder still fire after rescheduling; can an unpaid commission be counted as received; can a failed message be retried without creating a second business action?
 
@@ -128,6 +127,8 @@ Before a public launch, the changed requirements need to be checked against the 
 | Start here | Then go deeper |
 |---|---|
 | [Workflow walkthrough](docs/workflow-walkthrough.md) | Each step, the record it needs and what happens when a check fails |
+| [Workflow improvement plan](docs/workflow-improvement-plan.md) | How to improve project planning, AI tasks, spec-driven development, reviews and maintenance of the regression lab |
+| [User flows](docs/user-flows.md) | 21 main journeys, their exceptions and current limits, linked to all 43 detailed sequences |
 | [Business and product](docs/business-and-product.md) | Vision, customers, agency responsibilities and commercial rules |
 | [How it is built](docs/how-it-is-built.md) | Frontend, backend, storage, messages and deployment plans |
 | [How I work](docs/how-i-work.md) | Specifications, issues, AI assistance and reviews |
@@ -136,5 +137,7 @@ Before a public launch, the changed requirements need to be checked against the 
 | [Publication notes](docs/publication-notes.md) | What was removed or rewritten before publication |
 | [Review record](docs/review-record.md) | Six independent AI reviews, findings and changes |
 | [Research notes](docs/research-notes.md) | External guidance used to prepare this publication |
+| [Earlier design directions](docs/design-directions.md) | Markdown record of two historical design alternatives, with their unapproved claims clearly labelled |
+| [Cover concept](docs/cover-concept.md) | Markdown record of the earlier document-cover concept |
 
 This is a public record of the thinking and the work. The application source, credentials, raw account evidence and original private Git history are not part of it.

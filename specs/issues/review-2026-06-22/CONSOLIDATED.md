@@ -20,7 +20,7 @@ re-run FIRST** to close the deep-flow coverage gap before finalizing).
 |----|-----|------|---------|-------|
 | INT-210 | S2 | the private implementation folder | Availability grid overflows the PAGE at ≤390px (Availability Grid implementation reference wrapper not width-capped; overflow-x-auto never engages — missing min-w-0 on a flex/grid ancestor). Regression vs #206. e2e missed it (only checks Step-1). | frontend-expert |
 | T-07 | S2 | frontend+backend | Tutor Apply with incomplete profile → bare 403 Access denied, **zero** frontend feedback (silent fail on the core money action). Gate is correct; need typed PROFILE INCOMPLETE + inline guidance / disabled-Apply-with-reason. | frontend-expert + bff-specialist |
-| INT-211 | S3 | the private implementation folder | Error toast shows raw Tutee post not found: <uuid> (entity + id leak). Humanise; keep trace Id Reference. | frontend-expert + software-engineer |
+| INT-211 | S3 | the private implementation folder | Error toast shows raw Tutee post not found: `<uuid>` (entity + id leak). Humanise; keep trace Id Reference. | frontend-expert + software-engineer |
 | T-01 | S3 | frontend-routing | /dashboard (no role prefix) → hard 404. Redirect to role dashboard or login. | frontend-expert |
 | T-04 | S3 | the private implementation folder | Desktop nav collapses to hamburger on /assignments + /tutor/* (links only in bottom mobile nav); /tutor/dashboard shows full nav — inconsistent breakpoint. | frontend-expert |
 | T-08 | S3 | frontend+the private implementation folder | "Interview scheduled" badge + "View interview →" in My Pipeline, but /tutor/interviews + read operation for tutor interviews empty. Views disagree. (Root cause TBD by seeding engineer.) | software-engineer + frontend-expert |

@@ -52,9 +52,9 @@ parent key.
 
 | Operation | Lock key |
 |---|---|
-| Apply | jobapp:<tutor Id> |
-| Invite | jobinv:<tutee Post Id> |
-| Interview request | interview:<tutee Post Id> |
+| Apply | jobapp:`<tutor Id>` |
+| Invite | jobinv:`<tutee Post Id>` |
+| Interview request | interview:`<tutee Post Id>` |
 
 Keys derive from the authenticated principal / path — **never client input**. SERIALIZABLE
 was rejected (no 40001-retry handling exists in the codebase).
@@ -62,7 +62,7 @@ was rejected (no 40001-retry handling exists in the codebase).
 **Companion fix (interview cap):** the pre-existing interview cap had the same TOCTOU race
 and its cap-index idx interviews tutee post active (migration 0021) had **drifted** from the
 5-status ACTIVE STATUSES the count uses, so the count was no longer index-covered. INT-077
-applied the same advisory lock (interview:<tutee Post Id>) and widened the index predicate to
+applied the same advisory lock (interview:`<tutee Post Id>`) and widened the index predicate to
 match ACTIVE STATUSES. See
 [max-interviews-per-posting implementation reference](../modules/interview/max-interviews-per-posting.md).
 

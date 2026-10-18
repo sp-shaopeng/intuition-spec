@@ -322,9 +322,9 @@ See Step 4 above. Used in both creation forms and browse filters.
 
 | Field | Control | Notes |
 |---|---|---|
-| Subject | <select> grouped by curriculum (PSLE / O-Level / A-Level / IB / Poly / Uni) | Populated from SG SUBJECTS taxonomy |
-| Level | <select> filtered by subject group | Populated from SG LEVELS taxonomy |
-| Number of students | <select> (1–5) | "1 student", "2 students", … |
+| Subject | select control grouped by curriculum (PSLE / O-Level / A-Level / IB / Poly / Uni) | Populated from SG SUBJECTS taxonomy |
+| Level | select control filtered by subject group | Populated from SG LEVELS taxonomy |
+| Number of students | select control (1–5) | "1 student", "2 students", … |
 | Student relationship | Toggle button group | "Parent's child" / "I am the student" / "Other" |
 | Venue types | Multi-select toggle chips (desktop) / checkbox list (mobile) | "select all that apply"; min 1 required |
 | Session duration | Toggle button group | 1 hr / 1.5 hrs / 2 hrs / 2.5 hrs |

@@ -19,7 +19,7 @@ bundle**:
 - Pact deferred.
 
 > Current state (verified): intuition-backend has only the jacoco plugin (no
-> failsafe/surefire/build-helper); tests live in the private implementation folder<layer>;
+> failsafe/surefire/build-helper); tests live in the private implementation folder`<layer>`;
 > the repo @Data Jpa Tests **self-skip** via the assume yes operation;
 > postman/ exists at repo root; no .github/workflows/ yet; frontend uses Vitest (Playwright
 > only transitively present).

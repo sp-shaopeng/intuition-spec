@@ -108,9 +108,9 @@ Implementation example omitted. This public edition retains the written requirem
 ### Section A — Pending Selections
 | State | Render |
 |---|---|
-| loading | <Skeleton> rows ×3 |
-| empty | No pending selections. /p> in a card |
-| data | <Selection Request Queue> (already exists — pass requests + open the assignment dialog for the selected applicant) |
+| loading | skeleton placeholder rows ×3 |
+| empty | A card saying “No pending selections.” |
+| data | selection-request queue component (already exists — pass requests + open the assignment dialog for the selected applicant) |
 | assign submitting | the assignment dialog while a submission is in progress (spinner on confirm button) |
 
 Reuse Selection Request Queue unchanged. Pass on Assign to set assign Target state (same
@@ -119,7 +119,7 @@ pattern as Interview Queue does).
 ### Section B — Match Lifecycle
 | State | Render |
 |---|---|
-| loading | <Skeleton> rows ×3 |
+| loading | skeleton placeholder rows ×3 |
 | empty (filtered) | Inline: "No tab matches." |
 | error | Red alert card + "Refresh" button |
 | data | Table (see §5 below) |
@@ -151,7 +151,7 @@ The illustration for . match table layout contains the following information:
 **Commission column:** PENDING matches show "—" (no commission yet); ACTIVE/COMPLETED show
 the format sgd operation + invoice status badge.
 
-**Cancel confirm modal** (inline, not a separate component): simple <Modal> with "Cancel this
+**Cancel confirm modal** (inline, not a separate component): simple modal component with "Cancel this
 match? The job will reopen for new applicants." + Keep match / Cancel match danger
 button.
 
@@ -159,7 +159,7 @@ button.
 
 ## 6. Activate fee modal (inline — no new component)
 
-An inline <Modal> controlled by activating Match Id state:
+An inline modal component controlled by activating Match Id state:
 
 
 Implementation example omitted. This public edition retains the written requirements in this section.
@@ -173,12 +173,12 @@ This matches the pattern already used in Commission implementation reference (li
 
 | Need | Reuse |
 |---|---|
-| Selection requests rendering | <Selection Request Queue> ✅ |
-| Assign confirm | <Close Job Assign Modal> ✅ |
-| Activate fee | Inline <Modal> (copy pattern from Commission implementation reference) |
-| Cancel confirm | Inline <Modal> (new, simple) |
+| Selection requests rendering | selection-request queue component ✅ |
+| Assign confirm | assignment confirmation modal ✅ |
+| Activate fee | Inline modal component (copy pattern from Commission implementation reference) |
+| Cancel confirm | Inline modal component (new, simple) |
 | Status badge | a badge styled according to the status ✅ |
-| Skeletons | <Skeleton> ✅ |
+| Skeletons | skeleton placeholder ✅ |
 | Toasts | toast success / toast error ✅ |
 | SGD format | format Sgd ✅ |
 | Date format | format Date ✅ |

@@ -20,8 +20,8 @@ frontend), but reconfigured so the **browser only ever talks to port 80**:
 
 The illustration for . what this deploys & why this topology contains the following information:
 
-- browser ▶ http://<virtual machine-IP>/ (frontend: nginx serves the SPA).
-- ▶ http://<virtual machine-IP>... interface operation (frontend nginx reverse-proxies → backend).
+- browser ▶ http://`<virtual machine-IP>`/ (frontend: nginx serves the SPA).
+- ▶ http://`<virtual machine-IP>`... interface operation (frontend nginx reverse-proxies → backend).
 
 
 - **Same-origin** → no cross-origin request permissions, no cross-site cookie problems. The frontend bundle is built
@@ -40,13 +40,13 @@ The illustration for . what this deploys & why this topology contains the follow
 |---|---|---|
 | virtual machine | Ubuntu 24.04, ≥ 2 vCPU / 4 GB RAM / ~10 GB free | df -h ~, nproc |
 | Docker + Compose on virtual machine | Docker ≥ 24, Compose v2+ | the documented operational check, the documented operational check |
-| secure remote access key (local) | private key, chmod 600 | stat -f %Sp <key> → rw |
+| secure remote access key (local) | private key, chmod 600 | stat -f %Sp `<key>` → rw |
 | Outbound ports open in OCI | **TCP 22** (secure remote access) must already be allowed | secure remote access works |
 | Local stack files | wrapper dir with docker-compose implementation reference + .env implementation reference (has RESEND application programming interface KEY) | ls docker-compose implementation reference implementation reference |
 
 **Connection facts (this deploy):**
 - Host: ubuntu@ REDACTED ip address
-- Key: <workspace> REDACTED key path
+- Key: `<workspace>` REDACTED key path
 - The deploy runs from the **local Mac** and secure remote access/rsyncs to the virtual machine. **Never copy the
   secure remote access key onto the virtual machine.**
 

@@ -103,7 +103,7 @@ The diagrams are technically truthful about these gaps. But the product story th
 
 - **Trigger clarity:** Good.
 - **Tutee is silent:** Diagram explicitly notes "Only the tutor is notified — the tutee is not notified on commission payment." From a product POV, this is fine. The tutee doesn't care about admin's collection. **But:** match transitions to COMPLETED, which unlocks reviews. The tutee should be told "Your tuition is now complete — leave a review!" That re-engagement loop is missing. product requirements document §3.9 P1 in-platform inbox is the right place.
-- **Tutor message:** "Your commission of SGD <amount> has been marked as paid." Clear and good.
+- **Tutor message:** "Your commission of SGD `<amount>` has been marked as paid." Clear and good.
 
 ### Flow 12 — Admin Match Cancel + Cascade
 
@@ -114,7 +114,7 @@ The diagrams are technically truthful about these gaps. But the product story th
 ### Flow 13 — Tutee Requests Interview
 
 - **Trigger clarity:** Good. The login gate ("anonymous → navigate using /login?return To is ...) is correctly shown.
-- **15-minute promise MISSING:** product requirements document BR-012 and N-22 mandate "15-minute duration" in the notification copy. The notification body in this diagram is "A tutee has requested an interview for your listing '<safe title>'." — no mention of 15 minutes. **This is the USP.** The user should see "15-minute interview" at the moment of intent.
+- **15-minute promise MISSING:** product requirements document BR-012 and N-22 mandate "15-minute duration" in the notification copy. The notification body in this diagram is "A tutee has requested an interview for your listing '`<safe title>`'." — no mention of 15 minutes. **This is the USP.** The user should see "15-minute interview" at the moment of intent.
 - **Concurrency limit (max 3) NOT enforced in this diagram.** product requirements document §3.12 says "max 3 open requests per tutee at any time" — but the diagram only checks DUPLICATE INTERVIEW for the same tutor post. **Where is the global 3-concurrent limit?** Either the code lacks it or the diagram omits it. Flag for Tech Lead.
 - **Cooldown (30 days) NOT shown.** product requirements document §3.12 says "no new request for same tutor post within 30 days of completed/no-show." The diagram only checks REQUESTED/SCHEDULED. **30-day cooldown is missing.**
 - **Contact info promise NOT shown.** The interview flow is precisely the moment where the platform must reassure: "your contact info will not be shared with the tutor." A privacy annotation belongs here.
@@ -124,7 +124,7 @@ The diagrams are technically truthful about these gaps. But the product story th
 ### Flow 14 — Admin Schedules Interview
 
 - **Trigger clarity:** Good. Singapore time wall-clock note is helpful.
-- **15-minute promise MISSING:** Same problem as flow 13. The notification body is "Your interview for '<title>' is scheduled for <scheduled At>." Missing the "15-minute" duration line product requirements document mandates.
+- **15-minute promise MISSING:** Same problem as flow 13. The notification body is "Your interview for '`<title>`' is scheduled for `<scheduled At>`." Missing the "15-minute" duration line product requirements document mandates.
 - **Tutor not notified:** Diagram notes "Only the tutee is notified — not the tutor." But product requirements document N-23 explicitly addresses the tutor: "Interview request scheduled — join details inside" with date/time, 15-min notice, meeting link, **and tutee request summary**. **This notification is missing from the flow.** The tutor is left in the dark until they hit /tutor/interviews.
 - **Meeting link not yet set when scheduling:** Flow 15 sets the link separately. So tutee receives "Interview scheduled" before there is even a link to give them. That is a confusing user experience — the tutee will see the scheduled time but the link will appear later with no notification. **The two should be combined or the user should be told "meeting link to follow."**
 

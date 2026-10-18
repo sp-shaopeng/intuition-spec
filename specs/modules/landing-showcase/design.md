@@ -268,7 +268,7 @@ therefore a real M14a operational dependency — §9.)
 
 The illustration for one endpoint for m14a the requests endpoint is gated — §b contains the following information:
 
-- GET showcase tutors interface operation → Showcase Envelope<Showcase Tutor Response> (≤ limit, default 20).
+- GET showcase tutors interface operation → Showcase Envelope`<Showcase Tutor Response>` (≤ limit, default 20).
 
 
 Registered as a **constant** (no magic strings): backend path constant + frontend application programming interface ROUTES public.showcase Tutors.

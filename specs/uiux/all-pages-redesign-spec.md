@@ -178,7 +178,7 @@ found in §1's current-state notes is a defect to eliminate, not to copy.
 
 The single biggest "not-a-system" gap today is that **every page hand-rolls its
 own header, spacing, loading, and empty markup** (text- 36px + text-sand sub
-on Dashboard; raw prose blocks on About; bare <Spinner> centring everywhere).
+on Dashboard; raw prose blocks on About; bare loading spinner centring everywhere).
 The redesign introduces a small set of **composable layout primitives** so pages
 become declarative compositions, not bespoke markup. These are new
 the private implementation folder (or the private implementation folder) components — **no new deps**,
@@ -187,7 +187,7 @@ pure Tailwind + the wired tokens. They are the reusable contract every page in
 
 | Primitive | Responsibility | Key props / behaviour | Tokens used |
 |---|---|---|---|
-| **Page Header** | The standard page title block (replaces every per-page <h1>+sub) | title, subtitle?, actions? (right-aligned CTA slot), eyebrow?, back? | text-h1m md:text-h1 serif title, text-body-sm/ink subtitle (NOT sand), actions stack below title on mobile |
+| **Page Header** | The standard page title block (replaces every per-page level-one heading and subtitle) | title, subtitle?, actions? (right-aligned CTA slot), eyebrow?, back? | text-h1m md:text-h1 serif title, text-body-sm/ink subtitle (NOT sand), actions stack below title on mobile |
 | **Section** | A titled content band with consistent vertical rhythm | title? (text-h2m md:text-h2 or text-h3), description?, tone? (default/muted/callout) | py-12 md:py-16 rhythm; callout → bg-cream-muted + clay left-border |
 | **Container** | Responsive width wrapper, two reading modes | width = app (max-w-7xl) \| prose (max-w-prose, ~68ch); px-4 md:px-8 | max Width prose for all long-form reading (info pages, legal) |
 | **Card Grid** | Responsive card grid (the marketplace + dashboard list pattern) | cols = one column on small screens, two on medium screens and three on large screens; gap-6 | renders children as shadow-md cards, hover shadow-lg+lift |
@@ -203,7 +203,7 @@ pure Tailwind + the wired tokens. They are the reusable contract every page in
 **Loading parity (system-wide rule):** every data page renders a **skeleton that
 matches its final layout** — Card Grid → Skeleton Card grid; Data List/Data Table
 → Skeleton rows; detail pages → skeleton header + section blocks. The bare-centred
-<Spinner> loading state (currently on Tutee Dashboard, both Browse pages, etc.) is
+spinner loading state (currently on Tutee Dashboard, both Browse pages, etc.) is
 **retired** for full-page loads to kill CLS. Spinner is retained only for inline
 button/control busy states.
 
@@ -402,7 +402,7 @@ Each row maps a §0 non-negotiable to where it is checked during the redesign.
 
 - **Tailwind v3 only.** No upgrade to v4, no CSS-in-JS, no component kit (Headless
   user interface / Radix / shadcn / MUI). The new layout primitives (§2.2) are plain
-  React + Tailwind + the wired tokens. Native <dialog> Modal and native
+  React + Tailwind + the wired tokens. Native dialog Modal and native
    Accordion (FAQ) stay — zero new deps.
 - **No heavy deps.** No animation library, no icon package, **no chart library**
   (Analytics chart is hand-authored SVG). Any proposed dep states bundle cost +
@@ -417,7 +417,7 @@ Each row maps a §0 non-negotiable to where it is checked during the redesign.
 - **WCAG 2.2 AA.** 4.5:1 body, 3:1 large/user interface; muted/sand is helper-only (every
   intro/subtitle moves off sand to ink); axe-clean per page.
 - **Keyboard nav.** Visible focus-visible ring on every interactive element;
-  logical tab order; modal focus-trap + ESC (native <dialog>); FAQ accordion
+  logical tab order; modal focus-trap + ESC (native dialog); FAQ accordion
   native keyboard; skip-to-content link in each layout; no keyboard trap.
 - **prefers-reduced-motion.** The index css block + per-component fallbacks
   (Spinner static ring, Skeleton static tint, accordion instant) — no motion-only
@@ -563,7 +563,7 @@ per-page §6.2 checklist, AND:
 **2026-06-03 — A redesigned page must compose shared layout primitives, not
 hand-roll its own chrome (uiux-designer + frontend-expert).** Phase-0 wired the
 *token* scale, but pages still hand-rolled headers (text- 36px + text-sand
-sub), spacing, and bare-<Spinner> loading per page — so even on-token pages drift
+sub), spacing, and a plain loading spinner on each page — so even on-token pages drift
 and reinvent. **Rule:** after the tokens are wired, the next system layer is a small
 set of composable **layout primitives** (Page Header / Section / Container / Card Grid
 / Form Layout / Data List / Empty State / Tab Nav / Auth Card); every page redesign is a

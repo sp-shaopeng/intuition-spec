@@ -177,7 +177,7 @@ The . structured log format example describes information including timestamp, l
 ### 7.1 High Latency (high-latency)
 
 1. Identify the slow URI from the alert label
-2. Check slow-query log: EXPLAIN ANALYZE <query> on the Railway Postgres console
+2. Check slow-query log: EXPLAIN ANALYZE `<query>` on the Railway Postgres console
 3. Check missing indexes: specs/domain/database/indexes md
 4. If caused by N+1: add @Entity Graph or a JOIN FETCH in the repository
 5. Rollback: if a recent deploy caused the regression, use Railway's instant rollback

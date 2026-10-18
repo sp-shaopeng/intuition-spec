@@ -26,7 +26,7 @@ Every wireframe annotation maps to something that already exists:
 | Headings | font-serif text-navy (cards use font-serif text-lg text-navy) | every screen title / card subject line |
 | Button | variants primary using cream bg / navy text secondary using transparent / cream border ghost using transparent / navy / cream-border danger using clay bg / white text; sizes sm/md/lg; loading prop shows inline spinner + auto-disables; disabled:opacity-50; full Width | all actions |
 | Badge | variants pending using amber live using green rejected using red draft/cancelled using gray scheduled using blue completed using green default using cream-muted; rounded-full text-xs | status pills, PT/FT chip — mapped to these REAL variants in the table below |
-| Modal | native <dialog>, aria-modal aria-labelledby, the show modal operation focus-trap, Esc + backdrop close, max-w-md; sub-components Modal Header/Body/Footer | Choose-tutor confirm, Apply sheet, assign confirm |
+| Modal | native dialog, aria-modal aria-labelledby, the show modal operation focus-trap, Esc + backdrop close, max-w-md; sub-components Modal Header/Body/Footer | Choose-tutor confirm, Apply sheet, assign confirm |
 | Empty State | centered; props icon using emoji, default 📭 + heading using navy + description?(sand) + action? | every empty list |
 | Spinner / Skeleton | sizes sm/md/lg | loading states |
 | Star Rating | props value + size; cards render it only when average Rating differs from no value and review Count 0 | all cards |
@@ -106,15 +106,15 @@ The illustration for a. tutor — profile setup / edit add pt/ft + rate range + 
   - *Success:* the success operation; completeness bar animates; if now ≥ gate the apply
     banner disappears.
 - **Responsive:** desktop single column ~max-w-2xl, stacked groups; mobile full stack, rate min/max
-  stay on one row (flex gap-2), <select>s full-width.
-- **Accessibility:** every input <label html For>; commitment + area are native <select> (keyboard/AT
+  stay on one row (flex gap-2), select controls full-width.
+- **Accessibility:** every input has a label associated with its control; commitment + area are native select controls (keyboard/AT
   native); required aria-required is yes; inline errors via aria-describedby + aria-invalid;
   completeness bar role is progressbar aria-valuenow.
 - **Microcopy:** Commitment helper "How parents see your availability." Display-name helper (verbatim
   above) states the personal information boundary.
 - **personal information boundary:** display name + full qualifications = admin/self only. Rate / coarse area / YOE /
   commitment / rating = public-card-safe. Area must be **coarse** (region), never street/postcode.
-- **OPEN (UIUX):** Area = single coarse region <select> vs region→planning-area cascade (design §5
+- **OPEN (UIUX):** Area = single coarse region select control vs region→planning-area cascade (design §5
   lists both location planning area + location region). Recommend **coarse region** for v1.
 
 ---
@@ -134,7 +134,7 @@ Implementation example omitted. This public edition retains the written requirem
 
 
 - **Remove** the initials avatar circle and the tutor tutor Display Name text node (lines 25, 122–129
-  of Tutor Card implementation reference). The <h3>/subject  becomes the lead. Keep the favourite heart (already
+  of Tutor Card implementation reference). The level-three heading/subject  becomes the lead. Keep the favourite heart (already
   aria-pressed, TUTEE-only) and the grid.
 - Card grid unchanged: desktop 3-up, tablet 2-up, mobile 1-up.
 
@@ -160,7 +160,7 @@ The illustration for b2. landing showcase strip card showcase tutor card impleme
 **States (both cards):**
 - *Loading:* Skeleton card (subject bar + 2 muted bars) ×N.
 - *Empty (browse):* Empty State heading is No tutors match yet" description is Try widening your filters."
-  action=<Clear filters>.
+  action=Clear filters control.
 - *No rating:* hide Star Rating (existing average Rating equals no value guard).
 - *Missing PT/FT (back-filled tutor):* omit the chip rather than show "undefined"; never block the card
   (back-fill may leave it null — design §5).
@@ -197,7 +197,7 @@ The illustration for c. tutor — job detail → apply / express interest free m
 - and our team decide next steps.
 - Your pitch (optional).
 - [ Hi! I've prepped 10 students for O-… ] <- optional textarea char counter.
-- Attach a listing (optional) [ none v] <- optional <select> of tutor's OWN active listings.
+- Attach a listing (optional) [ none v] <- optional select control of tutor's OWN active listings.
 - Showcases your rate/availability for this. "none" = profile values used (§5 override rule).
 - [ Cancel ] [ Send interest ].
 
@@ -218,7 +218,7 @@ The illustration for c. tutor — job detail → apply / express interest free m
 - **Responsive:** desktop = Modal max-w-md; mobile = full-width bottom sheet, page CTA sticky to
   viewport bottom.
 - **Accessibility:** sheet = shared Modal (dialog, focus-trap, Esc). Char counter aria-live is polite.
-  Attach-listing is a native <select>.
+  Attach-listing is a native select control.
 - **personal information boundary:** job detail shows NO parent/child name, exact address, or contact (counterparty rule)
   — only coarse area + bucketed budget. The tutor's pitch is the only free text they add.
 - **Microcopy emphasis:** "Applying does not book the job" is REQUIRED (Wei + AC-04 honesty).
@@ -309,8 +309,7 @@ Implementation example omitted. This public edition retains the written requirem
   - *IDOR (not owner):* route guard → 403 page "You don't have access to this job."
 - **Responsive:** desktop = applicant cards single-column ~max-w-3xl, actions inline-right; mobile =
   stacked, both actions full-width.
-- **Accessibility:** handle is the card heading (<h3>); each card <article aria-label is Applicant
-  @maths wiz 88">; use buttons for actions and the shared confirmation dialogModal. Rating absence shown as "(no reviews
+- **Accessibility:** handle is the card heading (level-three heading); each card is an article labelled with the applicant’s public handle; use buttons for actions and the shared confirmation dialog. Rating absence shown as "(no reviews
   yet)" text, not silence.
 - **personal information boundary (CRITICAL — §20.6):** card shows **handle, subjects, levels, rate, COARSE area, YOE,
   PT/FT, rating, optional pitch** — and NOTHING ELSE. No real name, email, phone, exact location. This
@@ -461,13 +460,12 @@ The illustration for h. desktop register link bug ④ contains the following inf
 - Button variant is primary size is sm.
 
 
-- **Annotated:** add <Button variant is primary size is sm>Sign up</Button> /Link>
+- **Annotated:** add a “Sign up” link with a small primary button treatment
   to the desktop hidden md:flex auth cluster; recommend it leads visually (primary) while "Log In"
   stays ghost. The existing "Post a Request" ghost (→ /login) is the M17 intent CTA — keep, not in
   scope to remove here.
 - **Responsive:** desktop-only (hidden md:flex); the mobile drawer already has Register → do NOT
-  duplicate. **Accessibility:** real  wrapping a <Button>; visible "Sign up" text is the
-  accessible name.
+  duplicate. **Accessibility:** use a link with the accessible name “Sign up”.
 - **Microcopy:** nav label "Sign up" (destination page keeps M17's "Create account").
 - **OPEN (UIUX):** "Sign up" vs "Register" vs "Create account" — recommend nav "Sign up", page "Create
   account". Consistency sign-off needed.
@@ -550,7 +548,7 @@ mappers.
 ---
 
 ## OPEN (UIUX) items — for team-review / frontend-backend to resolve
-1. **Area granularity** (§A): single coarse region <select> vs region→planning-area cascade. Recommend
+1. **Area granularity** (§A): single coarse region select control vs region→planning-area cascade. Recommend
    coarse region for v1 (personal information). Design §5 has both columns.
 2. **Placement-fee display** (§E/§F): exact value + flat-vs-% format from commission config; modal shows
    a placeholder until backend confirms.
@@ -571,7 +569,7 @@ mappers.
 | # | Item | RESOLUTION |
 |---|---|---|
 | 4 | Public handle source | **NEW real field tutor profiles public handle** (founder; backend spec §12 #8). The card/applicant view/showcase render handle (e g. "Mr Tan T."), NEVER display Name. Not a schema gap anymore — backend adds the column + setup-form input. Profile setup (§A) gains a **required "Public handle" text input** with helper copy: "Shown publicly instead of your full name." |
-| 1 | Area granularity | **Coarse region <select>** for v1 (personal information). Single dropdown, no cascade. |
+| 1 | Area granularity | **Coarse region select control** for v1 (personal information). Single dropdown, no cascade. |
 | 3 | Nav label | Nav button reads **"Sign up"**, destination page keeps "Create account" (M17). |
 | 5 | Stale threshold | **14 days** — single source shared with backend commissions pending age alert (backend spec §12 #10). Replace "threshold" in the §G4 wireframe with "14 days". |
 | 2 | Placement-fee display | Show the real commission value from config (backend provides it); modal copy: fee is **50% of one month's tuition**, **charged only after the first session** (Priya's "fee clear before commit" + reuses §8 commission model). No flat placeholder. |

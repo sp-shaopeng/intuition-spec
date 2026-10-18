@@ -211,7 +211,7 @@ synced.
 
 **INT-111 — Stale-closure location in use Init Auth — session-expiry redirect builds return To from the page the app first mounted on.**
 use Init Auth implementation reference: handle Unauthorized registered in a  effect freezes location at
-first render; any later 401 navigates to /login?return To=<initial-mount-path> — wrong post-login
+first render; any later 401 navigates to /login?return To=`<initial-mount-path>` — wrong post-login
 destination, and a failed login POST clobbers a legitimate return To. Fix: read
 window location.pathname + search inside the handler; exempt auth login from the logout
 trigger (pairs with INT-095).
@@ -316,7 +316,7 @@ for INT-095).
 **INT-124 — user experience micro-defect batch (S3/S4).**
 (a) Assignment Detail implementation reference hardcodes an "Open" badge that contradicts the page's
 own "Position filled" (,202-211) — derive from post status. (b) Application "job title" link
-→ /requests#<id> dangling hash (Applications implementation reference; no card ids, CLOSED jobs not
+→ /requests#`<id>` dangling hash (Applications implementation reference; no card ids, CLOSED jobs not
 in the list). (c) Apply-with-listing selector can never appear: Tutor Apply Control implementation reference
 treats read operation for tutor posts as Page Response and reads .data, but the endpoint returns a plain
 array → listings always  — silently-dead feature. (d) Wrong-role navigation bounces silently

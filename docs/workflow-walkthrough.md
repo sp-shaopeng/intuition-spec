@@ -1,10 +1,12 @@
 # From a request to a checked change
 
+This is the project delivery workflow: how I use specifications, issues, AI, reviews and tests to manage a change. Product journeys are documented separately in [User flows](user-flows.md). For the concrete process changes proposed after the review, read the [project workflow improvement plan](workflow-improvement-plan.md).
+
 I use AI to help with writing, implementation, testing and review. The purpose of this process is to keep the important decisions visible and to check the work before treating it as finished.
 
 These are responsibilities in an AI-assisted workflow, not a claim that I employ a large team. The project records describe this process; individual historical tasks still need their own evidence. InTuition is not yet live, and life commitments have delayed launch.
 
-**Need → specification → independent specification review → issue → implementation → result review → tests → updated records → release decision**
+**Need → specification → independent specification review → issue → failing check → implementation and tests → independent result review → updated records → release decision**
 
 ## 1. Start with the need
 
@@ -44,23 +46,29 @@ Link the issue to its requirements. Name the affected parts of the system, depen
 
 Give the AI the approved specification, relevant rules, existing structure and limits. Inspect the changes it makes. Add or update checks for the behaviour being changed.
 
+For a defect, first reproduce it and add a check that fails for the right reason. Then make the fix and show that the check passes. For new behaviour, build the checks from the approved pass/fail examples. Development and testing form a loop before the result goes to independent review.
+
+The assignment also needs an owner, permitted file scope, dependencies and a concrete result to hand back. Progress should be supported by changed files, test output or a specific blocker. More agents do not help if they overwrite each other's work or repeat the same task.
+
 **Before moving on:** there is a reviewable change, not just a completion message. If implementation reveals an unresolved product choice, return to the specification.
 
-## 6. Review the result
-
-**Who checks it:** reviewers separate from the author, covering the affected responsibilities.
-
-First check whether the change satisfies the specification. Then examine its quality, failure cases and effects on related journeys. Reviewers should explain what is wrong and which observation supports the finding.
-
-**Before moving on:** blocking findings have been fixed and the corrections checked. A reply to a comment is not itself proof that the problem is fixed.
-
-## 7. Run the relevant tests
+## 6. Run the relevant tests
 
 **Who checks it:** developer and QA, the testing perspective.
 
 Check the new behaviour and existing journeys it might break. A screen test and a backend test answer different questions; use both where a rule crosses the two.
 
+Maintain the test lab as part of the change: use known test data, identify the frontend/backend/test versions running together, check the required services and report skipped cases. When a requirement changes, review the affected test expectations. Fix unreliable checks and broken fixtures without hiding an application failure.
+
 **Before moving on:** record the actual results and any checks that could not run. A failure goes back to the implementation, test setup or requirement. A retry that happens to pass does not explain the original failure.
+
+## 7. Review the result and its evidence
+
+**Who checks it:** reviewers separate from the author, covering the affected responsibilities.
+
+First check whether the change satisfies the specification. Then examine its quality, failure cases and effects on related journeys. Open the relevant test results and confirm that they support the claimed outcome. Reviewers should explain what is wrong and which observation supports the finding.
+
+**Before moving on:** blocking findings have been fixed, affected tests rerun and the corrections checked. A reply to a comment is not itself proof that the problem is fixed. A new material change returns to the relevant earlier step.
 
 ## 8. Update the records together
 

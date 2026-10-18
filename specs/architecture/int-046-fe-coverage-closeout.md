@@ -47,7 +47,7 @@ Reading the source (Interview Queue implementation reference lines 1–505) agai
 exercised by the current tests:
 
 **A. SELECTIONS mode (lines 193–217)**  
-The component has two top-level modes controlled by use State<Queue Mode> INTERVIEWS. The
+The component has two top-level modes controlled by use State`<Queue Mode>` INTERVIEWS. The
 existing tests never click the "Selection requests" tab (mode equals SELECTIONS), so the entire
 show the selections view or the alternate view according to the selected mode true-branch is dead code in the coverage report.
 Uncovered paths:

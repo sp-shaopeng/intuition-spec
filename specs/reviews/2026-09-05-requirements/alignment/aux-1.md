@@ -483,7 +483,7 @@ Implementation example omitted. This public edition retains the written requirem
 
 **Decision:** Disable Spring Security's Csrf Filter. Do not generate or validate cross-site request forgery protection tokens.
 
-**Justification:** cross-site request forgery protection attacks require the browser to send the auth cookie to a cross-origin attacker-controlled endpoint. Same Site is Strict prevents the browser from sending the auth cookie on any cross-origin request, including <form> POST and the fetch operation calls from other origins. Combined with same-origin delivery via the Cloudflare proxy (ADR-003) and encrypted web request protocol-only, cross-origin cookie delivery is structurally impossible.
+**Justification:** cross-site request forgery protection attacks require the browser to send the auth cookie to a cross-origin attacker-controlled endpoint. Same Site is Strict prevents the browser from sending the auth cookie on any cross-origin request, including form POST and the fetch operation calls from other origins. Combined with same-origin delivery via the Cloudflare proxy (ADR-003) and encrypted web request protocol-only, cross-origin cookie delivery is structurally impossible.
 
 **Precondition:** This decision is valid **only** as long as ADR-003 (Cloudflare proxy) is in place. If the Spring Boot application programming interface is ever deployed directly under a different domain (not proxied via Cloudflare under example com), cross-site request forgery protection protection must be re-evaluated and re-enabled before the first user request.
 

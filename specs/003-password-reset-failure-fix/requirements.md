@@ -39,7 +39,7 @@
 - **Required evidence (defined up front):** Playwright trace + screenshots of the live reset flow at the failing
   step (@1280 and @390); the captured request/response of the failing submit operation for auth reset-password
   (status, error code, body) via Playwright network capture or curl-with-cross-site request forgery protection; a database dump of the user's
-  password reset tokens row using s + the otp:attempts:<token Id> Redis key; a written hypothesis-elimination
+  password reset tokens row using s + the otp:attempts:`<token Id>` Redis key; a written hypothesis-elimination
   table (H1–H6 → PROVEN/DISPROVEN). Filed under REQ-001 implementation reference.
 - **Dependencies:** none — this is the entry gate.
 

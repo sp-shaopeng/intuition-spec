@@ -71,7 +71,7 @@ layouts):** protected routes are gated by the **layouts** — Tutee Layout imple
 (show a loading indicator until the nested screen is ready) and mounts the use init auth operation. **The race:** auth Store implementation reference defaults
 is Loading:no, and use Init Auth flips it true only inside a use Effect (which fires *after* the first
 render). So on the first synchronous render Root Layout renders <Outlet/ (not the spinner) → the child layout
-sees user equals no value → <Navigate to=/login> **before** /csrf→/me resolves. Repro: refresh /tutee/interviews
+sees user equals no value → redirect to the login page **before** /csrf→/me resolves. Repro: refresh /tutee/interviews
 while logged in → bounced to /login.
 **Proposed (corrected — Boss):** **seed is Loading:yes** in the store default (auth Store implementation reference) so Root Layout
 shows the bootstrap spinner from the very first render until use Init Auth resolves /me (set User +

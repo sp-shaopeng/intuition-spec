@@ -137,7 +137,7 @@ gap-4. Min/max budget stacks on a phone single-column-form rule , side-by-side f
 
 Modal implementation reference: w-full max-w-md mx-auto → add a side gutter so the dialog never touches the screen edge, e g.
 the calc operation (or max-w-md mx-4). max-w-md (448px) already caps desktop width; the only
-change is the 390px inset. No focus-trap change (native <dialog> the show modal operation already traps).
+change is the 390px inset. No focus-trap change (native dialog the show modal operation already traps).
 
 ### 3.6 Admin mobile nav (no change required)
 

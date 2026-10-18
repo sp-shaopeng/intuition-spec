@@ -10,7 +10,7 @@
 > **Boss build conditions (fold into the build — verified design, these are the must-dos):**
 > 1. **SECURITY CRUX — confirm Jwt Authentication Filter honors the session purge per-request** so a block is
 >    effective *immediately*, not at the 30-min token expiry. Sessions ARE server-side-tracked (Redis
->    sessions:by-user:<id>, reused from Admin User Service purge Admin Sessions), but the build MUST verify the
+>    sessions:by-user:`<id>`, reused from Admin User Service purge Admin Sessions), but the build MUST verify the
 >    filter rejects a purged/blocked session each request; if it's stateless-signed session token, **add a blocked/session check to
 >    the filter** (mandatory — else a blocked abuser stays active ≤30 min).
 > 2. **Match/commission-in-flight on block** — define what happens to an ACTIVE match + pending commission when a

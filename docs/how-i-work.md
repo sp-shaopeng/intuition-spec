@@ -2,6 +2,8 @@
 
 I am building InTuition with AI assistance. I use it to help turn requirements into designs, implementation tasks, tests and review findings. I remain responsible for the decisions and for checking what has actually been built.
 
+This page describes **how I manage the project**. The [user-flow guide](user-flows.md) separately explains what parents, tutors and staff do in the product. The [project workflow improvement plan](workflow-improvement-plan.md) sets out what I want to improve in planning, AI task management, reviews and the regression test lab.
+
 InTuition is **not live**. Life commitments have delayed launch. The work shown here is a development record, including corrections and unfinished checks, rather than a claim that the service is ready for customers.
 
 ## From a problem to a checked change
@@ -16,6 +18,24 @@ The project's written workflow connects a user problem to a requirement, a task,
 6. **Loop back when something fails.** A failed test, incorrect assumption or valid review finding returns the item to investigation or implementation. After the fix, rerun the affected checks and review the result again. Unresolved conditions stay recorded instead of disappearing into a completion message.
 
 The private agent instructions call their coordinator the “Boss” and use specialist AI roles for these perspectives. Those names describe responsibilities in an assisted workflow; they do not represent an independent human engineering team. The public [development workflow](../specs/domain/dev-workflow.md) contains more of the project's history and rules. Where older instructions conflict with the [current requirements](../specs/CURRENT-REQUIREMENTS.md), the current requirements govern the product.
+
+## What spec-driven development means here
+
+I write down the rules before asking AI to build. That is what I mean by spec-driven development. A feature package contains a specification, requirements, design and tasks. It needs examples of a correct result and cases that must be rejected, alongside unresolved decisions and its version history.
+
+The AI's task should point to that approved version and say which part it owns, which files it may change, what it depends on and how the result will be checked. The project instructions call for separate owners when work can proceed independently and one writer where changes share files. Those are working rules, not proof that every historical task followed them.
+
+If a rule changes, the design, task and tests need review together. Keeping an old test green by changing the requirement would hide the disagreement. The guest-search finding is a concrete example: tests currently expect hidden controls even though the current rule permits guests to filter results. [Read the finding](current-file-alignment.md#g01--guests-cannot-use-the-required-search-controls).
+
+AI can investigate a question and propose options. An unanswered question about money, permissions or recovery stays open until the responsible person decides. A confident implementation does not settle that decision.
+
+## The regression lab needs maintenance too
+
+The project has a separate Playwright test repository and backend tests that exercise a running service. Some Playwright checks use the website; others call the server directly. Both are useful, but a successful server request does not show that the corresponding button works.
+
+The lab needs attention whenever the specification, application, fixtures or environment changes. A new acceptance case needs the right test. An intentional rule change needs a reviewed test update. A failure needs investigation before its assertion is removed or weakened. Shared test accounts and skipped prerequisites also need attention, because they can make a passing result misleading.
+
+The inspected combined workflow records application versions and checks the running backend's identity. However, it selects the application development branches rather than establishing a required test of the exact changes in every application pull request. The [testing guide](testing-and-release.md) explains the current boundaries. The [improvement plan](workflow-improvement-plan.md) covers reproducible versions, owned test data, unreliable tests, lab health and the evidence needed to close a task.
 
 ## Example: a review step that submitted too early
 

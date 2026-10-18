@@ -213,7 +213,7 @@ Implementation example omitted. This public edition retains the written requirem
 
 Live smoke (after redeploy + reseed — regression ITs hit localhost):
 
-- read operation for assignments <missing-id> → **404** body NOT FOUND (was 400).
+- read operation for assignments `<missing-id>` → **404** body NOT FOUND (was 400).
 - Tutor dashboard match card shows e g. "O-Level · A-Math", not "S4_EXP AMATH OLEVEL".
 
 ---

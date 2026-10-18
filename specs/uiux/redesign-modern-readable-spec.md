@@ -362,7 +362,7 @@ Implementation example omitted. This public edition retains the written requirem
 
 - **Tailwind v3 only.** No upgrade to v4, no CSS-in-JS, no component-kit
   (Headless user interface / Radix / shadcn / MUI). All work = tailwind config implementation reference +
-  index css + class changes. The native <dialog> modal stays (Modal implementation reference).
+  index css + class changes. The native dialog modal stays (Modal implementation reference).
 - **No heavy deps without written justification.** No animation library
   (Framer/GSAP), no icon package install (reuse inline SVGs; standardise on one
   line-icon style). Any proposed dep must state bundle cost + the cheaper
@@ -380,7 +380,7 @@ Implementation example omitted. This public edition retains the written requirem
   muted stays helper-only; intro copy moves off sand to ink.
 - **Keyboard navigation**: visible focus-visible ring on **every** interactive
   element (buttons, links, inputs, toggles, cards-as-links, hamburger); logical
-  tab order; modal focus-trap + ESC (native <dialog>); skip-to-content link in
+  tab order; modal focus-trap + ESC (native dialog); skip-to-content link in
   the layout; no keyboard trap.
 - **Reduced motion**: the index css media block (§2.2) plus per-component
   fallbacks (Spinner static ring, Skeleton static tint) — no motion-only signal.

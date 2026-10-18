@@ -58,7 +58,7 @@ wired a login path for it. Founder directive (2026-05-30):
   - Analytics Controller (M12): read operation for admin analytics
   - Interview Controller admin ops (M6): read operation for admin interviews, the selected record, submit operation for id schedule,
     update operation for id meeting-link, submit operation for id complete,cancel,no-show
-  - Admin Application Controller: GET <applicants path>
+  - Admin Application Controller: GET `<applicants path>`
 
 ## 3. The operator strategy (founder's core ask)
 

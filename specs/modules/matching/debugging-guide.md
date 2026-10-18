@@ -103,8 +103,8 @@ The backend enforces that both the tutor post and the tutee post must have statu
 
 The illustration for . create match returns 422 unprocessable entity contains the following information:
 
-- GET admin posts interface operation<id>.
-- Authorization: Bearer <admin-jwt>.
+- GET admin posts interface operation`<id>`.
+- Authorization: Bearer `<admin-jwt>`.
 
 
 2. Common reasons a post is not ACTIVE when it appears in the list:

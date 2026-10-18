@@ -163,8 +163,8 @@ The changeset, in order:
 4. **trg job applications updated at** trigger wiring the set updated at operation.
 
 Partial indexes and the partial unique are expressed via Liquibase
-<sql>/<create Index> with a when clause (Liquibase native <create Index>
-does not express partial predicates, so these use raw <sql> inside the
+SQL block/index definition with a when clause (Liquibase native index definition
+does not express partial predicates, so these use raw SQL block inside the
 changeset, consistent with the 0009 precedent).
 
 the documented operational check applies this changeset against the Testcontainers Postgres image.

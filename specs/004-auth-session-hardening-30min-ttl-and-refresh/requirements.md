@@ -12,7 +12,7 @@
 Verified in code (Auth Controller set Auth Cookie ~204–217, clear Cookie ~220–230): the auth cookie is already
 Http Only ✓, Secure (configurable) ✓, Same Site is Strict ✓, Path=/ ✓, and logout clears it via the max age operation ✓.
 Those four are **out of scope**. The signed session token validation/revocation backbone (Jwt Authentication Filter) already enforces
-the Redis jti:* denylist, blocked:user:<id>, and the pwreset:after:<id> epoch. This spec closes the **two
+the Redis jti:* denylist, blocked:user:`<id>`, and the pwreset:after:`<id>` epoch. This spec closes the **two
 remaining gaps**: (1) a 30-min access-token expiry period for TUTOR/TUTEE, and (2) a sliding **refresh** flow so an active
 user is not logged out every 30 minutes.
 
@@ -88,7 +88,7 @@ user is not logged out every 30 minutes.
      still ACCEPTED for a bounded grace window (config jwt refresh.rotation-grace-seconds, default 30s) and, when
      presented, returns **200 with no Set-Cookie and no token body** rather than tripping reuse. Only a token that is neither the
      current NOR the immediately-previous-within-grace member of a live family trips the family-wide revoke.
-- **Testable invariant (backend):** on a genuine reuse trip, the refresh:revoked:<family Id> tombstone write **commits
+- **Testable invariant (backend):** on a genuine reuse trip, the refresh:revoked:`<family Id>` tombstone write **commits
   BEFORE** the 401 is returned (the family is revoked-then-rejected, never rejected-then-maybe-revoked); and the
   reuse/grace **check occurs BEFORE** a new token is minted (no successor is issued to a token that should be
   rejected).
@@ -122,16 +122,16 @@ user is not logged out every 30 minutes.
 - **Priority:** Must
 - **Source:** Consistency with Jwt Authentication Filter model (blocked-user, pwreset epoch); security-expert lead.
 - **Rationale / value:** A refresh token must not be a back door around the per-request kill-switches. If the user is
-  blocked (blocked:user:<id>) or a password reset epoch (pwreset:after:<id>) post-dates the refresh token's
+  blocked (blocked:user:`<id>`) or a password reset epoch (pwreset:after:`<id>`) post-dates the refresh token's
   issuance, refresh must be **rejected** and the stale credential cut off — same guarantees the access token has.
 - **Epoch-comparison boundary (explicit — the opaque token has NO iat):** the access filter compares the signed session token's iat
-  against the reset epoch with iat is at most pwreset:after:<id> (a prior Boss SEND-BACK fixed this off-by-one: a token
+  against the reset epoch with iat is at most pwreset:after:`<id>` (a prior Boss SEND-BACK fixed this off-by-one: a token
   minted in the SAME wall-second as the reset, iat equals epoch, is REJECTED, because epoch-seconds granularity would
   otherwise accept an attacker token minted at the reset instant — see Jwt Authentication Filter is Stale After Password Reset,
   is at most at ~line 156). The opaque refresh token carries **no signed session token and therefore no iat**. So this REQ specifies the
-  refresh **family's stored creation-epoch** (refresh:family:<family Id>.created At Epoch, epoch seconds, fixed at
+  refresh **family's stored creation-epoch** (refresh:family:`<family Id>`.created At Epoch, epoch seconds, fixed at
   family creation and NOT advanced by rotation) is the value compared against the reset epoch, using the **same is at most
-  boundary**: refresh is rejected when family created At Epoch is at most pwreset:after:<id>. Fail-safe: if the family record
+  boundary**: refresh is rejected when family created At Epoch is at most pwreset:after:`<id>`. Fail-safe: if the family record
   is missing its creation-epoch (corrupt/legacy), treat the family as stale and reject (mirrors the filter's
   iat equals no value ⇒ stale branch).
 - **Owner (specialist):** security-expert (lead) · software-engineer (backend)
@@ -140,12 +140,12 @@ user is not logged out every 30 minutes.
 
 - Scenario: A blocked user cannot refresh.
 - Given a TUTOR holds a valid refresh token.
-- And an admin has blocked that user (blocked:user:<id> set).
+- And an admin has blocked that user (blocked:user:`<id>` set).
 - When the user POSTs auth refresh interface operation.
 - Then the response is 401 (or 403 ACCOUNT BLOCKED) and NO new access cookie is set.
 - And both auth and refresh token cookies are cleared.
 - Scenario: A refresh family created at-or-before a password reset is rejected.
-- Given a TUTEE reset their password (pwreset:after:<id> epoch written).
+- Given a TUTEE reset their password (pwreset:after:`<id>` epoch written).
 - And the user holds a refresh family whose created At Epoch is  is at most  that reset epoch.
 - When the user POSTs auth refresh interface operation.
 - Then the response is 401 (Auth Error Code REFRESH INVALID) and no new access cookie is issued.
@@ -329,7 +329,7 @@ user is not logged out every 30 minutes.
 - **Type:** constraint
 - **Priority:** Must
 - **Source:** Founder constraint "do not weaken existing admin session handling".
-- **Rationale / value:** ADMIN sessions are stateful (Redis session:admin:<session Id> + sliding expiry period extension in the
+- **Rationale / value:** ADMIN sessions are stateful (Redis session:admin:`<session Id>` + sliding expiry period extension in the
   filter). The new TUTOR/TUTEE refresh flow must NOT alter admin behaviour. Admins continue with their 1800s sliding
   server-side session and are not issued a refresh-token cookie. **The refresh endpoint must return a DEFINED status
   for an admin context, not an ambiguous no-op:** because admins never receive a refresh token cookie, a refresh

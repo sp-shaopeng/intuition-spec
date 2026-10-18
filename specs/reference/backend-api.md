@@ -638,10 +638,10 @@ Unauthenticated, per-IP rate-limited, served with Cache-Control: public, max-age
 
 | Method | Path | Purpose |
 |---|---|---|
-| GET | /public/showcase/tutors | M14a Active-Tutors strip → Showcase Envelope<Showcase Tutor Response> |
-| GET | /public/showcase/requests | M14b open-requests strip → Showcase Envelope<Showcase Request Response> |
+| GET | /public/showcase/tutors | M14a Active-Tutors strip → Showcase Envelope`<Showcase Tutor Response>` |
+| GET | /public/showcase/requests | M14b open-requests strip → Showcase Envelope`<Showcase Request Response>` |
 
-**Showcase Envelope<T>**: data (a list of matching records), meta (Showcase Meta).
+**Showcase Envelope`<T>`**: data (a list of matching records), meta (Showcase Meta).
 
 **Showcase Tutor Response** (personal information-free — tutor Display Name is the pseudonymous handle only; no MRT): id, tutor Display Name, headline, subjects (Set), levels (Set), group Sizes (a set of distinct text values), venue Types (a set of distinct text values), hourly Rate Min Sgd, hourly Rate Max Sgd, location Planning Area, location Region, commitment (Tutor Commitment, nullable), average Rating, review Count, available (Boolean).
 
@@ -781,9 +781,9 @@ count, so two concurrent writes can't both read 9 and both insert the 11th
 
 | Operation | Lock key |
 |---|---|
-| Apply | jobapp:<tutor Id> |
-| Invite | jobinv:<tutee Post Id> |
-| Interview request | interview:<tutee Post Id> |
+| Apply | jobapp:`<tutor Id>` |
+| Invite | jobinv:`<tutee Post Id>` |
+| Interview request | interview:`<tutee Post Id>` |
 
 The lock auto-releases at commit and serializes only the same parent. A partial-unique index
 enforces "≤1", not "≤N", so the count is still required — the lock makes it atomic.
@@ -972,7 +972,7 @@ the INT-062 ALTER TYPE lesson), so adding a reason needs no enum migration.
 - **Guards:** target must be a TUTOR/TUTEE — blocking an ADMIN/super-admin → **403
   CANNOT BLOCK ADMIN**; **409** if the user is already blocked; note required when
   reason is OTHER.
-- **Immediate enforcement:** writes a Redis kill-flag blocked:user:<id> with **expiry period ≥ token
+- **Immediate enforcement:** writes a Redis kill-flag blocked:user:`<id>` with **expiry period ≥ token
   lifetime**, so the user's existing signed session token is rejected on the **very next request** (**401**, the
   auth cookie is expired by the filter) — not at token expiry.
 - **Content cascade (live content closed):** tutee jobs cascade CLOSED via the INT-062 close
@@ -1181,5 +1181,3 @@ the 24h session window). one-time passcode is transactional (no marketing consen
 - **Commission Status enum values** were not read directly (referenced by Admin Commission Item Response/Tutor Match Response); enumerate from Commission Status implementation reference if the exact set is needed.
 - **Analytics Response nested record fields** (Interview Funnel, Match Funnel, Revenue Summary, Daily Metric) are summarised, not fully expanded — read Analytics Response implementation reference for the full field list.
 - **Seed Manifest seed Version** is hard-coded dev-1 and **sentinel Email** REDACTED email in Regression Manifest Controller; these are local-fixture constants, not a stable public contract.
-</content>
-</invoke>

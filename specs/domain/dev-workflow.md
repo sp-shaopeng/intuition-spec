@@ -62,7 +62,7 @@ The illustration for a1. automated pre-review gate lab-first contains the follow
 
 ### A2. Edit→verify reflex
 
-After **any** edit to a **registration / config / wiring** file — Liquibase master-changelog <include> lines, route maps, DI wiring, env files — **immediately grep for the inserted token before building.** This extends *Boss-verify-before-proceed* to the agent's **own** edits, not only Boss-mandated fixes. (Earned: two silent-failed edits in the M-Reg session — a master-changelog <include> and a docstring — cost a boot crash-loop and a near-false-green report.)
+After **any** edit to a **registration / config / wiring** file — Liquibase master-changelog include entry lines, route maps, DI wiring, env files — **immediately grep for the inserted token before building.** This extends *Boss-verify-before-proceed* to the agent's **own** edits, not only Boss-mandated fixes. (Earned: two silent-failed edits in the M-Reg session — a master-changelog include entry and a docstring — cost a boot crash-loop and a near-false-green report.)
 
 ### A3. Definition of Done ends at dev — with a non-deletable prod obligation
 
@@ -72,7 +72,7 @@ After **any** edit to a **registration / config / wiring** file — Liquibase ma
 
 ### A4. Schema-change coupling rule
 
-An entity change that touches a column **ships as ONE unit** with: (a) its Liquibase changeset, **and** (b) a **verified** master-changelog <include> (grep the include per A2). Rationale: under ddl-auto is validate, an entity whose column Definition/@Column disagrees with the live schema **crash-loops the app on boot** (exactly the M-Reg-session failure). Rollback-safety must be **reasoned per migration**, not assumed (e g. a text→jsonb USING … jsonb rollback only works if all rows are valid).
+An entity change that touches a column **ships as ONE unit** with: (a) its Liquibase changeset, **and** (b) a **verified** master-changelog include entry (grep the include per A2). Rationale: under ddl-auto is validate, an entity whose column Definition/@Column disagrees with the live schema **crash-loops the app on boot** (exactly the M-Reg-session failure). Rollback-safety must be **reasoned per migration**, not assumed (e g. a text→jsonb USING … jsonb rollback only works if all rows are valid).
 
 **Backstop (Should):** a continuous integration check that fails the build when an entity column has **no corresponding changelog column** — checking *column existence in the changelog*, not naive column Definition string-matching (so the check is not itself flaky). Until it lands, A4's one-unit + grep discipline is the interim guard.
 
@@ -164,8 +164,8 @@ InTuition uses Liquibase for all database schema changes. Hibernate ddl-auto is 
 1. Every schema change is a new Liquibase changeset — file: VXXX description implementation reference (XML) or  implementation format implementation reference. **Never  implementation format implementation reference bare files** — Liquibase ignores unregistered database query language files silently.
 2. Changesets are immutable once merged to main — never edit a merged changeset
 3. Every changeset that creates or modifies a table must have a the rollback instructions block
-4. Partial indexes, custom ENUMs, triggers, and check constraints are written as Liquibase <sql> tags (not create Table — Liquibase's standard tags don't support PostgreSQL-specific syntax)
-5. **ENUM ADD VALUE rollback policy:** PostgreSQL ENUM ADD VALUE is non-transactional and cannot be rolled back inside a transaction block. For any changeset that adds an ENUM value, the the rollback instructions block must be a documented no-op with a comment: . Do not write a<sql> rollback that will fail at runtime.
+4. Partial indexes, custom ENUMs, triggers, and check constraints are written as Liquibase SQL block tags (not create Table — Liquibase's standard tags don't support PostgreSQL-specific syntax)
+5. **ENUM ADD VALUE rollback policy:** PostgreSQL ENUM ADD VALUE is non-transactional and cannot be rolled back inside a transaction block. For any changeset that adds an ENUM value, the the rollback instructions block must be a documented no-op with a comment: . Do not write a SQL block rollback that will fail at runtime.
 6. **database structure definitions lock timeout:** All changesets that perform database structure definitions on live tables must include a three-second limit on waiting for a database lock as the first statement. Prevents indefinite blocking on long-running queries during rolling deploys.
 7. Run liquibase validate in continuous integration — build fails if changelog XML is malformed or changeset IDs are duplicated
 8. **Migration dry-run in continuous integration (required — not just local):** continuous integration must spin up a PostgreSQL 16 container and run mvnw liquibase implementation reference against it. liquibase validate alone only checks XML syntax; it does not verify the database query language executes. A changeset with valid XML but broken database query language will silently pass validate and fail in production.

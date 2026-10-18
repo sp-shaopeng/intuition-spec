@@ -31,7 +31,7 @@
 - Full tutor/request detail and protected actions; limited public request browsing/filtering remains available without login
 - Access any dashboard or profile page
 
-**Implementation:** Every gated CTA (e g., "Post a Request", "Request Interview", "List as a Tutor") must redirect unauthenticated users to /login?return To=<current-path>. After successful login, the user is returned to the original page with intent preserved.
+**Implementation:** Every gated CTA (e g., "Post a Request", "Request Interview", "List as a Tutor") must redirect unauthenticated users to /login?return To=`<current-path>`. After successful login, the user is returned to the original page with intent preserved.
 
 **Forgot password is Priority P0.** The /forgot-password and /reset-password pages are launch-blocking. Users who cannot recover a lost password will be permanently locked out. These pages must be implemented before any production release.
 
@@ -77,7 +77,7 @@ All auth pages share the Auth Layout (centred card, agency logo, no nav sidebar)
 - Variants: error (red), success (green), info (blue).
 
 ### Loading Button
-- <button> that shows a spinner and is disabled while is Submitting is true.
+- button that shows a spinner and is disabled while is Submitting is true.
 - Prevents double-submission.
 
 ### Step Indicator
@@ -409,7 +409,7 @@ After login, the server response includes role in the signed session token. Clie
 
 ## 5. Accessibility and user experience Standards
 
-- All form inputs have associated <label> elements.
+- All form inputs have associated label elements.
 - Error messages are linked to inputs via aria-describedby.
 - aria-live is polite on Alert Banner for screen reader announcements.
 - Password fields use autocomplete is current-password (login) and autocomplete is new-password (registration/reset).

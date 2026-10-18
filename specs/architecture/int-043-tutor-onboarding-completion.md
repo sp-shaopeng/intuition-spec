@@ -107,8 +107,8 @@ dashboard.
 ### 3.1 Commission implementation reference — remove profile-depth fields
 
 Remove from the zod schema:
-- qualifications field (was a <select> from QUALIFICATION OPTIONS)
-- years Experience field (was a number <Input>)
+- qualifications field (was a select control from QUALIFICATION OPTIONS)
+- years Experience field (was a number input field)
 
 Remove from the form JSX: the two form controls and their error messages.
 
@@ -154,7 +154,7 @@ Logic:
    - CTA button: "Complete profile →" links to /tutor/profile
    - Dismiss button ("×" or "Remind me later") that sets the session Storage key and hides the banner.
 
-Mount in Tutor Layout implementation reference immediately after the tab bar /div> and before <main>:
+Mount in Tutor Layout implementation reference immediately after the tab bar and before the main content:
 
 
 Implementation example omitted. This public edition retains the written requirements in this section.

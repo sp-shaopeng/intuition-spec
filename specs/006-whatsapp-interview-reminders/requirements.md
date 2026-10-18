@@ -50,7 +50,7 @@ fires **regardless of meeting link**, and there is **no 24h reminder**.
 - Given an interview in PENDING SCHEDULING with a tutor and a tutee.
 - When an admin POSTs admin interviews id schedule interface operation with a scheduled At AND a non-blank meeting Link.
 - Then exactly two WhatsApp INTERVIEW SCHEDULED outbox rows are enqueued (one per party).
-- And each row's payload carries body Params = [<formatted Singapore time datetime of scheduled At>, <the meeting link>].
+- And each row's payload carries body Params = [`<formatted Singapore time datetime of scheduled At>`, `<the meeting link>`].
 - Scenario: Scheduling WITHOUT a meeting link enqueues NO WhatsApp (link-gated).
 - Given an interview in PENDING SCHEDULING with a tutor and a tutee.
 - When an admin POSTs /schedule with a scheduled At but a null/blank meeting Link.
@@ -59,7 +59,7 @@ fires **regardless of meeting link**, and there is **no 24h reminder**.
 
 
 - **Required evidence (defined up front):** test-run log of a service/controller IT proving (a) schedule-with-link → 2
-  whatsapp outbox rows whose JSON payload contains body Params= <sgt>, ; (b) schedule-without-link → 0 WhatsApp
+  whatsapp outbox rows whose JSON payload contains body Params= `<sgt>`, ; (b) schedule-without-link → 0 WhatsApp
   outbox rows while the 2 in-app notifications still fire. database/psql query output of outbox events (type WHATSAPP)
   showing the param payload for the with-link case and absence for the without-link case.
 - **Dependencies:** REQ-002 (payload must carry params), REQ-004 (reschedule-reset shares the same save path)

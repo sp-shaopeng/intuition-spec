@@ -72,7 +72,7 @@
 
 **is super admin immutability (Security):** write-once by the seeder. NO application programming interface may set or modify it — no PATCH/PUT on admins, no mass-assignment. This is the only thing preventing privilege escalation.
 
-**Session revocation on remove (Security — real hole):** admin sessions are **stateful in Redis** (session:admin:<session Id>, ~30-min expiry period); soft-delete does NOT revoke them. At admin login, maintain a sessions:by-user:<user Id> set; on DELETE/demote, **purge the target's session:admin:* keys** so a removed admin can't keep acting (and re-mint themselves). Audit ADMIN CREATED/ADMIN REMOVED with **actor id + target id**.
+**Session revocation on remove (Security — real hole):** admin sessions are **stateful in Redis** (session:admin:`<session Id>`, ~30-min expiry period); soft-delete does NOT revoke them. At admin login, maintain a sessions:by-user:`<user Id>` set; on DELETE/demote, **purge the target's session:admin:* keys** so a removed admin can't keep acting (and re-mint themselves). Audit ADMIN CREATED/ADMIN REMOVED with **actor id + target id**.
 
 **Rate-limit (Security):** create-admin limited per **acting-admin user Id** (e g. 10/hour), reusing Rate Limit Service.
 

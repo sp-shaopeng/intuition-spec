@@ -130,8 +130,8 @@ not added to these Records.
 ### 4.2 REUSED unchanged
 Button, Modal using +.Header/.Body/.Footer, Empty State, Spinner, Skeleton, Star Rating,
 Input, toast. format Sgd Range, format Date, format Phone, subject Label, level Label,
-format Location. Native <select> (there is **no Select user interface primitive** — confirmed; forms use
-native <select> per the a11y notes). Forms use react-hook-form + zod + @hookform/resolvers/zod
+format Location. Native select control (there is **no Select user interface primitive** — confirmed; forms use
+native select controls per the accessibility notes). Forms use react-hook-form + zod + @hookform/resolvers/zod
 (the Profile pattern).
 
 ### 4.3 MODIFIED existing
@@ -151,11 +151,11 @@ a11y · wireframe mapping.
 ### 5.A — Tutor profile setup/edit (UIUX §A) · route /tutor/profile (CHANGED)
 
 **Components:** extend Edit Profile Section in Profile implementation reference. New fields above the existing
-ones: **Public handle** (<Input> *), **Commitment** (native <select> *, placeholder "Select…",
-options Part-time/Full-time), **Hourly rate min/max** (two number <Input> on one flex gap-2 row,
-*), **Area (coarse region)** (native <select> *, the 5 Location Region values). qualifications
-keeps its *. **Years of experience loses its *** (NOT a gate). Add <Profile Completeness Bar> at the
-top + the <Apply Gate Banner> companion.
+ones: **Public handle** (input field *), **Commitment** (native select control *, placeholder "Select…",
+options Part-time/Full-time), **Hourly rate min/max** (two numeric input fields on one row,
+*), **Area (coarse region)** (native select control *, the 5 Location Region values). qualifications
+keeps its *. **Years of experience loses its *** (NOT a gate). Add a profile-completeness bar at the
+top + the application eligibility banner companion.
 
 - **Required/gate set (B3, exactly five):** Handle, commitment, hourly Rate Min Sgd +
   hourly Rate Max Sgd, location Region, qualifications. Completeness % = (filled gate fields / 5)·100.
@@ -177,7 +177,7 @@ top + the <Apply Gate Banner> companion.
 - **Query/mutations:** the use query operation (existing) now returns the new fields; the save
   use Mutation invalidates tutor-profile + auth Keys me. The completeness bar reads the query
   data (or live form values for instant feedback).
-- **a11y:** every field <label html For>; native <select> for commitment + region; aria-required;
+- **a11y:** every field has a label associated with its control; native select control for commitment + region; aria-required;
   inline errors via aria-describedby + aria-invalid; bar role is progressbar aria-valuenow/min/max.
 - **Apply-gate banner** is reused on §C and §D when the profile is incomplete (surface the requirement
   **before** the Apply button, TR10 — never bounce at apply with an error).
@@ -186,20 +186,20 @@ top + the <Apply Gate Banner> companion.
 
 **B1 Tutor Identity Card** (/tutors): subjects-first lead (subject Label), levels muted
 (level Label), then the 2-col grid Rate (the format sgd range operation) / Area
-(format Location) / Experience / **Commitment** (<Commitment Badge>). **Remove** the initials avatar
+(format Location) / Experience / **Commitment** (commitment badge). **Remove** the initials avatar
 block (Tutor Card implementation reference-129) and any name node. Keep the favourite heart (TUTEE-only, aria-pressed,
 existing optimistic mutation) and its query wiring untouched.
 
 **B2 Showcase Tutor Card** (landing strip): **bug ① fix** — change format Sgd Range(tutor rate Min Sgd,
 tutor rate Max Sgd)line 69 →(tutor hourly Rate Min Sgd, tutor hourly Rate Max Sgd); **remove** the
 initials block (lines 26-31, 42-47) and the the tutor’s display name line (line 75); add
-<Commitment Badge> next to the existing "Available" live Badge. **C5: update the showcase tests** —
+commitment badge next to the existing "Available" live Badge. **C5: update the showcase tests** —
 the mock fixtures currently set rate Min Sgd/Max; they are green while prod renders "S$undefined". Fix
 the fixtures to hourly Rate Min Sgd/Max, drop the name assertion, add a PT/FT assertion.
 
 - **States (both):** *loading* Skeleton cards ×N; *empty (browse)* Empty State heading is No tutors
-  match yet" description is Try widening your filters." action=<Clear filters>; *no rating* hide
-  Star Rating (existing average Rating equals no value guard); *missing PT/FT* <Commitment Badge> renders
+  match yet" description is Try widening your filters." action=Clear filters control; *no rating* hide
+  Star Rating (existing average Rating equals no value guard); *missing PT/FT* commitment badge renders
   nothing (never "undefined"); *error* page-level retry.
 - **Query keys:** unchanged — the list operation (browse), the tutors operation (strip).
 - **a11y:** no name → aria-label composed from subjects + area + rate, e g. "Mathematics, Physics
@@ -210,14 +210,14 @@ the fixtures to hourly Rate Min Sgd/Max, drop the name assertion, add a PT/FT as
 **Components:** primary CTA Apply / Express interest (sticky on mobile) opening Apply Interest Sheet
 (Modal max-w-md desktop / full-width bottom sheet mobile). Sheet body: REQUIRED honesty line
 "Applying does not book the job — the parent and our team decide next steps." (AC-04); optional pitch
-a multi-line text field with aria-live is polite char counter; optional **Attach a listing** native <select> of
+a multi-line text field with aria-live is polite char counter; optional **Attach a listing** native select control of
 the tutor's OWN active Tutor Posts ("none" = profile values used; helper: attaching overrides
 rate/area on the parent's card).
 
 - **Mutation:** POST application programming interface ROUTES applications.create body the tuition-request identifier, optional message and optional tutor-listing identifier.
   On 422 TUTOR PROFILE INCOMPLETE → close sheet, route to/scroll the apply-gate banner (don't show a
   raw error) — but primarily this is **pre-gated**: if the profile is incomplete the CTA is replaced by
-  the <Apply Gate Banner> Complete profile → so the 422 is the belt-and-braces fallback.
+  the application eligibility banner Complete profile → so the 422 is the belt-and-braces fallback.
 - **States:** *already applied* → disabled secondary ✓ Interest sent + "View in My
   Applications" link; *profile incomplete* → gate banner instead of CTA; *job not ACTIVE* → CTA
   disabled, status flips to "Position filled", inline "This job has been assigned." (mirrors
@@ -225,14 +225,13 @@ rate/area on the parent's card).
   the success operation, CTA → "Interest sent";
   *error* → keep sheet open, the error operation
 - **Query keys:** the detail uses the existing assignment-detail query; the tutor's own active listings
-  for the attach-<select> via the mine operation (existing). On success invalidate application Keys all.
+  for the listing selection control via the mine operation (existing). On success invalidate application Keys all.
 - **a11y:** sheet = shared Modal (focus-trap, Esc, label Id + Modal Header id, C6); char counter
-  aria-live is polite; attach = native <select>.
+  aria-live is polite; attach = native select control.
 
 ### 5.D — Tutor My Applications (UIUX §D) · /tutor/applications (CHANGED)
 
-**Components:** replace the inline <Badge> with **<Status Pill status=app status
-has Interview=app has Interview />**. Add per-status bodies/actions:
+**Components:** replace the inline badge with **status indicator based on the application status and interview flag**. Add per-status bodies/actions:
 - MATCHED → body "You won this job 🎉" + View match → (link to /tutor/matches).
 - SUPERSEDED → **warm treatment, NOT a grey-out:** row keeps full-contrast ink (no opacity-50);
   only the pill is gray; body "This job has been filled by another tutor. Thanks for putting yourself
@@ -263,11 +262,11 @@ Applicants implementation reference. Owner-scope is **server-enforced** (403 IDO
 Implementation example omitted. This public edition retains the written requirements in this section.
 
 
-**Applicant Card:** heading = tutor Public Handle (<h3>); lead line = subject Label using job Subject · 
+**Applicant Card:** heading = tutor Public Handle (level-three heading); lead line = subject Label using job Subject ·
 the readable level label. The next row shows the price range, broad area and years of experience; show a star rating when
-rating differs from no value and review Count>0 else "(no reviews yet)"; <Commitment Badge>; optional pitch (quoted);
+rating differs from no value and review Count>0 else "(no reviews yet)"; commitment badge; optional pitch (quoted);
 optional "Also teaches: also Teaches join using ". MAY render application Status as a small chip via
-<Status Pill> (SHOULD). Two actions: Request interview (secondary/ghost) + Choose tutor
+status indicator (SHOULD). Two actions: Request interview (secondary/ghost) + Choose tutor
 (primary).
 
 **Pii Notice strip** (verbatim): "The tutor never sees your name or phone number. You'll see each
@@ -298,7 +297,7 @@ Footer Not yet Choose tutor.
 - **Query keys (NEW):** add to query Keys implementation reference an applicant Keys namespace, e g.
   the applicant-list cache entry for that job, page and size and the selection operation. Reuse
   the by tutee post operation for invalidation cross-refs if appropriate.
-- **a11y:** card an applicant card labelled with its public handle; handle <h3>; actions real buttons; modal
+- **a11y:** each applicant card is labelled with its public handle; the handle is a level-three heading; actions real buttons; modal
   label Id/Header id (C6); add an aria-live is polite region announcing selection-state transitions
   (C6).
 - **personal information (CRITICAL §20.6):** this is the **distinct personal information-free data transfer object** — handle, subjects, levels, rate,
@@ -314,7 +313,7 @@ is MATCHED). Two states:
   handle. Our team is confirming with them. You'll get their contact once it's confirmed." +
   Change choice. **No contact block. Choose does NOT call the contact endpoint.**
 - **State 2 — assigned (MATCHED):** Position filled scheduled Badge + "✓ handle is your
-  tutor." + **<Contact Reveal Card>** + Fee restatement "Placement fee: 50% of one month's tuition —
+  tutor." + **contact-reveal card** + Fee restatement "Placement fee: 50% of one month's tuition —
   charged after your first session. We'll send payment details then." + View match →.
 
 **Contact Reveal Card:** header "Contact (shared now you've committed)"; renders
@@ -365,9 +364,8 @@ commission list query with ?status is PENDING&older Than Days is 14; sort age de
 
 In the desktop logged-out cluster (hidden md:flex, Nav implementation reference-69) keep Log In (ghost →
 /login) and the existing Post a Request (ghost → /login); ADD
-<Button variant is primary size is sm>Sign up</Button> /Link> leading visually
-(primary). Mobile drawer already has Register (line 106) — **do NOT duplicate**. a11y: real 
-wrapping <Button>; visible "Sign up" is the accessible name.
+a “Sign up” link with a small primary button treatment leading visually
+(primary). Mobile drawer already has Register (line 106) — **do NOT duplicate**. Accessibility: use a link with the accessible name “Sign up”.
 
 ---
 

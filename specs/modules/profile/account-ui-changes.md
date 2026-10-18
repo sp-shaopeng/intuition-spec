@@ -68,7 +68,7 @@ Ph D, NIE-Trained Teacher, Other. The selected label is sent in the existing
 qualifications string field (no the private implementation folder change; backend continues to store the string).
 Keep an optional free-text "details" only if needed; the primary field is the dropdown.
 
-**Acceptance:** the field renders as a <select> with the defined options; submitting persists
+**Acceptance:** the field renders as a select control with the defined options; submitting persists
 the chosen value; existing free-text values still display.
 
 ## 3. Prompt tutor to complete their portfolio after registration

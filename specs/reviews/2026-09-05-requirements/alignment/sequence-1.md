@@ -210,18 +210,12 @@ The illustration for . first-login hardening for seeded / newly-created admins c
 Implementation example omitted. This public edition retains the written requirements in this section.
 
 
-    alt token attempt Count  is at least  5
-        Svc- leads to >Ctrl: 429 OTP ATTEMPTS EXCEEDED
-    end
-    Svc leads to >Pwd: matches using otp, otp Hash
-    alt mismatch
-        Svc leads to >Repo: increment Attempt Count using token Id
-        Svc- leads to >Ctrl: 400 INVALID OTP
-    end
-    Svc leads to >Repo: token used At is now; save
-    Svc leads to >Pwd: encode using new Password
-    Svc leads to >Repo: user Repository update Password Hash using user Id, new Hash
-    Note over Svc: after Commit: Audit LogPASSWORD RESET, user Id
+The retained password-reset sequence describes these checks and actions:
+
+- Reject a token that already has at least five attempts with HTTP 429 and the OTP ATTEMPTS EXCEEDED error.
+- Compare the supplied one-time code with the stored hash. On a mismatch, increment the token's attempt count and return HTTP 400 with INVALID OTP.
+- On success, mark the token used at the current time, hash the new password and update the user's password hash.
+- Record the PASSWORD RESET audit event with the user identifier after the transaction commits.
 
 
 The illustration for req-009 — frontend single-flight silent-refresh-then-retry on a 401, else redirect to login contains the following information:
@@ -256,7 +250,7 @@ The illustration for req-009 — frontend single-flight silent-refresh-then-retr
 
 
   Scenario: A refresh family created at-or-before a password reset is rejected
-    Given a TUTEE reset their password (pwreset:after:<id> epoch written)
+    Given a TUTEE reset their password (pwreset:after:`<id>` epoch written)
     And the user holds a refresh family whose created At Epoch is  is at most  that reset epoch
     When the user POSTs auth refresh interface operation
     Then the response is 401 (Auth Error Code REFRESH INVALID) and no new access cookie is issued
@@ -266,14 +260,17 @@ The illustration for req-009 — frontend single-flight silent-refresh-then-retr
 Implementation example omitted. This public edition retains the written requirements in this section.
 
 
-    [*] - leads to  PENDING : tutee/tutor create And Submit
-    PENDING - leads to  ACTIVE : admin Post Service approve Post
-    PENDING - leads to  REJECTED : admin Post Service reject Post
-    ACTIVE - leads to  PENDING : owner update (edit-while-active)
-    DRAFT - leads to  PENDING : owner submit (DRAFT not exercised by current frontend; create-and-submit is the only path)
-    DRAFT - leads to  CLOSED : owner soft Delete
-    REJECTED - leads to  CLOSED : owner soft Delete
-    ACTIVE - leads to  CLOSED : (no frontend path today)
+The retained post-state diagram describes these transitions at the time of that review:
+
+| Starting state | Action | Result |
+|---|---|---|
+| New post | Parent or tutor creates and submits it | PENDING |
+| PENDING | Admin approves the post | ACTIVE |
+| PENDING | Admin rejects the post | REJECTED |
+| ACTIVE | Owner edits the post | PENDING |
+| DRAFT | Owner submits it | PENDING; the reviewed frontend only used create-and-submit |
+| DRAFT or REJECTED | Owner soft-deletes it | CLOSED |
+| ACTIVE | Close the post | CLOSED; no frontend path was recorded in this review |
 
 
 The illustration for req-009 — frontend single-flight silent-refresh-then-retry on a 401, else redirect to login contains the following information:
@@ -415,7 +412,7 @@ The illustration for the atomic assign transition one @transactional contains th
     end
     Svc leads to >CRepo: set Invoice Status using PAID, set Paid At using now, save
     Svc leads to >MRepo: match set Status using COMPLETED, save
-    Svc leads to >NS: emit using tutor User Id, COMMISSION PAID, Commission marked paid, Your commission of SGD <amount> has been marked as paid., /tutor/matches
+    Svc leads to >NS: emit using tutor User Id, COMMISSION PAID, Commission marked paid, Your commission of SGD `<amount>` has been marked as paid., /tutor/matches
 
 
 The illustration for the atomic assign transition one @transactional contains the following information:
@@ -485,24 +482,12 @@ The illustration for req-001 — adm-01 mark-paid confirm on the matching page s
 Implementation example omitted. This public edition retains the written requirements in this section.
 
 
-        frontend leads to >frontend: Open modal, capture note (optional)
-        Tutee leads to >frontend: Submit
-        frontend leads to >Ctrl: POST interviews interface operation tutor Post Id, note
-        Note over Ctrl: Security Config has Role using TUTEE on POST interviews interface operation
-        Ctrl leads to >Svc: request Interview using tutee Id, req
-        Svc leads to >TPRepo: find By Id using req tutor Post Id
-        alt missing
-            Svc- leads to >Ctrl: 404 TUTOR POST NOT FOUND
-        end
-        alt tutor Post status  differs from  ACTIVE
-            Svc- leads to >Ctrl: 422 TUTOR POST NOT ACTIVE
-        end
-        Svc leads to >IRepo: exists By Tutee Id And Tutor Post Id And Status In using REQUESTED, SCHEDULED
-        alt duplicate
-            Svc- leads to >Ctrl: 422 DUPLICATE INTERVIEW
-        end
-        Svc leads to >URepo: find By Id using tutee Id
-        Svc leads to >IRepo: save using Interview status is REQUESTED, requested At is now Coordinated Universal Time, note
+The retained interview-request sequence describes the following behaviour at the time of that review:
+
+1. The parent opens the dialog, optionally enters a note and submits a request for the tutor listing. The endpoint requires the tutee role.
+2. The server looks up the listing. A missing listing returns HTTP 404 with TUTOR POST NOT FOUND; a listing that is not ACTIVE returns HTTP 422 with TUTOR POST NOT ACTIVE.
+3. The server checks for a REQUESTED or SCHEDULED interview for the same tutee and tutor listing. A duplicate returns HTTP 422 with DUPLICATE INTERVIEW.
+4. The server loads the tutee and saves a REQUESTED interview with the current UTC request time and optional note.
 
 
 The illustration for req-001 — adm-01 mark-paid confirm on the matching page s2, money contains the following information:
@@ -519,7 +504,7 @@ The illustration for req-001 — adm-01 mark-paid confirm on the matching page s
         Svc leads to >Svc: interview meeting Link = req meeting Link trim operation
     end
     Svc leads to >IRepo: save using interview
-    Svc leads to >NS: emit using tutee Id, INTERVIEW SCHEDULED, Interview scheduled, Your interview for \<title>\ is scheduled for <scheduled At>., /tutee/interviews/ id
+    Svc leads to >NS: emit using tutee Id, INTERVIEW SCHEDULED, Interview scheduled, Your interview for \<title>\ is scheduled for `<scheduled At>`., /tutee/interviews/ id
 
 
 The illustration for req-001 — adm-01 mark-paid confirm on the matching page s2, money contains the following information:

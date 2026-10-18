@@ -83,7 +83,7 @@
 - **Priority:** Must
 - **Source:** Plan §B. Founder goal: "future tasks just *register* a handler."
 - **Rationale / value:** The whole point of adopting db-scheduler is that adding a new time-based use case must be a
-  **bounded, repeatable, low-coupling** act — declare a db-scheduler Task<T> as a registered application component (one-time or
+  **bounded, repeatable, low-coupling** act — declare a db-scheduler Task`<T>` as a registered application component (one-time or
   recurring) and supply a handler; **no new service-embedded a framework-managed scheduled method, no new Shed Lock name, no new bespoke sweep
   loop.** This must be a real, documented surface (a config/scheduler package holding the Task beans, an optional
   thin Scheduled Job Service wrapper over Scheduler Client for schedule Once / reschedule / cancel so callers

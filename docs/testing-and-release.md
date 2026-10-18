@@ -1,6 +1,12 @@
 # Testing and release
 
-InTuition is **not live**, and life commitments have delayed launch. This page describes the test inventory and automation found in the private repositories on 18 October 2026. **The application test suites were not rerun for this publication.** Counts below are files, not executed test cases or fresh passing results.
+InTuition is **not live**, and life commitments have delayed launch. This page describes the test inventory and automation found in the private repositories on 18 October 2026. Inventory counts below are files, not executed test cases. A later, limited baseline run is described separately.
+
+## Follow-up baseline check
+
+On 18 October, a backend baseline completed with **2,179 tests in the main test phase and 43 integration tests**, with no failures, errors or skips in those phases. Formatting and the configured 97.5% line/branch coverage checks passed. The run used Java 21 and a Docker client compatibility setting; it did **not** include the separate live-system regression lab.
+
+The frontend baseline stalled while reading installed dependencies, so no completed frontend gate is claimed. No application code was changed. These results do not close the documented feature gaps: a test can pass while asserting an older requirement, and this run did not prove the complete website journeys, delivery recovery or production readiness. Detailed logs stay private.
 
 ## What is present
 
@@ -41,8 +47,13 @@ The combined workflow records the versions under test and checks that the runnin
 - **Old versions and labels need context.** Earlier draft documents mention other React or PostgreSQL versions. Historical “shipped” or “deployed” labels describe development work and must not be read as a current public launch announcement.
 - **Later requirement corrections need implementation as well as evidence.** The request form lacks the corrected control-specific Enter and input-composition guards. Its existing browser tests cover only part of the keyboard contract. Some no-show tests also require optional database access that the combined workflow does not enable; they do not establish coverage for both participants missing an interview.
 - **Message failure handling needs correction and tests.** The technical review found paths that can treat disabled email delivery or a missing provider key as success. It also found a queue size limit that does not first protect all unread or unfinished work. The current requirements call for pending messages to remain available until delivered or explicitly recorded as permanent failures. Those paths need correction and failure-and-recovery tests before launch.
+- **Test-report utilities can overstate what ran.** The endpoint report can credit shared helper calls after any test file passes, while the route report counts static routes from the presence of a smoke-test file. These are useful inventories, but their percentages do not prove that each action or page passed. Failed and skipped cases need their own result records.
+- **A script is not automatically a required check.** The combined workflow does not invoke the lab's lint, endpoint-coverage gate, live inventory comparison or contract comparison. A written policy for temporarily excluding unreliable tests also has no enforced expiry in the inspected configuration. These are process gaps to track, not completed safeguards.
+- **Test data and targets need stronger controls.** Some browser tests share seeded accounts and server-side limits. The optional reset process is not shown to refuse an unintended environment, and browser and API destinations are configured separately. The existing smoke suite includes writes, so it is not established as a read-only check suitable for a customer environment. The improvement plan calls for isolated test data, verified destinations and a separate, reviewed read-only check.
 
 These limits are retained to keep the showcase useful to a reviewer. The [current requirements](../specs/CURRENT-REQUIREMENTS.md), [development workflow](../specs/domain/dev-workflow.md) and [historical test strategy](../specs/domain/backend/test-strategy.md) should be read together.
+
+The [project workflow improvement plan](workflow-improvement-plan.md) explains how the regression lab should be maintained as part of development: who owns its fixtures and failures, how AI updates tests against approved rules, which versions must run together and what evidence is needed before closing an issue.
 
 ## Why more than one kind of test matters
 

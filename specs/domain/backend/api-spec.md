@@ -18,7 +18,7 @@ All endpoints are served from example com/api/v1/** (same-origin production rout
 
 **Base path:** api v1 interface operation
 **Content-Type:** application/json on all endpoints
-**Auth:** http Only cookie auth=<jwt> (HS256, 30-minute TUTEE/TUTOR access cookie plus spec 004 refresh; ADMIN lifecycle separately scoped)
+**Auth:** http Only cookie auth=`<jwt>` (HS256, 30-minute TUTEE/TUTOR access cookie plus spec 004 refresh; ADMIN lifecycle separately scoped)
 **cross-origin request permissions:** Not required — same-origin via Cloudflare proxy
 
 ---

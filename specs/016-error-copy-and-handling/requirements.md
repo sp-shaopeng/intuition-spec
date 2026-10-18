@@ -37,7 +37,7 @@
 - Scenario: A not-found error shows humanised copy, not a raw id.
 - Given an action that fails with code TUTEE POST NOT FOUND.
 - When the toast renders.
-- Then it shows a plain human message (no "not found: <uuid>").
+- Then it shows a plain human message (no "not found: `<uuid>`").
 - And it still shows the trace Id Reference (spec 010).
 - Scenario: Unmapped codes fall back safely (guard).
 - Given an error code with no friendly mapping.
@@ -132,7 +132,7 @@
 
 | REQ | One-line | Type | Priority | Severity | Owner |
 |---|---|---|---|---|---|
-| REQ-001 | Humanise "<entity> not found: <uuid>" in user copy; keep code + trace Id | functional | Should | S3 | frontend-expert · software-engineer |
+| REQ-001 | Humanise "`<entity>` not found: `<uuid>`" in user copy; keep code + trace Id | functional | Should | S3 | frontend-expert · software-engineer |
 | REQ-002 | Nonexistent route → 404 (not 500); 405 unchanged; spec-010 trace Id preserved | functional | Should | S4 | software-engineer |
 | REQ-003 | Create-admin 400 names the missing/invalid field (surface field Errors) | functional | Should | S4 | frontend-expert |
 | REQ-004 | tel:/mailto: hrefs URL-encoded | functional | Should | S4 | frontend-expert |

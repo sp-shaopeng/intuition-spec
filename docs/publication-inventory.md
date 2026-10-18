@@ -1,6 +1,6 @@
 # Publication inventory
 
-This inventory accounts for the complete included specification set. The working-copy source is used, including the later requirements corrections.
+This inventory accounts for the 346 specifications in the initial 18 October source snapshot. The working-copy source was used, including the later requirements corrections. It is a dated publication inventory, not an automatic mirror of future private planning drafts.
 
 | Measure | Count |
 | --- | ---: |
@@ -15,6 +15,21 @@ All 17 settled clauses in the current requirements register are present. Some im
 Source history, application and test code, infrastructure and configuration files, environment files, screenshots, raw logs and operational evidence are excluded. The approved-plan exception is a prose decision record, not raw operational evidence. See [publication notes](publication-notes.md).
 
 The [specification index](specification-index.md) offers document titles and links. This table records the source paths and categories without exposing private local paths.
+
+## Follow-up guides and HTML conversions
+
+The current public tree contains **362 Markdown documents**, including the 346 specifications below. The follow-up adds these four guides; the original specification inventory is unchanged.
+
+| Document | Source and purpose |
+| --- | --- |
+| [Project workflow improvement plan](workflow-improvement-plan.md) | New explanation of project management, AI assignments, spec-driven development and regression-lab maintenance; proposals remain labelled. |
+| [High-level user flows](user-flows.md) | New reading guide to 21 journeys and all 43 numbered sequences, with current limits. |
+| [Earlier design directions](design-directions.md) | Sanitized Markdown conversion of the two-direction HTML design archive; historical claims remain labelled and do not override current rules. |
+| [Cover concept](cover-concept.md) | Sanitized Markdown conversion of the earlier HTML cover concept. |
+
+Both documentation HTML originals have Markdown replacements in the private working copy. The public copies omit rendering code, private contact examples and company legal identifiers. The later private implementation-planning drafts are not approved changes to the published product rules; application repair and its acceptance remain separate work.
+
+## Original specification inventory
 
 | Source path | Published document | Source category |
 | --- | --- | --- |

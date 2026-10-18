@@ -19,7 +19,7 @@ Every schema change is a versioned XML changeset in intuition-the private implem
 ### Workflow
 
 1. Add the next repository-convention XML changeset with a unique id, author, preconditions, bounded lock behavior and a schema-compatible rollback/forward-repair plan. Never alter an already-applied changeset.
-2. Put PostgreSQL-specific database structure definitions in supported Liquibase XML elements or a reviewed <sql> section. The database query language examples below are design examples to embed in changesets, not commands to execute ad hoc against production.
+2. Put PostgreSQL-specific database structure definitions in supported Liquibase XML elements or a reviewed SQL block. The database query language examples below are design examples to embed in changesets, not commands to execute ad hoc against production.
 3. Update entity mappings and verify migration plus application behavior on PostgreSQL. Local application boot may enable Liquibase; production uses the migration exit-runner and migrate-before-boot sequence in 027.
 4. Review old/new application compatibility before dropping or renaming relations. Roll back the application before dropping a table it queries; an absent relation is not an empty table.
 5. Reference taxonomy is versioned data migration. Sample users and regression fixtures are local-only seeders; production uses the separate idempotent bootstrap in 027.
@@ -241,7 +241,7 @@ This appendix lists every analytics events event name and the top-level JSONB pr
 > **0032 reserved** — gap intentional. db changelog-master implementation reference contains the comment  
 > 
 
-> **Migration order note:** 0035 (job invitations) was developed after 0036/0037 and its <include> is appended at the **end** of db changelog-master implementation reference (after 0037). Liquibase runs un-run changesets regardless of position in the master file — confirmed clean on a fresh Testcontainers database.
+> **Migration order note:** 0035 (job invitations) was developed after 0036/0037 and its include entry is appended at the **end** of db changelog-master implementation reference (after 0037). Liquibase runs un-run changesets regardless of position in the master file — confirmed clean on a fresh Testcontainers database.
 
 ### 0033 — matches tutor user id + free-market dedupe (INT-034)
 

@@ -35,7 +35,7 @@ follow the same shape with different limits/keys.
 - **Auth Controller** — submit operation for auth login
 - **Auth Service**
 - **Rate Limit Service** — atomic Lua script on text Redis Template
-- **Redis** — sorted set ratelimit:login:<ip>:<email Hmac>
+- **Redis** — sorted set ratelimit:login:`<ip>`:`<email Hmac>`
 
 ## Diagram
 

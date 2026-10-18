@@ -95,8 +95,8 @@ Contact details are **never prefetched** — authorized contact details for the 
 
 ---
 
-### 7a. a11y note — Form Layout Section titles are <legend>, not headings (intentional)
-Form Layout Section renders each section title as a <legend> inside a <fieldset> — this is correct fieldset semantics (the legend names the group of controls for screen readers), **not** a heading regression. A flat form does not need a heading outline; the multi-step orientation ("Step 2 of 4") is carried by the shared Wizard Stepper, not by per-section <h* elements. This is a deliberate accessibility choice recorded here so a future audit does not "fix" it back into headings. (Recorded in the Wave-6 lesson; reconfirmed in Wave 2+7.)
+### 7a. a11y note — Form Layout Section titles are legend, not headings (intentional)
+Form Layout Section renders each section title as a legend inside a fieldset — this is correct fieldset semantics (the legend names the group of controls for screen readers), **not** a heading regression. A flat form does not need a heading outline; the multi-step orientation ("Step 2 of 4") is carried by the shared Wizard Stepper, not by per-section <h* elements. This is a deliberate accessibility choice recorded here so a future audit does not "fix" it back into headings. (Recorded in the Wave-6 lesson; reconfirmed in Wave 2+7.)
 
 ## 6. What this is NOT (guardrails)
 - Not a visual rebrand — brand tokens, type scale, component skins **unchanged**.

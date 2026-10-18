@@ -209,7 +209,7 @@ the trace id nowhere.
 - **Behaviour (EARS):** WHEN the api client rejects a request, it SHALL capture the trace id — preferring
   response data.the trace identifier in the error response, falling back to the x-correlation-id response header — onto the flat Api Error
   (Api Error trace Id?: string). WHEN a global error surface renders (the error toast, and the Error Boundary/error
-  page), it SHALL display the trace id as a small copyable "Reference: <trace Id>" element WHEN one is present, and SHALL
+  page), it SHALL display the trace id as a small copyable "Reference: `<trace Id>`" element WHEN one is present, and SHALL
   omit it WHEN absent (e g. a pure network error with no response). The id SHALL NOT be shown on success toasts.
 - **Owner (specialist):** frontend-expert
 - **Acceptance criteria (Gherkin):**
@@ -219,7 +219,7 @@ the trace id nowhere.
 - Given a mutation/query rejects with a backend error carrying trace Id.
 - When the global error toast renders.
 - Then it shows the human error message.
-- And it shows a small "Reference: <trace Id>" that can be copied.
+- And it shows a small "Reference: `<trace Id>`" that can be copied.
 - Scenario: trace Id falls back to the response header.
 - Given an error response whose body has no trace Id but whose X-Correlation-ID header is set.
 - When the api client rejects.
@@ -235,7 +235,7 @@ the trace id nowhere.
 
 
 - **Required evidence (defined up front):**
-  - RTL tests: error toast renders "Reference: <trace Id>" from the body; from the header (body absent); omits it on a
+  - RTL tests: error toast renders "Reference: `<trace Id>`" from the body; from the header (body absent); omits it on a
     network error; success toast has none — under REQ-004 implementation reference.
   - A **live Playwright screenshot** of a forced error showing the reference on the toast/page, and confirmation the shown
     id matches the request's X-Correlation-ID header in the network log — under REQ-004 implementation reference.
@@ -250,7 +250,7 @@ the trace id nowhere.
 | REQ-001 | trace Id added to every ERROR body at the single Global error handler build Error choke point (logging context value, null-safe fallback) | functional | Must | software-engineer · bff-specialist |
 | REQ-002 | trace Id added to every JSON-**object** SUCCESS body via a response customization component with the relevant response information that NO-OPs on array/primitive/empty/binary/Problem Detail (additive, never an envelope, never corrupts) | functional | Must | software-engineer · bff-specialist |
 | REQ-003 | X-Correlation-ID on ALL responses (confirm+keep) + cross-origin request permissions-exposed; the universal carrier; body value  equals  header value | non-functional/contract | Must | bff-specialist · devops-engineer |
-| REQ-004 | frontend api-client/error surfaces a copyable "Reference: <trace Id>" from the error body (header fallback); omitted on network errors; never on success | functional (frontend) | Must | frontend-expert |
+| REQ-004 | frontend api-client/error surfaces a copyable "Reference: `<trace Id>`" from the error body (header fallback); omitted on network errors; never on success | functional (frontend) | Must | frontend-expert |
 
 ## Constraints (recorded for the build + the done-gate)
 

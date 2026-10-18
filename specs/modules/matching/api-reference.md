@@ -93,7 +93,7 @@ Creates a match between a tutor post and a tutee post.  This is the core write o
 
 The illustration for authentication contains the following information:
 
-- Authorization: Bearer <jwt>.
+- Authorization: Bearer `<jwt>`.
 
 
 ### Request Body

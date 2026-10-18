@@ -276,7 +276,7 @@ visible at desktop AND 390px) carries the standing mobile-web gate. No risk.
 **Lenses:** uiux-designer, frontend-expert, qa-engineer.
 
 EARS is sound (usable, Singapore time defaults, mobile-friendly, keyboard-accessible, past-datetime rejected, **wire format
-unchanged** — the critical non-regression). The picker choice (native <input type is datetime-local> vs library)
+unchanged** — the critical non-regression). The picker choice (native date-and-time input vs library)
 is a non-blocking open question with a sensible default lean (native, zero-dep, a11y, mobile). The one hard
 condition: the BLOCKING test must assert the **backend wire format is byte-unchanged** (the spec says so — pin it as the
 gate so a picker swap can't silently change the payload).
@@ -300,7 +300,7 @@ present and correct. No risk.
 
 ---
 
-### 016/REQ-001 — Humanise raw "not found: <uuid>" → **APPROVED**
+### 016/REQ-001 — Humanise raw "not found: `<uuid>`" → **APPROVED**
 
 **Lenses:** frontend-expert (code→copy map), software-engineer/bff-specialist (backend message hygiene), qa-engineer.
 

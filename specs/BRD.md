@@ -103,7 +103,7 @@ This updates the May 2026 model in which staff initiated every match from two pu
 
 | Variable | Value |
 |---|---|
-| Invoicing prerequisite | Tutee confirms the first session, or the authorized override process follows the seven-day timeout |
+| Invoicing prerequisite | Tutee confirms the first session, or staff use an authorized override; the permitted override timing differs across source clauses (see BR-010) |
 | Amount lock | Activation records the agreed first-month rate, session count and hours per session |
 | Payment recorded | Only after the agency receives the tutor commission |
 | Default commission rate | 50% of first month's tuition fee |
@@ -259,7 +259,7 @@ The proposed coordinator role is responsible for the following work. This is a s
 | Commission ledger | Record and track commission amounts due, invoiced, and received per match |
 | User management | Ability to suspend, deactivate, or ban accounts |
 | Communication log | Internal notes on each post or match for team handoffs |
-| First-session override | Ability to override the tutee first-session confirmation after 7-day timeout, allowing commission invoice generation to proceed |
+| First-session override | Ability to override the tutee first-session confirmation after the seven-day timeout, allowing invoicing; BR-010 also permits discretion before timeout, so the permitted timing needs reconciliation |
 | multi-factor authentication enforcement | All admin accounts must use time-based one-time passcode-based multi-factor authentication |
 | Interview coordination | Receive and manage interview requests from tutees; contact tutor to agree on a time slot; enter meeting link (any URL) into the platform; notify both parties |
 | Interview queue | Centralized view of all pending interview requests, sorted by submission time; ability to mark scheduled/completed/cancelled |
@@ -422,8 +422,8 @@ The original staff-only expression-of-interest and mandatory-two-listing rules w
 - **Trigger:** When admin marks a match as ACTIVE, the system automatically sends the tutee a "Confirm First Session" notification
 - **Commission status at this point:** AWAITING CONFIRMATION
 - **Tutee action:** Tutee clicks "Confirm First Session Occurred" in their dashboard. Commission status advances to CONFIRMED
-- **Timeout:** If tutee does not confirm within **7 calendar days after activation**, the system flags the match for admin attention
-- **Admin override:** After the seven-day timeout, authorized staff may follow the recorded override process, seek confirmation or cancel. Silence does not prove a session occurred.
+- **Timeout:** If the tutee does not confirm within **7 calendar days of receiving the notification**, the system flags the match for admin attention. This preserves the BRD source wording; PRD AC-05 instead measures from email sending, while PRD §7.7.1 and AC-11 measure from activation. The starting event needs a recorded decision. O12 separately concerns the reminder delivery deadline and detection schedule.
+- **Admin override:** The BRD source permits admin to advance commission to CONFIRMED at any time, bypassing the tutee action when, for example, the tutee is unresponsive or the arrangement is clearly underway. Other retained clauses describe override after the seven-day timeout. Whether earlier discretion is allowed needs a recorded decision; neither wording silently overrides the other. Silence alone is not proof that a session occurred.
 - **Invoice generation:** The system generates a commission invoice only after commission status is CONFIRMED
 - **Cancellation case:** If the match is cancelled before first session confirmation, commission status is set to WAIVED and no invoice is generated
 - This business rule is in MVP scope
@@ -817,7 +817,7 @@ This appendix defines all valid post states, the trigger for each transition, th
 | (none) | Admin creates match record | Admin | PENDING | Set to PENDING | Links one tutee post to tutor user identity; tutor listing optional under INT-034; parties notified |
 | PENDING | Admin marks match as active (arrangement confirmed) | Admin | ACTIVE | Set to AWAITING CONFIRMATION | Triggers tutee first-session confirmation notification (BR-010) |
 | ACTIVE | Tutee confirms first session occurred | Tutee | ACTIVE (no change) | Set to CONFIRMED | Commission invoice can now be generated |
-| ACTIVE | Admin uses the authorized override process after the seven-day timeout | Admin | ACTIVE (no change) | Set to CONFIRMED | Commission invoice can now be generated |
+| ACTIVE | Admin overrides confirmation after the seven-day timeout or at discretion, as stated in this source | Admin | ACTIVE (no change) | Set to CONFIRMED | Commission invoice can now be generated; earlier discretion conflicts with timeout-only wording elsewhere, so reconcile BR-010 before acceptance |
 | ACTIVE | Commission invoice generated | System/Admin | ACTIVE (no change) | Set to INVOICED | Invoice sent to tutor |
 | ACTIVE | Agency receives tutor commission; admin records receipt | Admin | COMPLETED | PAID | Job remains MATCHED; completion does not mean all teaching ended |
 | PENDING or ACTIVE | Admin cancels match | Admin | CANCELLED | Depends on billing stage; invoiced commission needs an explicit waiver or dispute decision | Eligible request returns to discovery; both parties notified; existing receipts are not silently erased |

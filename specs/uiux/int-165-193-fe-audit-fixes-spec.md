@@ -24,12 +24,12 @@ need a founder decision** (we must not invent pricing, guarantees, testimonials,
 - **INT-166** (frontend) Notification Bell: add enabled: !user to the unread-count query; add
   /notifications/unread-count to the should Trigger Logout exemption list (auth Redirect implementation reference).
 - **INT-168** (frontend) skip link: sr-only focus:not-sr-only anchor as first child of each layout +
-  a main-content target that the skip link can focus on <main> (Root Layout/Public Layout/Tutee/Tutor/Admin).
+  a main content element that the skip link can focus on (Root Layout/Public Layout/Tutee/Tutor/Admin).
 - **INT-169** (frontend) Tutee Layout implementation reference + Tutor Layout implementation reference px-8 → px-4 md:px-8 (match Admin);
   re-run the 390px overflow gate.
 
 ### Batch 2 — SEO (S2/S3)
-- **INT-167** per-route <title>/meta: add react-helmet-async (or a tiny use Document Meta hook) and set
+- **INT-167** per-route page title element/meta: add react-helmet-async (or a tiny use Document Meta hook) and set
   unique title+description on the public routes (/, /tutors, /assignments, /rates, /about, /faq,
   /contact).
 - **INT-181** add  per public route + a static Organization JSON-LD in index html

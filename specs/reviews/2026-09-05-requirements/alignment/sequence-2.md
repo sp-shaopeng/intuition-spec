@@ -115,7 +115,7 @@ The illustration for notable details contains the following information:
 Implementation example omitted. This public edition retains the written requirements in this section.
 
 
-    alt status not in [REQUESTED, SCHEDULED] → 422 INVALID STATUS TRANSITION
+The retained transition check rejects any status other than REQUESTED or SCHEDULED with HTTP 422 and INVALID STATUS TRANSITION.
 
 
 The illustration for notable details contains the following information:

@@ -15,8 +15,8 @@
 
 ## Problem
 A post-redesign user experience review found the marketplace forms are *mostly* well-constrained already (subjects/levels =
-multi-select; student Count/venue/group-size = <select>; region + commitment + qualifications = enum selects;
-interview times = datetime-local + 15-min step; invite = post <select>; phone auto-strips; rating = star
+multi-select; student Count/venue/group-size = select control; region + commitment + qualifications = enum selects;
+interview times = datetime-local + 15-min step; invite = post select control; phone auto-strips; rating = star
 picker). But several fields still force **free-text typing** where a picker or a derived value would be faster,
 lower-error, and better for downstream data quality. This spec defines those changes, ordered by ROI.
 

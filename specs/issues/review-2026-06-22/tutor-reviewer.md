@@ -53,7 +53,7 @@ a ship-blocker for the registration funnel and the silent apply-403 will quietly
   (Central/North/South/East/West) + Planning-area chips incl. "Island-wide" (30 areas); Subjects & levels
   (marked * required — see user experience nit T-03); Highest qualification; Years of experience. "Skip for now" present.
 - BLOCKER: could not complete tutor registration end-to-end because of the silent-refresh session-revival bug
-  (T-02). Mid-form on Step 2, a stale admin session revived and hard-redirected me to /admin/review/<id>,
+  (T-02). Mid-form on Step 2, a stale admin session revived and hard-redirected me to /admin/review/`<id>`,
   destroying the in-progress registration. Reproduced 4+ times. See T-02. This is the #1 supply-side blocker.
 
 #### user experience nit (Step 2): heading says "All optional" but Subjects & levels is * required
@@ -120,7 +120,7 @@ a ship-blocker for the registration funnel and the silent apply-403 will quietly
      older session, e g. a tutee), and the router hard-redirects you to that user's home
      (/admin/review, /tutee/dashboard, /tutee/posts/new).
   4. This fires MID-FORM: while filling tutor registration Step 2 (Profile), the revived admin session yanked
-     the page to /admin/review/<uuid>, destroying all entered data.
+     the page to /admin/review/`<uuid>`, destroying all entered data.
 - Expected: after logout, the refresh family is revoked; navigating to an auth page shows the form and lets a
   new user register/log in. No silent resurrection of a previous identity.
 - Saw: previous sessions repeatedly resurrected; registration/onboarding could not be completed through the user interface.

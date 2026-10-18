@@ -38,7 +38,7 @@ exchange it for the final signed session token.
 - **Password Encoder** — B Crypt using 12
 - **User Repository**
 - **Redis** — multi-factor authentication session (the sha256 operation), admin session
-  (session:admin:<session Id>), attempt counter (...:attempts)
+  (session:admin:`<session Id>`), attempt counter (...:attempts)
 - **Code Verifier** — dev samstevens.totp Default Code Verifier
 - **Jwt Token Provider**
 
@@ -63,7 +63,7 @@ Implementation example omitted. This public edition retains the written requirem
   multi-factor authentication MAX ATTEMPTS is 3. Admin Redis session expiry period configurable via
   jwt admin.session-ttl-seconds (default 1800).
 - Token storage: Redis key is the sha256 operation with value
-  <user Id>:<bcrypt Hash>. The cookie carries the raw token; the backend never stores
+  `<user Id>`:`<bcrypt Hash>`. The cookie carries the raw token; the backend never stores
   the raw token in Redis.
 - Auth Controller multi-factor authentication COOKIE value (withheld), path scoped to
   auth login mfa interface operation.

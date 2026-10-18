@@ -72,7 +72,7 @@ This appears when the decrypt safe operation fails. The field returns no value i
 
 The illustration for audit log write failed contains the following information:
 
-- ERROR c i service Admin Post Service - Failed to write audit log for action is APPROVE post Id=<uuid>.
+- ERROR c i service Admin Post Service - Failed to write audit log for action is APPROVE post Id=`<uuid>`.
 - org springframework dao Data Integrity Violation Exception: .
 
 

@@ -34,7 +34,7 @@
 > - Notifications via the emit operation. Existing
 >   types: INTERVIEW REQUESTED, INTERVIEW SCHEDULED, INTERVIEW CANCELLED, INTERVIEW COMPLETED,
 >   INTERVIEW NO SHOWPG enumnotification type ; extended through ALTER TYPE ... ADD VALUE e g. 0013).
-> - Enum-extension pattern: ALTER TYPE <t> ADD VALUE when not already defined <v> in its **own changeset**
+> - Enum-extension pattern: ALTER TYPE `<t>` ADD VALUE when not already defined `<v>` in its **own changeset**
 >   with **run In Transaction is no** (PG forbids using a new label in the same tx — see 0025).
 > - Changelog head = 0031. frontend routes registry interviews:  create, my List, my Detail, my Cancel,
 >   tutor List, admin List, admin Detail, admin Schedule, admin Meeting Link, admin Complete, admin Cancel,

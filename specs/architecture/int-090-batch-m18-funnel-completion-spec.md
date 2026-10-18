@@ -121,7 +121,7 @@ the Vitest below — existence of the endpoint is not use.
 - **[Testcontainers/per-pull request]** Matching test implementation reference: a selection request with tutor Post Id: no value →
   render → the Assign button is **enabled** (regression for the stopgap) → click → confirm in
   Close Job Assign Modal → assert api post was called with
-  admin selection-requests <id> assign interface operation and an Idempotency-Key header. A second test asserts
+  admin selection-requests `<id>` assign interface operation and an Idempotency-Key header. A second test asserts
   the **stable key** is reused across a retry of the same assign (mirror the existing mark Paid/assign
   idempotency assertions in this suite).
 - **[Testcontainers/per-pull request]** Selection Request Queue test implementation reference: assert the button is
@@ -289,7 +289,7 @@ confirms the match."**
 
 ### Test plan
 - **[Testcontainers/per-pull request]** Matches test implementation reference: an ACTIVE tutor match → assert the
-  "Reveal contact details" button renders; click → read operation for matches <id> contact is called and the
+  "Reveal contact details" button renders; click → read operation for matches `<id>` contact is called and the
   Contact Reveal Card renders the counterparty (tutee). A non-ACTIVE match → no button. Mirror the existing
   Matches test implementation reference reveal assertions (the component already has its own
   Contact Reveal Button test implementation reference for the gate paths — no need to re-test those).

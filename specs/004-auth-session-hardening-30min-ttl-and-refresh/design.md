@@ -19,7 +19,7 @@ Implementation example omitted. This public edition retains the written requirem
   cookie max Age is the SAME property (Auth Controller cookie Max Age), so REQ-001 is config-aligned for all roles.
 - **Refresh token:** an **opaque, high-entropy** random value (NOT a signed session token) — server is the only authority on its
   validity. **Entropy + wire format:** the secret is **≥256 bits drawn from java security.Secure Random**, encoded
-  base64url; the cookie value is <family Id>.<secret> (family Id = a unique identifier, secret = the base64url random) so the
+  base64url; the cookie value is `<family Id>`.`<secret>` (family Id = a unique identifier, secret = the base64url random) so the
   server can look up the family in O using 1 without scanning. The browser holds only this opaque string; all state
   (family id, rotation chain, absolute expiry, creation epoch, owner, role) lives server-side in Redis. This keeps
   reuse-detection and revocation purely server-driven (see ADR-001).
@@ -45,10 +45,10 @@ New Redis Keys entries (no magic strings — added to the application component 
 
 | Key | Value | expiry period | Serves |
 |---|---|---|---|
-| refresh:family:<family Id> | hash the user and role, current and previous token hashes, previous-token grace expiry, creation and absolute-expiry times, and rotation count | refresh idle expiry period (reset on each rotation) | REQ-002/003/004/007 |
-| refresh:revoked:<family Id> | 1 (reuse tripped / logout / block / reset) | **exactly absolute Expiry Epoch − now seconds** (closes the replay window precisely) | REQ-003/004/005 |
+| refresh:family:`<family Id>` | hash the user and role, current and previous token hashes, previous-token grace expiry, creation and absolute-expiry times, and rotation count | refresh idle expiry period (reset on each rotation) | REQ-002/003/004/007 |
+| refresh:revoked:`<family Id>` | 1 (reuse tripped / logout / block / reset) | **exactly absolute Expiry Epoch − now seconds** (closes the replay window precisely) | REQ-003/004/005 |
 
-- The cookie carries <family Id>.<opaque Secret>; the server stores only **SHA-256 secret** of the current secret
+- The cookie carries `<family Id>`.`<opaque Secret>`; the server stores only **SHA-256 secret** of the current secret
   (current Token Hash) so a Redis dump never reveals a usable token. Reuse detection = presented secret hashes (via
   constant-time Message Digest is Equal) to a value that is NEITHER current Token Hash NOR the in-grace prev Token Hash
   for a still-live family ⇒ trip the family-wide revoke.
@@ -58,7 +58,7 @@ New Redis Keys entries (no magic strings — added to the application component 
   current nor in-grace-prev trips reuse.
 - refresh:family:* expiry period is **re-set on each rotation** (the sliding/idle window). absolute Expiry Epoch is fixed at
   family creation = now + jwt refresh.absolute-ttl-seconds (REQ-007). created At Epoch is fixed at family creation
-  (epoch seconds) and is the value compared is at most against pwreset:after:<id> (REQ-004 — the opaque token has no signed session token
+  (epoch seconds) and is the value compared is at most against pwreset:after:`<id>` (REQ-004 — the opaque token has no signed session token
   iat). absolute Expiry Epoch is checked **before** rotation on every refresh (REQ-007 precedence), so a valid idle
   window never bypasses the hard cap.
 - **Revoked-tombstone expiry period = absolute Expiry Epoch − now** (NOT a loose "≥ absolute expiry period"): a freshly-created family
@@ -101,7 +101,7 @@ The naïve "any non-current token from a live family ⇒ revoke" rule self-Do Se
 present the same token. Two layers fix it:
 
 1. **Atomic compare-and-swap on rotation.** The read-current-then-write-successor step runs as a **single atomic Redis
-   operation** — a **Lua script** (EVAL) over the refresh:family:<family Id> hash (preferred — one round-trip, no
+   operation** — a **Lua script** (EVAL) over the refresh:family:`<family Id>` hash (preferred — one round-trip, no
    retry loop), or a WATCH/MULTI/EXEC optimistic transaction with bounded retry. The script: re-reads
    current Token Hash; if it still equals the presented hash → writes the new current Token Hash, shifts old →
    prev Token Hash/prev Expires At Epoch, bumps rotation Count, resets idle expiry period, returns the successor. If
@@ -111,7 +111,7 @@ present the same token. Two layers fix it:
    (jwt refresh.rotation-grace-seconds, default 30), the request is a **concurrent duplicate**: it returns 200 with no Set-Cookie and no token body, preserving the winning response's standing cookies; it does NOT rotate, does NOT
    revoke. Only a hash matching neither current nor in-grace-prev trips reuse.
 
-**Testable invariants (REQ-003):** (a) on a genuine reuse trip the refresh:revoked:<family Id> tombstone write
+**Testable invariants (REQ-003):** (a) on a genuine reuse trip the refresh:revoked:`<family Id>` tombstone write
 **commits BEFORE** the 401 is returned; (b) the reuse/grace decision happens **BEFORE** any new token is minted (no
 successor is issued to a token that should be rejected). The absolute-cap check (REQ-007) runs **before** rotation, so
 an expired-but-idle-alive family is rejected without minting.
@@ -124,7 +124,7 @@ an expired-but-idle-alive family is rejected without minting.
   AUTH ERROR CODE).
 - Terminal authentication rejection paths (401/403, not 429 throttling) clear BOTH cookies (auth Path=/, refresh token Path is auth refresh interface operation) with max Age is 0,
   so a dead/rotated/abused credential is not re-sent.
-- Reuse detection writes refresh:revoked:<family Id> (tombstone expiry period = absolute Expiry Epoch − now) + an audit row
+- Reuse detection writes refresh:revoked:`<family Id>` (tombstone expiry period = absolute Expiry Epoch − now) + an audit row
   REFRESH REUSE DETECTED + increments an abuse metric (auth refresh.reuse detected), so theft is observable, not
   silent (security-expert non-negotiable: "if exploited, will we know?").
 - Success writes audit TOKEN REFRESHED. The endpoint is **rate-limited per-IP/per-user** (reuse the existing
@@ -175,7 +175,7 @@ rebuild/redeploy before the documented operational check reflects the change.
   every use** (issue new, invalidate old) and **reuse detection** (presenting an already-rotated token from a live
   family revokes the entire family). The browser stores only the opaque string in an Http Only/Secure/
   Same Site is Strict cookie scoped to Path is auth refresh interface operation; the server stores only a hash of the current secret.
-  Refresh re-checks the SAME kill-switches the access path enforces (blocked:user:<id>, pwreset:after:<id> — the
+  Refresh re-checks the SAME kill-switches the access path enforces (blocked:user:`<id>`, pwreset:after:`<id>` — the
   latter compared is at most against the family's stored created At Epoch since the opaque token has no signed session token iat), plus
   an **absolute lifetime cap** independent of rotation (sliding idle window + hard cap). Rotation is **atomic
   (CAS/Lua)** with a short **grace window** for the immediately-previous token, so concurrent tabs/stampedes do not
@@ -200,7 +200,7 @@ rebuild/redeploy before the documented operational check reflects the change.
   token. Options for the at-rest representation: (a) a slow password hash (bcrypt/argon2), (b) a fast cryptographic
   hash (SHA-256). And: how much entropy does the secret carry, and how is it compared?
 - **Decision:** The secret is **≥256 bits from Secure Random**, base64url-encoded; the cookie value is
-  <family Id>.<secret>. The server stores **SHA-256 secret** only. Comparison is **constant-time**
+  `<family Id>`.`<secret>`. The server stores **SHA-256 secret** only. Comparison is **constant-time**
   (Message Digest is Equal); the equals operation/equals are forbidden. **bcrypt/argon2 are explicitly rejected here.**
 - **Rationale:** Slow hashes exist to defend *low-entropy* human-chosen passwords against offline brute-force. This
   secret is ≥256-bit machine-random — it is computationally infeasible to brute-force regardless of hash speed, so a

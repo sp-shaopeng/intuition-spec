@@ -2,6 +2,8 @@
 
 **Later alignment review:** the six reviews below assessed the original publication. Three new independent AI reviewers subsequently compared it with the current application and source specifications and found real mismatches. Read the [current-file alignment report](current-file-alignment.md) for the corrections and remaining application gaps. The original publication passes were not approval of application compliance.
 
+The original reviewers' activation-clock wording below was later found incomplete. The source uses activation, email sending and notification receipt as different starting events for the seven-day period. No later controlling decision settles that disagreement. Separately, the current register's O12 remains open about the reminder deadline and detection schedule; the earlier review did not settle either question. This is one reason later reviews must check the source decisions as well as earlier conclusions.
+
 Six AI reviewers examined this publication from separate roles on 18 October 2026. Each received its own brief and worked without reading the other reviewers' reports. These were AI review sessions, not reviews by six human teams or independent organisations.
 
 **All six final rechecks passed within their stated publication-review scopes.** The first round required changes in every role. The table below records the main findings and the corrections that were checked again. This was a review of the documentation, not approval to launch the service.
@@ -9,7 +11,7 @@ Six AI reviewers examined this publication from separate roles on 18 October 202
 | Review role | What the reviewer challenged | Correction made and rechecked |
 |---|---|---|
 | Business | An older experiment named the wrong commission payer; a monthly example conflicted with its weekly description; the customer-acquisition plan was thin. | Name the tutor as the agency-fee payer, use an explicitly agreed monthly plan, and state the untested acquisition and supply assumptions. |
-| Product | The seven-day clock had no clear starting event; interview coordination and fee acknowledgement were underexplained. | Start the clock at activation, distinguish agreed interview time from staff scheduling, and explain acknowledgement before tutor-profile creation. |
+| Product | The seven-day clock had no clear starting event; interview coordination and fee acknowledgement were underexplained. | The initial recheck used activation as the clock start; the later source comparison reopened that choice. It also distinguished agreed interview time from staff scheduling and explained fee acknowledgement at signup. |
 | Technical lead | Encryption and message-recovery claims exceeded the inspected implementation; combined tests did not necessarily exercise each application pull request. | Describe plain-text contact storage, specific delivery gaps, and the actual boundaries of combined checks. |
 | Developer | The export retained fragments of source and commands; some headings and links no longer matched. | Replace fragments with meaningful prose and check the final Markdown paths and heading links. |
 | QA | Early cleanup removed real requirements and damaged tables; navigation needed verification after the format changed. | Restore every current rule, compare table contents with the source, and validate the final Markdown collection. |
@@ -21,7 +23,7 @@ The original reviewed collection contained 357 Markdown files, including 346 spe
 
 The developer recheck examined the whole collection with content scans and manually inspected reported source fragments. Commands, query examples and damaged conversion markers were rewritten into prose. Pattern scans found no confirmed unredacted credentials or private contact details. A separate comparison of 100 candidate credential values found in the private files found no matches in the public draft. These are bounded checks, not a guarantee against every unknown secret format.
 
-The business recheck also required cancellation wording to preserve existing receipts and distinguish billing stages. The product recheck preserved the difference between server authorisation and the website's contact-display rule. The technical recheck required explicit independent approval of the specification before implementation. QA caught a placeholder that Markdown interpreted as a broken link. The skeptical-reader recheck required the seven-day confirmation clock to start at activation consistently.
+The business recheck also required cancellation wording to preserve existing receipts and distinguish billing stages. The product recheck preserved the difference between server authorisation and the website's contact-display rule. The technical recheck required explicit independent approval of the specification before implementation. QA caught a placeholder that Markdown interpreted as a broken link. The skeptical-reader recheck originally chose activation as the seven-day clock start. The later source comparison found conflicting clauses, so that choice is no longer presented as settled.
 
 Publication uses a new repository and fresh history. Only the reviewed Markdown documents are staged; original source history and private evidence are excluded.
 
@@ -29,8 +31,25 @@ Publication uses a new repository and fresh history. Only the reviewed Markdown 
 
 The reviewers checked the public explanation, selected source documents and, for the technical role, relevant private implementation. The publication checks cover document inventory, relative links, tables, file types and selected sensitive-content patterns. The private implementation and original reports are not included here.
 
-The application test suites were not rerun for this publication. Review does not establish production readiness, security certification, revenue, customer demand or a successful public launch. InTuition remains unlaunched.
+The original publication review did not rerun the application suites. A later limited backend baseline is recorded in [Testing and release](testing-and-release.md#follow-up-baseline-check), with the excluded live lab and unfinished frontend check stated explicitly. Review does not establish production readiness, security certification, revenue, customer demand or a successful public launch. InTuition remains unlaunched.
 
 ## How findings are handled
 
 A finding needs a concrete correction and a recheck. A passing publication review means the reviewed documentation is acceptable within its stated scope. It does not close the implementation gaps described in [testing and release](testing-and-release.md), or settle the business decisions in the [current requirements](../specs/CURRENT-REQUIREMENTS.md).
+
+## Follow-up: project workflow, user flows and Markdown conversion
+
+The follow-up addresses how the project is managed with AI: approved written requirements, small assigned tasks, issue and evidence tracking, independent review, and maintenance of the regression lab. Product journeys are documented separately. No application feature was changed by this documentation work.
+
+| Independent review | Finding and correction | Scope |
+|---|---|---|
+| Product and conversion reviewer | Required tutor commission acknowledgement at signup; explicit parent confirmation, billing and cancellation exceptions; faithful missing-rate and navigation details in the historical mockups. | Compared the new journeys and Markdown archives with private source requirements and original bundled designs. Five findings were corrected and independently rechecked. |
+| Regression-lab reviewer | Found coverage summaries that count references rather than executed journeys, checks not wired into the combined workflow, shared-data and target risks, and unenforced quarantine rules. | Read the actual test-lab files. The plan records these gaps and proposed controls; this review did not run the full lab. |
+| Workflow and skeptical-reader reviewer | Required a clear failing-test/fix/test cycle, results before independent final review, accurate release ordering, and explanations of test data and required checks. | Independently rechecked those corrections and the five earlier content findings. Approval covers the documentation, not application behaviour or release readiness. |
+| Publication and privacy reviewer | Found leftover element/component markup in older Markdown specifications and two editing-tool closing tokens. | Required prose replacements preserving control type, labels, navigation and access restrictions, plus a final inventory, link, format and sensitive-content recheck. |
+
+The final source comparison also found acceptance scenarios incorrectly omitted from the public PRD as if they were implementation examples. An independent reviewer compared all three restored journey maps, the commission flow and all 19 acceptance sections, confirming that all 51 source scenarios remain. The restored text preserves the source requirements and explicitly identifies conflicts with later controlling rules. It does not turn historical wording into a new product decision.
+
+The collection now contains 362 Markdown documents, including the same 346 specification documents, 21 main user journeys linking all 43 numbered sequences, and two historical HTML designs converted into Markdown. Private repair drafts created after the initial specification snapshot remain excluded and are not approved implementation work.
+
+Follow-up content rechecks passed within those scopes. Final collection checks found no broken local document or heading links, malformed table widths, non-Markdown files, embedded HTML or rendered code blocks. Literal field placeholders remain visible as notation. A fresh comparison of the 100 private credential candidates found no matches; separate checks of the six private company legal/contact values also found no exact or punctuation-normalized matches. These bounded checks do not guarantee that every possible unknown secret format has been detected, remove older remote objects or revoke credentials.

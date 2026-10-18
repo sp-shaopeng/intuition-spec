@@ -234,15 +234,15 @@ convention, e g. Job Application created At).
 Implementation example omitted. This public edition retains the written requirements in this section.
 
 
-> **⚠️ INDEX FIX (team-review block, Morgan/Chris):** the <create Index unique is yes> block above is
+> **⚠️ INDEX FIX (team-review block, Morgan/Chris):** the unique index definition block above is
 > WRONG — a plain unique tutee post id, status forbids more than one CONSUMED/EXPIRED row.
-> **DELETE that <create Index> block entirely** and use ONLY this partial-unique index (the single
+> **DELETE that index definition block entirely** and use ONLY this partial-unique index (the single
 > authoritative definition):
 > sql
 > require a unique lookup index ux selreq one open per job
 >   ON tutor selection requests (tutee post id) when status = 'CREATED';
 > 
-> Emit via Liquibase raw <sql dbms is postgresql>. Single-open-per-job is RESOLVED = yes (§12 #3):
+> Emit via Liquibase raw PostgreSQL-specific SQL block. Single-open-per-job is RESOLVED = yes (§12 #3):
 > "mutable until admin confirms" = one editable CREATED request; re-choose UPDATEs the row.
 
 **Selection-request lifecycle (state machine):**
@@ -718,7 +718,7 @@ These resolve every OPEN (backend) item; the table above is historical. Binding 
 
 | # | Condition | Where |
 |---|---|---|
-| TR1 | **§2.5 index:** delete the broken <create Index unique>; use ONLY the partial-unique when status is CREATED. | applied in §2.5 |
+| TR1 | **§2.5 index:** delete the broken unique index definition; use ONLY the partial-unique when status is CREATED. | applied in §2.5 |
 | TR2 | **Bulk supersede update records** must use the modifying operation (stale-context bug otherwise — same lesson as update Password Hash). | §4 |
 | TR3 | **No-application assign branch:** when the admin assigns a tutor who never applied (source application id null), there is no app row to flip → handle explicitly, no missing-value failure; add a test. | §4 |
 | TR4 | **handle personal information-leak validation = MUST** (not SHOULD): reject values matching an email/phone pattern + length cap, server-side. | §3/§12 #8 |
@@ -784,7 +784,7 @@ Binding for backend implementation. Mirrored in the UIUX spec's "TEAM-REVIEW RES
 - **D4 — handle validation = MUST** (= §12 #8 + TR4, reconciled): reject SG-phone an eight-digit Singapore mobile number beginning with 8 or 9,
   email, URL; ≤40 chars; unique (case-insensitive); profanity screen — **server-side** (the form
   mirrors it; the server is the enforcement layer, not a client route guard).
-- **D5 — tutor Id is a unique identifier** in submit operation for select (the 123 stub in §5.2 corrected to <uuid>).
+- **D5 — tutor Id is a unique identifier** in submit operation for select (the 123 stub in §5.2 corrected to `<uuid>`).
 - **D6 — "Reviewed by our team", NOT "Verified" (Boss trust-and-safety catch):** the parent user interface must
   NOT claim tutors are "verified" — there is **no identity-verification workflow** today (only M3 post
   approval + the profile-completeness gate). Expose at most a boolean from EXISTING signals (profile

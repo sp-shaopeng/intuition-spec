@@ -13,7 +13,7 @@ backend; file:line cited for each touched file. Liquibase for ALL schema (no raw
 
 > **Addendum (INT-077, 2026-06-06):** invitations now carry a **per-tutee post cap of 10
 > active (PENDING) invites** (config quota invites-per-post), enforced race-safely in
-> the invite operation (advisory lock jobinv:<tutee Post Id>); over-cap → 422
+> the invite operation (advisory lock jobinv:`<tutee Post Id>`); over-cap → 422
 > ERR INVITE LIMIT REACHED. Every invite/withdraw/applicants response now returns a
 > the quota limit and remaining allowance, and a new read operation for tutee posts id invite-quota
 > powers the pre-click chip. Full design:

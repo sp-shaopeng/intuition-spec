@@ -184,12 +184,12 @@ Implementation example omitted. This public edition retains the written requirem
 Analytics implementation reference already implements:
 
 - **Quick-range presets:** Last 7, Last 30, Last 90 days + Year to date (the YTD preset exceeds the founder's required 90-day max but is useful and within the 366-day server cap; retain it).
-- **Custom from/to:** two native <input type is date> elements with ARIA labels.
+- **Custom from/to:** two native date input elements with ARIA labels.
 - **Client-side inversion guard:** is Range Inverted prevents a round-trip for an obviously wrong range.
 - **Query disabled** when either date is empty or range is inverted.
 - **Error and loading states.**
 
-This is the correct lightweight approach. No third-party date-picker library is needed — the native <input type is date> is accessible, zero-bundle-cost, and sufficient for an admin-only screen. Do not introduce a heavy dependency (e g. react-datepicker, date-fns) for this feature.
+This is the correct lightweight approach. No third-party date-picker library is needed — the native date input is accessible, zero-bundle-cost, and sufficient for an admin-only screen. Do not introduce a heavy dependency (e g. react-datepicker, date-fns) for this feature.
 
 ### 5.2 Required frontend changes
 
@@ -209,7 +209,7 @@ Apply this standard to total Collected Sgd (change "Lifetime collected" → subt
 
 **c) INT-049 design token alignment:**
 
-The picker controls (<input type is date>, preset buttons) should use the same border/focus/text tokens defined in the INT-049 redesign spec (intuition-spec/specs/uiux/redesign-modern-readable-spec md). Specifically:
+The picker controls (date input, preset buttons) should use the same border/focus/text tokens defined in the INT-049 redesign spec (intuition-spec/specs/uiux/redesign-modern-readable-spec md). Specifically:
 
 - Border: border-cream-border (already used — correct).
 - Focus ring: focus:border-navy (already used — correct).
@@ -220,7 +220,7 @@ No immediate changes are needed for design token compliance; the current impleme
 
 **d) No heavy dependency:**
 
-Do not add react-datepicker, @mui/x-date-pickers, or any other date-picker library. The native <input type is date> is sufficient, accessible, and has zero bundle cost.
+Do not add react-datepicker, @mui/x-date-pickers, or any other date-picker library. The native date input is sufficient, accessible, and has zero bundle cost.
 
 ---
 

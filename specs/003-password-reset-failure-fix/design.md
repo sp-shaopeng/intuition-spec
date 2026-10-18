@@ -78,7 +78,7 @@ further, and the frontend shows the same "too many attempts" copy for both 429 c
 - **H2 — 15-min one-time passcode expiry → INVALID OTP.** find Latest Valid Token returns empty once expires at has passed
   (Auth Service implementation reference), collapsing to 400 INVALID OTP. A user slow to check email / reusing an old email
   link hits this. Check expires at vs the attempt time in the captured token row.
-- **H3 — one-time passcode attempt cap → 429 OTP ATTEMPTS EXCEEDED.** Redis otp:attempts:<token Id> ≥ one-time passcode MAX ATTEMPTS
+- **H3 — one-time passcode attempt cap → 429 OTP ATTEMPTS EXCEEDED.** Redis otp:attempts:`<token Id>` ≥ one-time passcode MAX ATTEMPTS
   (Auth Service implementation reference). A user who fumbles the code a few times is locked to that token and must request
   a new one. Check the Redis counter value at failure time.
 - **H4 — one-time passcode hash mismatch (wrong/garbled code).** password Encoder matches false (Auth Service implementation reference) —

@@ -166,13 +166,13 @@ navigate there post-login; else fall back to role home. Required for FLOW-1.2.
 - Each landing strip header gets "See all →" deep-linking to the (pre-filtered) browse
   page; card click → detail (gated). Strip = teaser, browse = catalog.
 - ONE shared card component across both strips + both browse pages; ONE shared
-  <Marketplace Filter Bar>; designed empty state ("No matches — clear filters") +
+  marketplace filter bar; designed empty state ("No matches — clear filters") +
   skeleton loading on every browse page. Budget band visible on every card.
 - Hero PRIMARY CTA stays "Find a Tutor" (parent-first) even though Jobs strip is first
   (order ≠ priority — mitigates Priya's "mis-served" concern). Secondary "Find tuition
   jobs" → /assignments.
 
-**frontend structure (Sam):** shared <Require Auth return To> route wrapper for /tutors/:id
+**frontend structure (Sam):** shared route wrapper that requires authentication and preserves the return destination for /tutors/:id
 + /assignments/:id (redirect BEFORE the authed fetch fires — no 401 flash); list
 routes stay public/outside the guard. application programming interface ROUTES public.assignments; new
 the list operation (do NOT collide with request Keys list). Friendly

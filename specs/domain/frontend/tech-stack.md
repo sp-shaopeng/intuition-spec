@@ -54,7 +54,7 @@ On app load:
 3. On 200: store the signed-in user’s account details after the sign-in check finishes
 4. On 401: store a completed sign-in check with no signed-in user — user is not authenticated
 
-Protected routes (<Require Auth role is TUTEE>) check auth Store user — redirect to /login if null.
+Protected routes (authentication wrapper restricted to tutees) check auth Store user — redirect to /login if null.
 
 ---
 

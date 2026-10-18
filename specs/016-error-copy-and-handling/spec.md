@@ -3,7 +3,7 @@
 ---
 id: 016
 slug: error-copy-and-handling
-title: Error copy + handling — humanise raw "not found: <uuid>", no-handler 500→404, create-admin field naming, tel: escaping
+title: Error copy + handling — humanise raw "not found: `<uuid>`", no-handler 500→404, create-admin field naming, tel: escaping
 version: 1.1
 status: HISTORICALLY MARKED IMPLEMENTED
 owner: requirements-engineer   # build owners: software-engineer / frontend-expert / bff-specialist
@@ -19,7 +19,7 @@ updated: 2026-09-05
 Hardens error messaging + a few error-handling edges from the 2026-06-22 review
 (specs/issues/review-2026-06-22/CONSOLIDATED md). Complements spec 010 (trace Id Reference stays on the toast):
 
-- **INT-211 (S3)** — error toasts show raw Tutee post not found: <uuid> (entity + id leak). Many service sites
+- **INT-211 (S3)** — error toasts show raw Tutee post not found: `<uuid>` (entity + id leak). Many service sites
   concatenate the id into the message (Interview Service implementation reference, Job Application Service implementation reference,220,451,
   560,686 Review Service implementation reference Admin Match Service implementation reference,198, …). Humanise the user-facing copy; keep the
   trace Id Reference for support.
@@ -57,7 +57,7 @@ verified not to regress the spec 010 trace Id/header behaviour.
 ## Changelog
 
 - 2026-09-05 — Documentation alignment correction: Safe generic unmapped-error fallback; backend scrub remains optional. No application code or runtime verification in this change. Earlier entries below are historical.
-- 1.0 (2026-06-22) initial draft — ADDED REQ-001 (humanise "<entity> not found: <uuid>" in user-facing copy, keep
+- 1.0 (2026-06-22) initial draft — ADDED REQ-001 (humanise "`<entity>` not found: `<uuid>`" in user-facing copy, keep
   trace Id), REQ-002 (no-handler 500→404), REQ-003 (create-admin 400 names the missing field via field Errors),
   REQ-004 (encode tel:/mailto: hrefs). Grounded against the service throw-sites, Global error handler,
   Create Admin Request, Contact Reveal Card. status DRAFT pending scoped team-review.

@@ -132,7 +132,7 @@ public browse endpoints.
   a shared maximum-size limit, reducing larger requests to that limit.
 
 ### Acceptance criteria
-- GET <any paginated list>?size is 100000 returns at most max-page-size rows (clamped), not a
+- GET `<any paginated list>`?size is 100000 returns at most max-page-size rows (clamped), not a
   100k-row payload, and does not OOM.
 - Default page size is the configured value when size is omitted.
 
@@ -149,7 +149,7 @@ public browse endpoints.
 Auth Controller client Ip (Auth Controller implementation reference) reads CF-Connecting-IP,
 then X-Forwarded-For (first hop), with **no trusted-proxy allowlist** and no verification that
 the request actually arrived through Cloudflare. Any direct caller can set
-CF-Connecting-IP: <random> per request. That IP is the rate-limit bucket key for registration
+CF-Connecting-IP: `<random>` per request. That IP is the rate-limit bucket key for registration
 and forgot-password:
 - Auth Service register Tutee/register Tutor → the register key operation (pure-IP
   keyed) — Auth Service implementation reference.
@@ -205,20 +205,20 @@ cut off the attacker.
 ### Current state (file:line)
 - reset Password body: Auth Service implementation reference — no jti revoke, no session purge, no
   per-user token epoch bump.
-- Logout-style revocation already exists for admin: logout writes jti:<jti> deny + deletes
-  session:admin:<id> (Auth Service implementation reference); the admin session index
-  sessions:by-user:<user Id> (Auth Service implementation reference) already supports purging ALL of a
-  user's live admin sessions. The INT-065 block-flag (blocked:user:<id>, checked in the auth
+- Logout-style revocation already exists for admin: logout writes jti:`<jti>` deny + deletes
+  session:admin:`<id>` (Auth Service implementation reference); the admin session index
+  sessions:by-user:`<user Id>` (Auth Service implementation reference) already supports purging ALL of a
+  user's live admin sessions. The INT-065 block-flag (blocked:user:`<id>`, checked in the auth
   filter for all roles) is the existing all-roles per-request kill-switch primitive.
 
 ### Fix direction
 - On successful reset, **revoke all of the user's outstanding access tokens**, for every role:
   - **TUTOR/TUTEE (stateless):** introduce a **per-user token epoch / tokens valid after
-    timestamp** (Redis pwreset:after:<user Id> = reset instant, expiry period ≥ max token lifetime). The
+    timestamp** (Redis pwreset:after:`<user Id>` = reset instant, expiry period ≥ max token lifetime). The
     auth filter rejects any token whose iat (issued At) is before that instant — reusing the
     INT-065 pattern (check before setting the principal, expire the cookie max Age is 0). This is the
     stateless equivalent of "log out everywhere."
-  - **ADMIN:** purge sessions:by-user:<user Id> (delete every session:admin:* it indexes) so the
+  - **ADMIN:** purge sessions:by-user:`<user Id>` (delete every session:admin:* it indexes) so the
     reset actually ends live admin sessions instead of waiting them out.
 - Do the revocation **after commit** (same after Commit hook already used at 564) so a rolled-
   back reset doesn't strand sessions.
