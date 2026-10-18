@@ -36,6 +36,8 @@ This model creates a business tradeoff. Personal coordination may make an unfami
 
 ## The main product journey
 
+The [service sequence](user-flows.md#service-overview) shows the parent, tutor and coordinator handoffs. The separate [billing sequence](sequence-diagrams.md#billing-and-agency-receipt) shows first-session confirmation, invoicing and who pays whom; [cancellation](sequence-diagrams.md#cancellation-and-financial-records) has its own financial safeguards. These are required journeys with visible implementation gaps, not records of a live service.
+
 ### 1. Understand the available choices
 
 Visitors can browse a limited set of public tutor and tuition-request results. The agreed requirement also allows guest filtering and pagination, but the current website still hides those controls until login. This is an implementation gap, not a change to the public-access rule. More detailed views and actions have separate sign-in requirements. Public cards use permitted profile information and general location rather than exposing contact details.
@@ -46,7 +48,7 @@ The landing showcase is meant to help a visitor understand the type of supply an
 
 A parent supplies the subject and level, general location, preferred availability, budget, lesson duration and frequency. A tutor supplies their teaching scope, qualifications, rates, areas and availability through their profile and any optional listing.
 
-The intended onboarding flow explains the one-time agency fee and asks tutors to acknowledge it before creating their profile. It includes the calculation, who pays and when the fee becomes due.
+The intended onboarding flow explains the one-time agency fee and requires tutors to acknowledge it before account creation. It includes the calculation, who pays and when the fee becomes due. Profile capture during signup is optional and may be completed later; applying still requires the approved profile information.
 
 Posts enter a moderation process. The current coordinator screen offers approval or rejection with a reason. Owners can edit and resubmit where the post's state allows it; there is no separate “request changes” action in the inspected screen. This is a review of the submitted information, not a universal certification of the tutor. The meaning and evidence required for a broader “verified tutor” badge remain an open decision.
 

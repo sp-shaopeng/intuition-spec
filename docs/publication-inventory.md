@@ -18,12 +18,13 @@ The [specification index](specification-index.md) offers document titles and lin
 
 ## Follow-up guides and HTML conversions
 
-The current public tree contains **362 Markdown documents**, including the 346 specifications below. The follow-up adds these four guides; the original specification inventory is unchanged.
+The current public tree contains **363 Markdown documents**, including the 346 specifications below. The follow-ups add these guides and conversions; the original specification inventory is unchanged.
 
 | Document | Source and purpose |
 | --- | --- |
 | [Project workflow improvement plan](workflow-improvement-plan.md) | New explanation of project management, AI assignments, spec-driven development and regression-lab maintenance; proposals remain labelled. |
 | [High-level user flows](user-flows.md) | New reading guide to 21 journeys and all 43 numbered sequences, with current limits. |
+| [Sequence diagram guide](sequence-diagrams.md) | High-level visual summaries and a coverage map for the user journeys and detailed sequence records. Documentation coverage does not mean executed test coverage. |
 | [Earlier design directions](design-directions.md) | Sanitized Markdown conversion of the two-direction HTML design archive; historical claims remain labelled and do not override current rules. |
 | [Cover concept](cover-concept.md) | Sanitized Markdown conversion of the earlier HTML cover concept. |
 

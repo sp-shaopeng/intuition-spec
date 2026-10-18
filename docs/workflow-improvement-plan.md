@@ -2,6 +2,8 @@
 
 Draft proposal, 18 October 2026. The founder owns priorities, business decisions and release approval. AI investigates, writes specifications, implements bounded changes, tests and reviews. The roles below are responsibilities, not hired staff. This plan proposes changes to the [existing working method](how-i-work.md); the [user-flow guide](user-flows.md) describes the product. It adds no mandatory ceremony or installed controls by itself.
 
+[AI coding sequence](workflow-walkthrough.md#intended-ai-coding-workflow) · [Test-lab handoff](testing-and-release.md#intended-test-lab-handoff). The diagrams summarize the obligations and proposed controls below; they do not establish installed enforcement.
+
 ## What to improve first
 
 | Priority | Next action and owner | Evidence needed to pass |
@@ -61,11 +63,11 @@ The private pilot draft now has these planning rows. Their IDs identify proposed
 
 ## Bound AI work and inspect progress
 
-Keep the existing spec-before-code and independent approval rules. For the pilot, approvals name the exact version; changed rules return for review, and old sign-offs cannot approve them. Give AI the scope, contracts, revisions, acceptance rows and checks. Assign one writer per shared area; sequence shared builds and dependent edits.
+Keep the existing spec-before-code and independent approval rules. For the pilot, approvals name the exact version; changed rules return for review, and old sign-offs cannot approve them. Give AI the scope, contracts, revisions, acceptance rows and checks. Assign one writer per shared area. Also own browser/session, fixture and build resources: isolate them for parallel work or serialize shared access. Stop the previous owner before reassignment and reproduce suspected session contamination in isolation.
 
 Use the existing board states with a current artifact, next action and blocker owner. Inspect the diff, result or running process before changing status. Contract or scope changes return to specification review. Preserve unrelated edits.
 
-Keep test-first repair: demonstrate the original failure and a regression test that catches it, then update the maintained journey. Keep code, credentials, traces and snapshots private. Checkpoint before dispatch, after material changes and after gates, not only at session end. Record the spec/source snapshot, owned files, diff/evidence, last completed command, running work, blockers and next action. Release or reassign writer ownership explicitly. Test interruption before the normal summary: a fresh developer must resume from this record, reconcile conflicting historical statuses and avoid duplicate writers or repeated accepted work.
+Record starting revisions and baseline results before editing; unavailable setup is blocked, not green. For new or changed production behaviour, run a meaningful failing check from the approved rule before code, implement, rerun and refactor while passing. A bug also needs reproduction and a supported cause. Keep the existing documentation and logic-free exceptions; do not manufacture an application failure for prose edits. Update the maintained journey. Keep code, credentials, traces and snapshots private. Checkpoint before dispatch, after material changes and after gates, not only at session end. Record the spec/source snapshot, owned files, diff/evidence, last completed command, running work, blockers and next action. Release or reassign writer ownership explicitly. Test interruption before the normal summary: a fresh developer must resume from this record, reconcile conflicting historical statuses and avoid duplicate writers or repeated accepted work.
 
 ## Maintain the lab with each change
 
@@ -77,7 +79,7 @@ The founder is accountable for the lab across sessions, including time for upkee
 
 **Identify the complete build.** One private combined-version record names fixed specification, frontend, backend and test revisions, migrations, seed, browsers, toolchain and settings. Include the complete source input snapshot, relevant untracked files, source and built-image fingerprints, and run ID. A fingerprint identifies exact file contents; a supplied commit label does not. Bind those inputs to the built artifact and evidence, excluding secret values. Change one uncommitted file in the pilot: prior evidence must become stale, the rebuilt artifact must differ, and both runs must be reconstructable. Verify running identities and website/API targets.
 
-CI and deployment must consume that same record and reject changed, missing or failed evidence. A passing result for another revision cannot authorize deployment. The founder and technical lead first approve the delivery route and reconcile existing direct-push instructions with any proposed pull-request gate. Reuse existing tools; no new platform is needed.
+An uncommitted snapshot identifies investigation only. Delivery uses the clean reviewed committed candidate, with direct local startup/affected-flow observations and confirmed push. CI and deployment must consume that same record and reject changed, missing or failed evidence. A passing result for another revision cannot authorize deployment. The founder and technical lead first approve the delivery route and reconcile existing direct-push instructions with any proposed pull-request gate. Reuse existing tools; no new platform is needed.
 
 **Check prerequisites first.** Confirm stack health, dependencies, browsers and required database access. Missing prerequisites make the run incomplete. Define a separate non-mutating production smoke check; the development suite performs mutations. Reconcile the declared browser matrix and available lint, inventory, contract and coverage scripts with what CI actually runs.
 
@@ -98,6 +100,8 @@ Classify product, requirement and environment failures and preserve the first fa
 The six perspectives are business, product, QA, technical lead, developer and AI skeptic. Consolidate duplicate findings into one owned action and retain sources and responses. Independence means a separate non-author execution, no edits to the reviewed version, first-pass findings before seeing others' verdicts, direct inspection of rules/diffs/evidence and re-review after material changes. Facilitator-voiced perspectives are not independent reviews; AI votes do not approve policy.
 
 **Proposed governance amendment, requiring founder approval:** use an author, independent reviewer and accountable founder for ordinary bounded changes; add consumer, security, data or recovery reviewers when affected. Until explicitly approved and recorded, retain the existing full review and final audit. Apply any approved amendment to the single implementation pilot, retaining its exact reviewed version, original findings, outcome and founder decision. Judge it by evidence quality, defects and founder effort, not agent count.
+
+After all required reviews, the coordinator audits the actual evidence and unresolved obligations. Findings return to correction, affected checks and independent recheck; material rules return to specification approval. Standing full review and this final audit remain required while W01 is open.
 
 Keep implemented, verified and task-done separate: files changed; named acceptance evidence passed; required review and records completed. Material code, fixture, contract or requirement changes reopen affected evidence and review. Documentation can be complete while product journeys remain missing.
 

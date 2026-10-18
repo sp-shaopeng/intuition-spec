@@ -24,6 +24,41 @@ Versions above come from the private dependency lockfiles and build definitions 
 
 A tutee fills in a tuition request in the browser. The server checks the request and the caller's permissions before storing it. Administration, applications, selection and assignment then move the request through defined states. The database remains the record of those changes; a successful-looking screen alone is insufficient proof that they happened.
 
+### Browser, server and saved result
+
+**Required request boundary, 18 October 2026.** The layers exist in the inspected application; this diagram describes the required ordering, not a fresh passing run. It applies to a change that requires a notification under [C12](../specs/CURRENT-REQUIREMENTS.md). A simpler change need not create a message.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Web as Website
+    participant Server
+    participant Store as Saved records
+    User->>Web: Submit an action
+    Web->>Server: Send the action with session protection
+    Server->>Server: Check role, ownership and current state
+    alt Invalid or no longer permitted
+        Server-->>Web: Reject with the appropriate reason
+        Web-->>User: Show the outcome without claiming success
+    else Allowed
+        Server->>Store: Save change, audit and message intent together
+        alt Save fails
+            Store-->>Server: Keep none of the partial change
+            Server-->>Web: Report failure
+            Web-->>User: Keep the action unsuccessful
+        else Save succeeds
+            Store-->>Server: Confirm the committed change
+            Server-->>Web: Return the saved result
+            Web-->>User: Show the new state
+            Note over Server,Store: External delivery happens after commit
+        end
+    end
+```
+
+“Message intent” includes the required in-app notification and the saved request for external delivery. Either these and the business change commit together, or none do. A valid session alone does not authorize an action. The server checks ownership, state and request-forgery protection; conflicting changes must not create duplicate results. Contact fields are stored as readable text under C13, while disclosure remains restricted under C04. Passwords follow their separate hashing rules.
+
+The [notification sequence](sequence-diagrams.md#notifications-and-delivery-recovery) begins from the committed records and shows pending, retry and permanent-failure outcomes. Saving a request does not prove an email arrived. **G08/G09 remain open:** current delivery and reminder paths do not yet meet all those requirements. See [protected writes](../specs/sequences/25-csrf-protected-write.md), [contact storage](../specs/sequences/27-encrypted-pii-write-and-lookup.md), [transactional messaging](../specs/sequences/26-email-fanout-on-event.md) and the [current-file review](current-file-alignment.md).
+
 Contact details are protected separately from public listing information. Public browsing uses restricted response shapes. Assigned participants have a specific, authorised contact-reveal path. This distinction matters: the product does not promise to hide contact details from the people who have been matched. The [current requirements](../specs/CURRENT-REQUIREMENTS.md) take precedence over older wording that suggests otherwise.
 
 The frontend, backend, browser tests and specifications are maintained in separate repositories. Combined checks bring the parts together so a change in one repository can be tested against its consumers. [Testing and release](testing-and-release.md) describes the boundaries and remaining gaps.

@@ -1,155 +1,107 @@
-# Sequence Diagram Index
+# Detailed sequence records
 
-> Reading note: [Current requirements](../CURRENT-REQUIREMENTS.md) take priority. Named reviewers are AI roles, not employees. Reported test results are historical; see [publication notes](../../docs/publication-notes.md#history-and-review-roles).
+This index links **43 detailed flow records**. They contain written requirements and retained historical implementation descriptions. They do not each contain a rendered diagram. Start with the [high-level sequence diagrams and coverage map](../../docs/sequence-diagrams.md) for the visual handoffs.
 
-Engineer-facing Mermaid sequence diagrams covering every key flow in InTuition SG.
-All diagrams are derived from real controller/service/page source — line references
-are provided in each Notable details section.
+The [current requirements](../CURRENT-REQUIREMENTS.md) take priority over older examples. A corrected contract states what must happen; a historical source description states what was observed at an earlier time. Neither is a fresh application test. Named reviewers are AI roles, not employees. See [publication notes](../../docs/publication-notes.md#history-and-review-roles).
 
-> **Coverage (2026-06-02, INT-022 close-out):** all 24 production controllers now have a
-> flow. Flows 36–41 were added to cover the M14/M17/M18 surfaces that previously lagged —
-> marketplace detail, contact reveal, choose-tutor selection, admin applicant view, public
-> showcase strips, and admin analytics. The two the profile operation regression-only
-> controllers (Regression Auth Controller, Regression Manifest Controller) are intentionally
-> out of scope (test harness, not product). Cross-checked against reference/backend-api md.
+## Start with a visual overview
 
-> **Updated 2026-06-03 (INT-015…047 fix batch):** flows refreshed to the as-shipped behaviour —
-> **12** (match-cancel: the INT-016 Sev-1 fix + the M18 reopen + cancel notification), **14** (schedule:
-> optional meeting Link set in the same step — INT-035), **32** (REJECTED-post soft-delete now works via
-> migration 0031 — INT-015), **39** (admin "View applicants" repointed to an admin route — INT-033).
-> The Tier-A nav/user experience fixes (INT-032/036/037/038/040/041/042) are frontend-state and are documented in
-> reference/frontend-routes md rather than as new sequence flows.
+| Reader question | Diagram |
+|---|---|
+| Who requests, applies, chooses and assigns? | [Service overview](../../docs/user-flows.md#service-overview) |
+| What does the browser send, and what does the server save or reject? | [Browser, server and saved result](../../docs/how-it-is-built.md#browser-server-and-saved-result) |
+| How are interviews agreed and changed? | [Interviews](../../docs/sequence-diagrams.md#interviews) |
+| Who confirms the first lesson and pays the agency? | [Billing](../../docs/sequence-diagrams.md#billing-and-agency-receipt) |
+| What happens to a cancelled match and its debt? | [Cancellation](../../docs/sequence-diagrams.md#cancellation-and-financial-records) |
+| How are access and contact changes protected? | [Accounts](../../docs/sequence-diagrams.md#account-access-and-recovery) and [contact changes](../../docs/sequence-diagrams.md#contact-changes) |
+| What if a notification fails? | [Delivery recovery](../../docs/sequence-diagrams.md#notifications-and-delivery-recovery) |
+| How does the founder direct AI coding and review? | [AI coding workflow](../../docs/workflow-walkthrough.md) |
 
-> **Updated 2026-06-03 (wave INT-034/039/044/045/025):** flows **42** and **43** added to cover
-> interview timeslot negotiation (INT-039) and tutee→tutor job invitations (INT-044).
-> The controller count is now 26. reference/backend-api md updated for all five wave items.
+The [coverage map](../../docs/sequence-diagrams.md#coverage-of-the-43-detailed-records) accounts for every record below, including deliberate text-only treatment of small settings, display rules and metric definitions. It is navigation coverage, not a claim that all acceptance cases pass.
 
-Diagrams render in any Mermaid live editor (e g. https://mermaid live). Use
-sequence Diagram for request/response flows and state Diagram-v2 for status
-machines (added where the lifecycle has multiple terminal states).
+## Accounts and access
 
-## Auth
+| # | Flow | Record |
+|---|---|---|
+| 01 | Parent registration, required consent and session setup | [Parent registration](01-register-tutee.md) |
+| 02 | Tutor registration, required commission acknowledgement and optional profile capture | [Tutor registration](02-register-tutor.md) |
+| 03 | Sign-in and environment-specific administrator MFA | [Login](03-login-with-mfa.md) |
+| 04 | Emailed recovery code and password reset | [Password recovery](04-forgot-reset-password.md) |
+| 05 | Initial session check and protection for website requests | [Session bootstrap](05-csrf-bootstrap.md) |
+| 29 | Authenticated password change and required session handling | [Password change](29-change-password.md) |
+| 30 | Logical account deletion, session revocation and retained records | [Account deletion](30-account-deletion.md) |
+| 31 | Permitted administrator creation and super-admin removal | [Administrator management](31-admin-create-delete-admin.md) |
 
-| # | Flow | File |
-| - | ---- | ---- |
-| 01 | Tutee registration — single-step register + signed session token cookie issuance | [01-register-tutee md](01-register-tutee.md) |
-| 02 | Tutor registration — Register → Commission stash → POST | [02-register-tutor md](02-register-tutor.md) |
-| 03 | Login (and admin multi-factor authentication time-based one-time passcode second step) | [03-login-with-mfa md](03-login-with-mfa.md) |
-| 04 | Forgot-password one-time passcode issue + reset | [04-forgot-reset-password md](04-forgot-reset-password.md) |
-| 05 | cross-site request forgery protection bootstrap + /me hydration on app boot | [05-csrf-bootstrap md](05-csrf-bootstrap.md) |
-| 29 | Change password (authenticated; clears admin forced-change gate) | [29-change-password md](29-change-password.md) |
-| 30 | Account deletion (soft-delete + signed session token denylist; Personal Data Protection Act erasure) | [30-account-deletion md](30-account-deletion.md) |
+## Posting, profiles and moderation
 
-## Posting + approval
+| # | Flow | Record |
+|---|---|---|
+| 06 | Parent submits a request for moderation | [Parent request](06-tutee-post-creation.md) |
+| 07 | Tutor submits an optional listing for moderation | [Tutor listing](07-tutor-post-creation.md) |
+| 08 | Staff approve or reject submitted content | [Moderation](08-admin-approval.md) |
+| 32 | Permitted post edits, live closure and logical removal | [Post lifecycle](32-post-edit-and-close.md) |
+| 33 | Role-scoped profile editing; separate protected contact changes | [Profile editing](33-profile-edit.md) |
+| 34 | Tutor availability and public-showcase consent | [Availability and consent](34-tutor-availability-toggle.md) |
 
-| # | Flow | File |
-| - | ---- | ---- |
-| 06 | Tutee creates a request → PENDING | [06-tutee-post-creation md](06-tutee-post-creation.md) |
-| 07 | Tutor creates a listing → PENDING | [07-tutor-post-creation md](07-tutor-post-creation.md) |
-| 08 | Admin review queue → approve / reject + post status machine | [08-admin-approval md](08-admin-approval.md) |
-| 32 | Post lifecycle: owner edits (PUT) + closes (soft DELETE → CLOSED) | [32-post-edit-and-close md](32-post-edit-and-close.md) |
+## Applications, assignment and commission
 
-## Matching + commission
+| # | Flow | Record |
+|---|---|---|
+| 28 | Tutor applies, withdraws or reapplies when eligible | [Applications](28-tutor-apply-withdraw.md) |
+| 43 | Parent invitation and tutor response, with O01 still open | [Invitations](43-tutee-tutor-job-invitation.md) |
+| 38 | Parent selection request followed by staff assignment | [Choose a tutor](38-choose-tutor-selection.md) |
+| 39 | Staff-only applicant view | [Staff applicant view](39-admin-applicant-view.md) |
+| 09 | Authorized staff create the assignment | [Match creation](09-admin-match-creation.md) |
+| 10 | Activation locks the agreed first-month plan | [Activation](10-admin-match-activation.md) |
+| 37 | Assigned participant contact access with separate website state gates | [Contact access](37-contact-reveal-post-assignment.md) |
+| 11 | Actual tutor-to-agency receipt marks commission PAID and match COMPLETED | [Agency receipt](11-admin-mark-commission-paid.md) |
+| 12 | Eligible cancellation, commission consequences and permitted reopening | [Cancellation](12-admin-match-cancel-cascade.md) |
 
-| # | Flow | File |
-| - | ---- | ---- |
-| 09 | Admin creates a match (PENDING) | [09-admin-match-creation md](09-admin-match-creation.md) |
-| 10 | Admin activates match → Commission row | [10-admin-match-activation md](10-admin-match-activation.md) |
-| 11 | Admin marks commission paid → match COMPLETED | [11-admin-mark-commission-paid md](11-admin-mark-commission-paid.md) |
-| 12 | Admin cancels match + PENDING commission cascade + match state machine | [12-admin-match-cancel-cascade md](12-admin-match-cancel-cascade.md) |
+First-session confirmation, invoicing and due handling remain required even though the inspected application only supports a shorter payment path. See [G02](../../docs/current-file-alignment.md#g02--the-billing-journey-stops-short-of-the-agreed-process) and the [billing diagram](../../docs/sequence-diagrams.md#billing-and-agency-receipt). Invitation initiation is allowed on a PENDING request; acceptance before approval remains O01. There is no newly invented background invitation timeout.
 
-## Interview module (M6 + INT-039)
+## Interviews
 
-| # | Flow | File |
-| - | ---- | ---- |
-| 13 | Tutee requests interview from Tutor Detail modal (pre-INT-039 reference) | [13-tutee-request-interview md](13-tutee-request-interview.md) |
-| 14 | Admin schedules a PENDING SCHEDULING / REQUESTED interview (Singapore time wall-clock) | [14-admin-schedule-interview md](14-admin-schedule-interview.md) |
-| 15 | Admin sets meeting link | [15-admin-set-meeting-link md](15-admin-set-meeting-link.md) |
-| 16 | Three terminal paths (complete / cancel / no-show) + interview state machine | [16-interview-completion-paths md](16-interview-completion-paths.md) |
-| 35 | Tutee cancels their own REQUESTED/SCHEDULED interview | [35-tutee-cancel-interview md](35-tutee-cancel-interview.md) |
-| 42 | **INT-039** Interview timeslot negotiation (propose→accept/decline/counter→PENDING SCHEDULING→admin schedule + expiry sweep) | [42-interview-timeslot-negotiation md](42-interview-timeslot-negotiation.md) |
+| # | Flow | Record |
+|---|---|---|
+| 13 | Parent requests an interview; current rules precede the older direct-request example | [Interview request](13-tutee-request-interview.md) |
+| 42 | Time proposals, counter-proposals, agreement and staff handoff | [Time negotiation](42-interview-timeslot-negotiation.md) |
+| 14 | Staff schedule the agreed Singapore time and meeting arrangements | [Scheduling](14-admin-schedule-interview.md) |
+| 15 | Staff change a link and notify both participants | [Meeting-link changes](15-admin-set-meeting-link.md) |
+| 16 | Completion, cancellation and either/both-person no-show outcomes | [Interview outcomes](16-interview-completion-paths.md) |
+| 35 | Parent cancels an owned interview in eligible non-terminal states | [Parent cancellation](35-tutee-cancel-interview.md) |
 
-## Match dashboard + reviews
+Time input, link-change notice/audit, BOTH-no-show and reminder safeguards remain incomplete. The [interview diagram](../../docs/sequence-diagrams.md#interviews) labels those required behaviours; it does not close G04/G05/G09.
 
-| # | Flow | File |
-| - | ---- | ---- |
-| 17 | Tutee views matches (admin contact only on ACTIVE) | [17-tutee-views-matches md](17-tutee-views-matches.md) |
-| 18 | Tutor views matches (symmetric, with commission) | [18-tutor-views-matches md](18-tutor-views-matches.md) |
-| 19 | Tutee submits review → notify reviewee → rating aggregate refresh | [19-tutee-submits-review md](19-tutee-submits-review.md) |
-| 20 | Public Tutor Detail + reviews fetch | [20-public-tutor-detail-reviews md](20-public-tutor-detail-reviews.md) |
+## Discovery, dashboards and follow-up
 
-## Profile + admin management
+| # | Flow | Record |
+|---|---|---|
+| 23 | Public filters and bounded guest results | [Public browsing](23-public-browse-with-filters.md) |
+| 36 | Login-gated tutor/assignment detail, distinct from public lists | [Protected detail](36-marketplace-detail-login-gated.md) |
+| 40 | Bounded public showcase summaries and consent rules | [Public showcases](40-public-showcase-strips.md) |
+| 17 | Parent match dashboard and permitted participant contact | [Parent matches](17-tutee-views-matches.md) |
+| 18 | Tutor match dashboard, permitted contact and commission | [Tutor matches](18-tutor-views-matches.md) |
+| 19 | Eligible review submission and duplicate prevention | [Submit a review](19-tutee-submits-review.md) |
+| 20 | Protected tutor detail with separately public reviews | [Detail and reviews](20-public-tutor-detail-reviews.md) |
+| 22 | Save or remove a favourite | [Favourites](22-favourite-toggle.md) |
+| 21 | Notification centre, read state and permitted navigation | [Notifications](21-notification-bell-flow.md) |
+| 41 | Staff analytics with defined dates, cohorts and receipt accounting | [Analytics](41-admin-analytics.md) |
 
-| # | Flow | File |
-| - | ---- | ---- |
-| 33 | Profile edit (tutee/tutor GET+PUT; role-scoped) | [33-profile-edit md](33-profile-edit.md) |
-| 34 | Tutor availability / showcase consent toggle (PATCH featured-consent) | [34-tutor-availability-toggle md](34-tutor-availability-toggle.md) |
-| 31 | Admin create + delete admin (super-admin-gated delete) | [31-admin-create-delete-admin md](31-admin-create-delete-admin.md) |
+## Shared technical boundaries
 
-## Notifications + favourites + search
+| # | Flow | Record |
+|---|---|---|
+| 24 | Request limits, their scope and trusted client-address handling | [Rate limits](24-rate-limited-endpoint.md) |
+| 25 | Request-forgery protection for website changes | [Protected writes](25-csrf-protected-write.md) |
+| 26 | Saved delivery intent, external dispatch and failure recovery | [Email delivery](26-email-fanout-on-event.md) |
+| 27 | Readable email/phone storage with restricted disclosure | [Contact storage](27-encrypted-pii-write-and-lookup.md) |
 
-| # | Flow | File |
-| - | ---- | ---- |
-| 21 | Notification Bell 60s polling + role-aware navigation + mark read | [21-notification-bell-flow md](21-notification-bell-flow.md) |
-| 22 | Favourite toggle: optimistic heart + bulk ids Among lookup | [22-favourite-toggle md](22-favourite-toggle.md) |
-| 23 | Public tutor browse with filters (subject, level, region, rate, venue, group size, availability) | [23-public-browse-with-filters md](23-public-browse-with-filters.md) |
+Record 27 retains its historical filename, but **C13 requires readable contact storage**. The older encrypted-contact design is superseded in that scope; password hashing is separate. Record 26's earlier missing-consumer and missing-failed-queue observations are also historical. The inspected application has delivery workers, retry handling and a failed-message queue. Its remaining **G08/G09** delivery-loss and reminder-recovery gaps are described in [the architecture guide](../../docs/how-it-is-built.md#security-and-stability-mechanisms) and [current-file review](../../docs/current-file-alignment.md).
 
-## Applications module (M15 + INT-044)
+## History and evidence limits
 
-| # | Flow | File |
-| - | ---- | ---- |
-| 28 | Tutor applies to / withdraws from a job (idempotent apply, withdraw → re-apply) | [28-tutor-apply-withdraw md](28-tutor-apply-withdraw.md) |
-| 39 | Admin applicant view (admin-only list backing matching) | [39-admin-applicant-view md](39-admin-applicant-view.md) |
-| 43 | **INT-044** Tutee→tutor job invitation (invite→accept folds into apply→choose funnel / decline / withdraw / expire) | [43-tutee-tutor-job-invitation md](43-tutee-tutor-job-invitation.md) |
+The original June 2026 authoring records counted 24 production controllers on 2 June, then 26 after records 42–43 were added on 3 June. Those are dated inventory claims, not today's controller count or proof of complete journeys. The original descriptions drew on private implementation files; private source and usable source-line extracts are not published here.
 
-## Marketplace detail + assignment lifecycle (M17 / M18)
+Later contract corrections are identified in the numbered records, principally the 5 September 2026 reconciliation. The 18 October source comparison supplies the current disclosed implementation limits. Read each record's current contract first, then its historical description as history. The new high-level diagrams summarize those requirements without restoring private implementation examples.
 
-| # | Flow | File |
-| - | ---- | ---- |
-| 36 | Login-gated tutor / assignment **detail** (M17 SEC-1; lists stay public) | [36-marketplace-detail-login-gated md](36-marketplace-detail-login-gated.md) |
-| 38 | Choose-tutor selection → admin selection queue → assign (M18) | [38-choose-tutor-selection md](38-choose-tutor-selection.md) |
-| 37 | Post-assignment contact reveal (the only counterparty-personal information surface; INT-016 fixed 2026-06-03) | [37-contact-reveal-post-assignment md](37-contact-reveal-post-assignment.md) |
-
-## Landing showcase (M14a / M14b) + admin analytics (M12)
-
-| # | Flow | File |
-| - | ---- | ---- |
-| 40 | Public showcase strips — Active Tutors + Recent Requests (cached, rate-limited, personal information-free) | [40-public-showcase-strips md](40-public-showcase-strips.md) |
-| 41 | Admin analytics dashboard (count/funnel; ADMIN-only) | [41-admin-analytics md](41-admin-analytics.md) |
-
-## Cross-cutting
-
-| # | Flow | File |
-| - | ---- | ---- |
-| 24 | Rate-limited login (Lua sliding window) | [24-rate-limited-endpoint md](24-rate-limited-endpoint.md) |
-| 25 | cross-site request forgery protection-protected write (double-submit cookie) | [25-csrf-protected-write md](25-csrf-protected-write.md) |
-| 26 | Email queue fanout (notification + Redis Streams) | [26-email-fanout-on-event md](26-email-fanout-on-event.md) |
-| 27 | Encrypted personal information write + keyed message authentication lookup | [27-encrypted-pii-write-and-lookup md](27-encrypted-pii-write-and-lookup.md) |
-
-## How these were sourced
-
-Every diagram was derived by reading the actual code — controllers in
-intuition-the private implementation folder, services in intuition-the private implementation folder,
-infrastructure in intuition-the private implementation folder, security in
-intuition-the private implementation folder, and frontend pages in
-intuition-the private implementation folder Where the spec implied behaviour the code does
-not yet deliver, the gap is called out explicitly under Notable details or
-Failure modes.
-
-Known gaps surfaced while authoring:
-
-- Login implementation reference now **detects** the confirmation that multi-factor authentication is required response (INT-024, 2026-06-02) and shows an
-  accurate message instead of "Invalid email or password". **Remaining gap:** the full time-based one-time passcode entry user interface
-  (submit operation for auth login mfa) is not built — an multi-factor authentication-enabled admin still can't complete login via
-  the user interface (latent; no seeded admin has multi-factor authentication). See flow 03.
-- ~~Tutee Post Service create And Submit and Tutor Post Service create And Submit
-  emit analytics events but do **not** emit Notification Type records to admins.~~
-  **Resolved (INT-025, 2026-06-03):** POST SUBMITTED enum value added (migration 0036);
-  both services call the emit to all admins operation after-commit. See
-  reference/backend-api md §M9 INT-025 section.
-- ~~The Redis Stream email-notifications has no consumer wired into the backend
-  source tree.~~ **Resolved (2026-06-02):** Email Consumer Service implementation reference
-  now exists in-tree — a a scheduled task XREADGROUP consumer with XCLAIM crash-recovery
-  that dispatches via Resend Email Client (see flow 26). Remaining gaps are
-  production-hardening, not wiring: no failed-message queue / retry-counter and no verified sender
-  domain (sends from REDACTED email) — see architecture/email-consumer-hardening md.
+[All high-level user flows](../../docs/user-flows.md) · [Current requirements and open decisions](../CURRENT-REQUIREMENTS.md) · [Diagram coverage](../../docs/sequence-diagrams.md)

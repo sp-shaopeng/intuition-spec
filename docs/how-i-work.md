@@ -1,16 +1,18 @@
-# How I direct AI on InTuition
+# How AI is used to build this project
 
-I use AI to help deliver a Singapore tuition project, starting with the business need and following changes through requirements, implementation, tests and review. I set the intent, constraints and priorities, and retain responsibility for business decisions. AI performs investigation, drafting, engineering and technical checks within the assigned scope.
+AI supports InTuition's development from the business need through requirements, implementation, tests and review. The founder sets the direction, constraints and priorities and retains responsibility for business decisions. AI performs investigation, drafting, engineering and technical checks within the assigned scope.
 
 The service is not live. Personal commitments delayed launch, and the [current alignment review](current-file-alignment.md) identifies unfinished requirements. This page follows actual work and its evidence. The [walkthrough](workflow-walkthrough.md) explains the process in detail; [user flows](user-flows.md) explain the product.
 
-## What I direct, and what AI does
+[Follow the AI coding sequence](workflow-walkthrough.md#intended-ai-coding-workflow) · [Follow the test-lab handoff](testing-and-release.md#intended-test-lab-handoff). These show the intended method and proposed controls, not a newly executed application run.
 
-My part is to explain the problem, choose what matters, set constraints and decide unresolved business questions. AI can propose technical approaches and make choices within an assignment with clear limits. It cannot turn an unanswered commercial or access-policy question into approval by implementing an assumption.
+## Founder responsibilities and AI assignments
+
+The founder explains the problem, chooses what matters, sets constraints and decides unresolved business questions. AI can propose technical approaches and make choices within an assignment with clear limits. It cannot turn an unanswered commercial or access-policy question into approval by implementing an assumption.
 
 The written method connects a business need to a versioned specification, acceptance examples, an issue, implementation, regression tests, independent review and delivery evidence. A specification package contains the rules, design, tasks and decision history. Independent specification review must approve the version before implementation. An AI assignment identifies that version, owned files, dependencies and required checks. Shared files need one writer; independent work can be delegated separately.
 
-I ask AI reviewers to compare claims with the actual specifications, implementation and results. The reviewer should inspect the evidence and challenge an important failure case. Independent review here means a separate AI execution, not a different human team or organisation. A role name alone does not demonstrate independence, and the author does not approve their own work.
+AI reviewers are assigned to compare claims with the actual specifications, implementation and results. The reviewer should inspect the evidence and challenge an important failure case. Independent review here means a separate AI execution, not a different human team or organisation. A role name alone does not demonstrate independence, and the author does not approve their own work.
 
 These are operating rules, not proof of universal historical compliance. The [development workflow](../specs/domain/dev-workflow.md) retains conflicting older procedures under W01. The [improvement plan](workflow-improvement-plan.md) proposes a founder-approved reconciliation; it does not silently reduce existing review obligations or claim new automation is installed.
 
@@ -37,7 +39,7 @@ The same distinction matters elsewhere. Guest-search tests currently expect hidd
 
 This publication provides a separate, completed example of directing AI through a deliverable. It supports the application story; it is not a substitute for implementing the missing product behaviour.
 
-I set the public boundary: explain the project without application code, secrets, private contacts or company identifiers. I rejected HTML in favour of Markdown. I clarified that "workflow" meant how I manage the project with AI, specifications and a maintained regression lab. I also requested business, product, technical-lead, developer, QA and AI-skeptic perspectives, including independent comparison with the actual files and reported progress.
+The founder set the publication requirements: explain the project in Markdown without application code, secrets, private contacts or company identifiers. The workflow scope covers project management with AI, specifications and a maintained regression lab. Requested reviews covered business, product, technical-lead, developer, QA and AI-skeptic perspectives, including independent comparison with the actual files and reported progress.
 
 AI inspected the private sources, drafted the public account, converted documentation, assigned reviews of specific areas and combined duplicate findings. Separate reviewers challenged the first drafts before seeing each other's first-pass verdicts, subject to the independence limits recorded in the [review record](review-record.md#fresh-six-role-review-of-the-project-workflow).
 
@@ -45,11 +47,11 @@ Their corrections changed the substance. An admin-panel uptime target had become
 
 The [completed publication at a04514d, 18 October 2026](https://github.com/sp-shaopeng/intuition-spec/commit/a04514d1b224cb8241cd979ecb525bd5ba127ccd) records 362 Markdown documents, including 346 specifications and all 43 detailed sequences. Collection checks covered 7,115 local document/heading links and found no broken links, malformed table widths, non-Markdown files, rendered HTML or code blocks. Comparisons found no matches to 100 private credential candidates or six private company legal/contact values. These checks cover the files and values described here; they do not guarantee that every unknown secret format was detected.
 
-I owned the intent and constraints. AI performed the file comparisons, scans and technical reviews; this account does not attribute every technical choice or artifact inspection to me. The completed outcome is a reviewed public documentation revision. It does not close application gaps, prove a launch or install the proposed project controls.
+The founder defined the purpose and constraints. AI performed the file comparisons, scans and technical reviews; those checks are attributed to the AI work rather than personal inspection by the founder. The completed outcome is a reviewed public documentation revision. It does not close application gaps, prove a launch or install the proposed project controls.
 
 ## Keeping the evidence useful after a change
 
-The regression lab needs maintenance when specifications, application files, test data or environments change. I remain accountable for that recurring work; AI can own a specific maintenance task. Browser actions, direct API requests and external message delivery need distinct evidence. An API is the interface through which software sends requests to another part of the system.
+The regression lab needs maintenance when specifications, application files, test data or environments change. The founder remains accountable for that recurring work; AI can own a specific maintenance task. Browser actions, direct API requests and external message delivery need distinct evidence. An API is the interface through which software sends requests to another part of the system.
 
 The inspected combined workflow attempts version checks, but incompatible build paths and a protected identity endpoint prevent relying on it to reach testing. It also selects moving branches. The proposed first engineering task is to get the test lab to start and check the application version, followed by tests tied to the exact source and built version. Billing stays a blocked planning row while its decisions remain open.
 

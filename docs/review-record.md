@@ -1,6 +1,6 @@
 # Review record
 
-**Latest scope, 18 October 2026:** the opening pages now focus on how the founder directs AI across project delivery. Six role reviews checked this narrative revision, as recorded below. The [six-role workflow review](#fresh-six-role-review-of-the-project-workflow) remains the record of the preceding corrections. Earlier approvals apply only to their dated publication scope; they did not prevent later reviewers from finding defects.
+**Latest scope, 18 October 2026:** a new review checks high-level sequence diagrams and the AI coding workflow. Its findings and final checks are recorded at the end of this page. Earlier approvals apply only to their dated publication scope; they did not prevent later reviewers from finding defects.
 
 **Later alignment review:** the six reviews below assessed the original publication. Three new independent AI reviewers subsequently compared it with the current application and source specifications and found real mismatches. Read the [current-file alignment report](current-file-alignment.md) for the corrections and remaining application gaps. The original publication passes were not approval of application compliance.
 
@@ -88,3 +88,17 @@ Six separately briefed AI reviewers checked the two entry pages without reading 
 The coordinator opened all six reports and checked the final files. Collection checks cover 362 Markdown documents, including 346 specifications, 43 numbered sequences and 7,097 local document/heading links. No broken local links, malformed tables, non-Markdown publication files, symbolic links, rendered HTML or code blocks were found. Comparisons found no matches to the 100 private credential candidates or six private company legal/contact values. Those checks cover the described files and values; they do not guarantee detection of every unknown secret format. The 7,115-link figure in the completed case belongs to the earlier a04514d publication.
 
 No application or test-lab code, repository settings or business policies are changed by this revision. The not-live status and outstanding application work remain explicit.
+
+## Sequence diagrams and AI coding workflow
+
+Six separately briefed AI reviewers examined the unchanged 4bc40f1 publication from business, product, technical-lead, developer, QA and skeptical-reader perspectives. They completed their first reports before the authors began the shared revision and did not read one another's current reports. All six requested changes for the new diagram scope. This does not turn their earlier prose-only approval into a claim that diagrams already existed.
+
+The review found no rendered diagrams in the 362-document baseline, despite the sequence index promising them. The index also retained superseded contact-encryption and message-recovery descriptions. The coding walkthrough needed clearer specification approval, test-first work, ownership of shared browser/test resources, complete-case checks, final coordinator audit and development-delivery handoffs. The written method must preserve W01 and separate completed development work from approval for a public release.
+
+All six role rechecks returned READY within their documentation scopes. The technical recheck required a failed or missing local startup/flow check to stop before pushing; the corrected sequence then handles an unconfirmed push separately. Actual rendering caught three message-label semicolons that Mermaid treated as statement separators; these were replaced with commas. The final wording pass also replaced an unnecessary process term with plain English.
+
+The revised collection has 363 Markdown documents, including the same 346 specifications. Eleven high-level sequence diagrams cover the main coding, test-lab, product and system handoffs. Coverage tables account for all 21 user journeys and all 43 detailed records, while explicitly identifying text-only details. This is documentation coverage, not passing acceptance coverage. Local checks found no broken links among 7,301 document/heading links, malformed tables, HTML or code blocks other than the eleven reviewed Mermaid sequences. Comparisons found no matches to 100 private credential candidates or six private company legal/contact values.
+
+All eleven diagrams parsed and rendered with Mermaid 12.2.0 in local Chromium. The render record identifies the exact source and each diagram; empty, stale or unexpected diagram inventories fail validation. QA opened all eleven full-chart images, and the skeptical-reader review inspected the main workflow, service and billing views. Narrow-screen samples show wider charts that need horizontal scrolling or the supplied prose alternatives. These checks do not certify GitHub's mobile layout. Privacy comparison checks were also hardened and exercised with synthetic matches and missing-input examples; no real private value was exposed by those checks.
+
+These are documentation changes. No application behaviour, business policy or tool-enforced project rule is changed by drawing them, and no new application test pass or public launch is claimed.

@@ -8,6 +8,8 @@ The [current-file alignment review](current-file-alignment.md) explains which re
 
 For a readable starting point, use the [21 main user flows](user-flows.md), which link to all 43 detailed sequences. The [workflow improvement plan](workflow-improvement-plan.md) explains the proposed repair order and the evidence needed to keep these specifications aligned with the application.
 
+For visual summaries, use the [sequence diagram guide](sequence-diagrams.md) and the [AI coding workflow](workflow-walkthrough.md). The coverage map distinguishes diagrams from detailed text references; indexes and historical records do not each repeat a diagram.
+
 | Document | Source category |
 | --- | --- |
 | [Design — Legal and Compliance consent and policy pages (001)](../specs/001-legal-and-compliance-consent-and-policy-pages/design.md) | Tracked working copy |

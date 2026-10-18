@@ -2,6 +2,46 @@
 
 InTuition is **not live**, and life commitments have delayed launch. This page describes the test inventory and automation found in the private repositories on 18 October 2026. Inventory counts below are files, not executed test cases. A later, limited baseline run is described separately.
 
+## Intended test-lab handoff
+
+**Target method, 18 October 2026.** This sequence combines standing evidence obligations with proposed lab controls. The inspected startup, result-reporting and protection gaps below remain open; these arrows do not report an installed gate or a successful current combined run. The [AI coding sequence](workflow-walkthrough.md#intended-ai-coding-workflow) supplies specification approval, review and the coordinator's final audit.
+
+A candidate here means the exact set of application and test versions proposed for delivery. Required cases come from the approved task and the [user-flow requirements](user-flows.md), not from whichever tests happen to run. The paragraph after the diagram is a text alternative for narrow screens or readers without Mermaid support.
+
+```mermaid
+sequenceDiagram
+    participant C as Coordinator
+    participant L as Test lab
+    participant A as Applications
+    participant R as Reviewer
+    C->>L: Candidate and required cases
+    L->>L: Check owned data and sessions
+    L->>A: Build and start exact versions
+    A-->>L: Running version and health
+    alt Setup missing or identity wrong
+        L-->>C: Blocked, repair and retry
+    else Inputs match
+        L->>A: Run required cases
+        A-->>L: Observed outcomes
+        L->>L: Compare expected and actual cases
+        alt Missing case or failed result
+            L-->>C: Not verified, investigate
+        else Complete results
+            L->>R: Retained versions and attempts
+            alt Stale evidence or review finding
+                R-->>C: Correct and recheck
+            else Evidence accepted
+                R-->>C: Same candidate may proceed
+                Note over C,R: Audit and delivery gates still apply
+            end
+        end
+    end
+```
+
+The coordinator supplies the approved scope, exact versions and full required-case list. The lab checks prerequisites and owned browser/session, fixture and build resources before startup. A missing or mismatched version blocks testing. After execution, every required case, browser and attempt must be accounted for: removed, filtered, skipped, aborted or unexplained retry-only cases cannot quietly pass. Retain successful and failed results; missing or expired evidence leaves the task unverified. Independent review returns findings to correction and fresh checks. Only the same unchanged candidate can proceed to the coordinator audit and development-delivery checks. Changing a relevant source, requirement, fixture or setting invalidates affected evidence.
+
+A dirty-source snapshot may identify an investigative run. Delivery uses the clean reviewed committed candidate, with its build identity, observed local startup/affected flow and confirmed push. That handoff does not authorize production deployment. Keep browser sessions isolated or serialize shared access; confirm an old owner has stopped before reassigning files, sessions, fixtures or build resources. Reproduce potentially contaminated evidence in isolation before treating it as an application defect.
+
 ## Follow-up baseline check
 
 On 18 October, a backend baseline completed with **2,179 tests in the main test phase and 43 integration tests**, with no failures, errors or skips in those phases. Formatting and the configured 97.5% line/branch coverage checks passed. The run used Java 21 and a Docker client compatibility setting; it did **not** include the separate live-system regression lab.

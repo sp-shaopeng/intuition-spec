@@ -6,6 +6,42 @@ A flow below describes the required journey. "Present" means supported by the so
 
 The main chain is: browse → sign in → parent request → moderation → tutor application or invitation → parent selection → staff assignment → activation → parent confirms the first session → invoice to tutor → agency receives commission. Interviews support the selection process. Approval, an accepted invitation or a selection request alone does not release contact details.
 
+## Service overview
+
+**Required product journey, 18 October 2026. This is not a completed application run.** The diagram shows the main handoffs; [billing](sequence-diagrams.md#billing-and-agency-receipt) continues after activation. The [diagram guide](sequence-diagrams.md) also covers interviews, accounts, contact changes and delivery failures, and maps all 21 flows and 43 detailed records.
+
+```mermaid
+sequenceDiagram
+    participant Parent
+    participant Tutor
+    participant App as InTuition
+    participant Staff as Agency staff
+    Parent->>App: Browse, then sign in for restricted actions
+    Tutor->>App: Register and acknowledge commission
+    Note over Tutor,App: A published tutor listing is optional
+    Parent->>App: Submit a tuition request
+    App->>Staff: Queue the request for review
+    alt Approved for publication
+        Staff->>App: Approve the request
+        Tutor->>App: Apply or accept an eligible invitation
+        opt Interview before choosing
+            Parent->>App: Arrange an interview with the tutor
+        end
+        Parent->>App: Request the chosen tutor
+        Staff->>App: Check eligibility and assign
+        Staff->>App: Activate the agreed plan
+        App-->>Parent: Show match and permitted contact
+        App-->>Tutor: Show match and permitted contact
+    else Rejected
+        Staff->>App: Reject with a reason
+        App-->>Parent: Show the rejection
+    end
+```
+
+Both roles must give the required legal consents. Tutor commission acknowledgement is required before account creation; profile capture may be deferred. Applying later still requires a complete enough profile. Parent choice creates a selection request, staff assignment creates the match, and activation locks the agreed plan. Website contact access also requires the correct participant and an ACTIVE or COMPLETED match. The server's separately authorized PENDING-match access does not change that website rule.
+
+Invitations and interviews may start while a post is PENDING, even though the main approved route is drawn above. Whether invitation acceptance may happen before approval remains **O01**. Post-expiry timing remains **O15**. Guest controls, request-form keyboard handling and some contact promises remain gaps **G01/G06/G07/G12**; the later confirmation and invoice stages remain missing under **G02**. See [current requirements C01–C06 and open decisions](../specs/CURRENT-REQUIREMENTS.md), [UF07–UF14](#parent-journeys) and the [alignment review](current-file-alignment.md).
+
 ## Public discovery
 
 ### UF01: browse tutors or assignments
@@ -40,9 +76,9 @@ The main chain is: browse → sign in → parent request → moderation → tuto
 ### UF04: recover or change a password
 
 - Start: a user forgot the password, wants to change it, or must replace a temporary admin password.
-- Steps: request email recovery and follow the valid reset link, or authenticate and enter the current/new password; complete the change and apply the required session revocation.
+- Steps: request email recovery and enter the valid one-time code with the new password, or authenticate and enter the current/new password; complete the change and apply the required session revocation.
 - Outcome: the new password is usable and obsolete access is rejected according to the current session contract.
-- Exceptions: invalid, expired or replayed recovery tokens and incorrect current passwords do not change the account. Email delivery must remain pending on a recoverable outage; password recovery remains email-only.
+- Exceptions: invalid, expired or reused recovery codes and incorrect current passwords do not change the account. Email delivery must remain pending on a recoverable outage; password recovery remains email-only.
 - Present/missing: reset/change paths are documented. The general email loss paths in G08 prevent treating an enqueue or acknowledgment as proof that recovery email reached the user.
 - Rules and detail: C09/C12; [password recovery](../specs/sequences/04-forgot-reset-password.md), [password change](../specs/sequences/29-change-password.md), [reset requirements](../specs/003-password-reset-failure-fix/requirements.md).
 
@@ -216,6 +252,8 @@ The parent, tutor and administrator each have a part in the following billing jo
 - Rules and detail: C11/C12/C17; [notification centre](../specs/sequences/21-notification-bell-flow.md), [email delivery](../specs/sequences/26-email-fanout-on-event.md), [reminders](../specs/006-whatsapp-interview-reminders/requirements.md), [scheduler](../specs/007-generic-scheduler-db-scheduler/requirements.md).
 
 ## Coverage and use
+
+The [diagram coverage map](sequence-diagrams.md#coverage-of-the-21-user-flows) identifies the visual or explicit text-only treatment for every flow below. The [43-record map](sequence-diagrams.md#coverage-of-the-43-detailed-records) preserves the detailed cases without duplicating a large diagram in each historical document.
 
 The 21 flows cover public discovery; registration, sessions, passwords, profiles, contact changes and deletion; parent requests, applicants, invitations and interviews; tutor listings, availability and applications; moderation, assignment, activation, interview operations, billing, cancellation, analytics and staff management; dashboards, favourites, reviews and notifications.
 

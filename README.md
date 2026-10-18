@@ -1,8 +1,8 @@
 # InTuition
 
-## How I use AI to deliver a software project
+## How AI is used to build this project
 
-InTuition is my record of directing AI through a real project: understanding a business idea, writing specifications, giving AI tasks with clear limits, implementing changes, maintaining regression tests and reviewing evidence. I own the intent, priorities and business decisions. AI carries out much of the investigation, drafting, engineering and technical checking.
+InTuition documents how AI is used to build a software project: understanding the business need, writing specifications, assigning tasks with clear limits, implementing changes, maintaining regression tests and reviewing results. The founder sets the direction and priorities and owns business decisions. AI carries out much of the investigation, drafting, engineering and technical checking.
 
 The product is a Singapore tuition marketplace for parents, learners, tutors and agency staff. This public repository contains its specifications and the evidence behind selected work. Application code and private operational records stay private.
 
@@ -14,16 +14,18 @@ The intended chain is:
 
 **Business need → specification and acceptance examples → independent specification approval → task with clear limits → implementation and regression tests → independent review → verified delivery**
 
+[AI coding sequence and correction loops](docs/workflow-walkthrough.md#intended-ai-coding-workflow) · [Test-lab handoff](docs/testing-and-release.md#intended-test-lab-handoff).
+
 A regression test checks whether a problem returns. Verification needs an identified version and an observed result; an AI message saying "done" is not that result.
 
-| My responsibility | Work I delegate to AI | Evidence to examine |
+| Founder responsibility | Work assigned to AI | Evidence to examine |
 |---|---|---|
 | Define the problem and constraints | Investigate sources and propose requirements | Current rules, open decisions and pass/fail examples |
 | Choose scope and priorities | Break approved work into owned tasks | Issue, specification version, allowed files and dependencies |
 | Keep responsibility for the outcome | Implement, test and investigate failures | Change, test result and the version actually checked |
 | Decide business tradeoffs and release intent | Independently challenge claims and recheck corrections | Findings, responses, remaining gaps and release evidence |
 
-These are responsibilities, not a claim that I manually inspected every artifact or that every historical task followed the process perfectly. Review role names identify AI sessions, not employees.
+These responsibilities do not establish that the founder personally checked every result or that every historical task followed the process. Review role names identify AI sessions, not employees.
 
 ## An application example: a form submitted too early
 
@@ -35,7 +37,7 @@ Later requirements added keyboard and text-composition cases. The October source
 
 ## A separate completed delivery: this documentation
 
-I asked for a public account with no application code or private values, chose Markdown over HTML, clarified that the workflow should explain project management, and requested six independent AI perspectives. AI inspected, drafted, delegated reviews and corrected findings, including an uptime requirement mistakenly described as staffing and an omitted fourteen-day billing escalation.
+The founder requested public documentation with no application code or private values, chose Markdown, defined the workflow scope as project management and requested six independent AI review perspectives. AI inspected sources, drafted documentation, assigned reviews and corrected findings, including an uptime requirement mistakenly described as staffing and an omitted fourteen-day billing escalation.
 
 The [18 October publication at a04514d](https://github.com/sp-shaopeng/intuition-spec/commit/a04514d1b224cb8241cd979ecb525bd5ba127ccd) completed that documentation delivery after rechecks. Its inventory covered 362 Markdown documents, 346 specifications, 43 detailed sequences and 7,115 local links. [The documentation case](docs/how-i-work.md#example-a-completed-documentation-delivery) explains the format and privacy checks and their limits. This result does not establish software readiness.
 
@@ -49,7 +51,7 @@ The website uses React and TypeScript; the backend uses Java and Spring Boot, wi
 
 ## What to read next
 
-- [How I work](docs/how-i-work.md): founder decisions, AI assignments and the two evidence trails.
+- [How AI is used](docs/how-i-work.md): founder decisions, AI assignments and the two evidence trails.
 - [Testing and release](docs/testing-and-release.md): the limited backend pass, unfinished frontend baseline and combined-lab blockers.
 - [Current alignment](docs/current-file-alignment.md): missing behaviour, including billing, contact changes, guest controls and interview timing.
 - [Improvement plan](docs/workflow-improvement-plan.md): proposed controls and lab maintenance, not rules already enforced by tools.
