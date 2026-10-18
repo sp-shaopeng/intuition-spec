@@ -102,3 +102,11 @@ The revised collection has 363 Markdown documents, including the same 346 specif
 All eleven diagrams parsed and rendered with Mermaid 12.2.0 in local Chromium. The render record identifies the exact source and each diagram; empty, stale or unexpected diagram inventories fail validation. QA opened all eleven full-chart images, and the skeptical-reader review inspected the main workflow, service and billing views. Narrow-screen samples show wider charts that need horizontal scrolling or the supplied prose alternatives. These checks do not certify GitHub's mobile layout. Privacy comparison checks were also hardened and exercised with synthetic matches and missing-input examples; no real private value was exposed by those checks.
 
 These are documentation changes. No application behaviour, business policy or tool-enforced project rule is changed by drawing them, and no new application test pass or public launch is claimed.
+
+## Corrections after the fresh independent review
+
+A fresh six-role AI review of ec25110 found two accuracy problems despite the earlier checks. The service diagram required another parent choice after a tutor accepted an invitation, although acceptance already records that selection. The email explanation also treated a missing provider key as a path to acknowledgement without delivery. Following the caller checks showed that missing credentials pause processing before queue reads; the separate delivery-disabled setting can discard a handoff while its saved record is marked sent.
+
+This revision separates the application and invitation routes and distinguishes the two email failures in the alignment, architecture and testing guides. The technical reviewer revisited the full email path and accepted the developer's correction. G08 remains open, including the separate risk of discarding unfinished messages when the queue is trimmed. These are source-based documentation corrections, not application repairs or new runtime results.
+
+The README also adds a short reading path through the application example, intended AI workflow and current gaps. The repository description identifies the AI work, tuition product, documentation scope and pre-launch status. Reviewers remain separate AI sessions, not a human team or certification.

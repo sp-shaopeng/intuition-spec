@@ -77,7 +77,7 @@ The original Continue/Submit button fix is present. However, Enter on an earlier
 
 ### G08 — Delivery can be recorded as complete without reaching the recipient
 
-When email is disabled, a queue handoff can return normally and allow a saved delivery request to be marked sent. A missing provider key can also lead to acknowledgment without delivery. Queue trimming does not first protect all unfinished work. These were already disclosed in the architecture guide and were independently confirmed. Completion needs failure-and-recovery checks that inspect saved work, including restarts and a full queue.
+When the email delivery switch is off, the queue handoff returns without adding the message, while the outbox marks the saved request sent. A missing provider key instead pauses the email worker before it reads new or unfinished messages; it does not acknowledge them. With the delivery switch on, messages can remain queued and undelivered even though the outbox handoff is marked sent. Queue trimming does not first protect all unfinished work. These are source findings, not observed runtime failures. G08 remains open. Completion needs failure-and-recovery checks that inspect saved work, including restarts and a full queue.
 
 ### G09 — Reminder recovery needs more than a scheduler
 

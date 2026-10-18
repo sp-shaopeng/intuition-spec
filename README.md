@@ -8,6 +8,8 @@ The product is a Singapore tuition marketplace for parents, learners, tutors and
 
 **InTuition is not live. Personal commitments have delayed launch.** The application has development work and historical test results, but also known gaps. This portfolio distinguishes completed documentation, code reviewed and behaviour demonstrated by an actual run.
 
+For hiring readers, a short reading path is the [application example and its evidence](docs/how-i-work.md#example-a-review-step-that-submitted-too-early), the [intended AI coding workflow](docs/workflow-walkthrough.md#intended-ai-coding-workflow), then the [current application gaps](docs/current-file-alignment.md#application-gaps-that-remain-open).
+
 ## Follow one change through the work
 
 The intended chain is:

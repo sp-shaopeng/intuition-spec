@@ -4,7 +4,7 @@ Snapshot: 18 October 2026. This guide covers the main public, parent, tutor, adm
 
 A flow below describes the required journey. "Present" means supported by the source review or documented module, with that scope stated; it does not mean this guide ran the journey. The [current-file review](current-file-alignment.md) is the baseline for gaps G01 through G12. Changes made after that review need new evidence before this guide's status changes.
 
-The main chain is: browse → sign in → parent request → moderation → tutor application or invitation → parent selection → staff assignment → activation → parent confirms the first session → invoice to tutor → agency receives commission. Interviews support the selection process. Approval, an accepted invitation or a selection request alone does not release contact details.
+The main chain is: browse → sign in → parent request → moderation → tutor application or invitation → selection request → staff assignment → activation → parent confirms the first session → invoice to tutor → agency receives commission. Interviews support the selection process. Approval, an accepted invitation or a selection request alone does not release contact details.
 
 ## Service overview
 
@@ -23,11 +23,17 @@ sequenceDiagram
     App->>Staff: Queue the request for review
     alt Approved for publication
         Staff->>App: Approve the request
-        Tutor->>App: Apply or accept an eligible invitation
-        opt Interview before choosing
-            Parent->>App: Arrange an interview with the tutor
+        alt Ordinary application
+            Tutor->>App: Apply
+            opt Interview before choosing
+                Parent->>App: Arrange an interview with the tutor
+            end
+            Parent->>App: Request the chosen tutor
+        else Parent invitation
+            Parent->>App: Invite the tutor
+            Tutor->>App: Accept an eligible invitation
+            App->>App: Record application and parent selection request
         end
-        Parent->>App: Request the chosen tutor
         Staff->>App: Check eligibility and assign
         Staff->>App: Activate the agreed plan
         App-->>Parent: Show match and permitted contact
@@ -38,7 +44,7 @@ sequenceDiagram
     end
 ```
 
-Both roles must give the required legal consents. Tutor commission acknowledgement is required before account creation; profile capture may be deferred. Applying later still requires a complete enough profile. Parent choice creates a selection request, staff assignment creates the match, and activation locks the agreed plan. Website contact access also requires the correct participant and an ACTIVE or COMPLETED match. The server's separately authorized PENDING-match access does not change that website rule.
+Both roles must give the required legal consents. Tutor commission acknowledgement is required before account creation; profile capture may be deferred. Applying later still requires a complete enough profile. Parent choice or eligible invitation acceptance records a selection request, staff assignment creates the match, and activation locks the agreed plan. Website contact access also requires the correct participant and an ACTIVE or COMPLETED match. The server's separately authorized PENDING-match access does not change that website rule.
 
 Invitations and interviews may start while a post is PENDING, even though the main approved route is drawn above. Whether invitation acceptance may happen before approval remains **O01**. Post-expiry timing remains **O15**. Guest controls, request-form keyboard handling and some contact promises remain gaps **G01/G06/G07/G12**; the later confirmation and invoice stages remain missing under **G02**. See [current requirements C01–C06 and open decisions](../specs/CURRENT-REQUIREMENTS.md), [UF07–UF14](#parent-journeys) and the [alignment review](current-file-alignment.md).
 
