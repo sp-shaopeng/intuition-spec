@@ -56,5 +56,5 @@ The website uses React and TypeScript; the backend uses Java and Spring Boot, wi
 - [How AI is used](docs/how-i-work.md): founder decisions, AI assignments and the two evidence trails.
 - [Testing and release](docs/testing-and-release.md): the limited backend pass, unfinished frontend baseline and combined-lab blockers.
 - [Current alignment](docs/current-file-alignment.md): missing behaviour, including billing, contact changes, guest controls and interview timing.
-- [Improvement plan](docs/workflow-improvement-plan.md): proposed controls and lab maintenance, not rules already enforced by tools.
+- [Improvement plans](improvement-plans/README.md): current workflow diagram with red improvement points, priorities and the detailed AI workflow plan. Proposed controls remain clearly labelled.
 - [Specification index](docs/specification-index.md), [review record](docs/review-record.md) and [publication notes](docs/publication-notes.md): sources, corrections and publication boundaries.

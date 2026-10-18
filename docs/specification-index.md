@@ -6,7 +6,7 @@ Start with [Current requirements](../specs/CURRENT-REQUIREMENTS.md). Read [Publi
 
 The [current-file alignment review](current-file-alignment.md) explains which requirements the inspected application supports and where it still differs. A document appearing in this index does not mean its feature is implemented.
 
-For a readable starting point, use the [21 main user flows](user-flows.md), which link to all 43 detailed sequences. The [workflow improvement plan](workflow-improvement-plan.md) explains the proposed repair order and the evidence needed to keep these specifications aligned with the application.
+For a readable starting point, use the [21 main user flows](user-flows.md), which link to all 43 detailed sequences. The [workflow improvement plan](../improvement-plans/ai-workflow.md) explains the proposed repair order and the evidence needed to keep these specifications aligned with the application.
 
 For visual summaries, use the [sequence diagram guide](sequence-diagrams.md) and the [AI coding workflow](workflow-walkthrough.md). The coverage map distinguishes diagrams from detailed text references; indexes and historical records do not each repeat a diagram.
 

@@ -4,7 +4,7 @@
 
 This review separates three things: an agreed requirement, behaviour supported by the current files, and evidence that the behaviour works when run. A missing feature stays a missing feature; rewriting a requirement to match the older application would hide the problem. InTuition remains unlaunched.
 
-The [workflow improvement plan](workflow-improvement-plan.md) sets out the proposed repair order and the evidence each fix needs. The [user-flow guide](user-flows.md) connects these findings to 21 main journeys. Those plans do not close any finding below; closure needs checked implementation and test evidence.
+The [workflow improvement plan](../improvement-plans/ai-workflow.md) sets out the proposed repair order and the evidence each fix needs. The [user-flow guide](user-flows.md) connects these findings to 21 main journeys. Those plans do not close any finding below; closure needs checked implementation and test evidence.
 
 ## What was compared
 

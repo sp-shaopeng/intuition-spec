@@ -60,7 +60,7 @@ Follow-up content rechecks passed within those scopes. Final collection checks f
 
 Six separately briefed AI reviewers examined the publication at revision 655a894 and selected current private sources. They worked in parallel batches within the available agent capacity. Their first-pass reports were completed before the shared rewrite. They were not six human teams. The business reviewer encountered historical sign-off text while searching sources and explicitly excluded it from its conclusions; the other reviewers did not consult one another's reports before their first verdicts. This was independent work within the same AI-assisted process, not independence from the model provider or project owner.
 
-Every perspective required changes. The documentation author then combined duplicate findings into the [improvement plan](workflow-improvement-plan.md). The coordinating assistant checked the cited files and the read-only GitHub settings. No application tests, settings changes or deployments were performed in this round.
+Every perspective required changes. The documentation author then combined duplicate findings into the [improvement plan](../improvement-plans/ai-workflow.md). The coordinating assistant checked the cited files and the read-only GitHub settings. No application tests, settings changes or deployments were performed in this round.
 
 | Perspective | Main finding | Documentation or proposed action |
 |---|---|---|

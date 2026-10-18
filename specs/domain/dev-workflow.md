@@ -10,7 +10,7 @@
 
 **Editorial status, 18 October 2026:** Retained historical procedure with unresolved policy conflicts. This page is not a standalone current operating authority and does not prove that its proposed automation was installed.
 
-For the current explanation of a task from start to finish, read the [workflow walkthrough](../../docs/workflow-walkthrough.md). The [workflow improvement plan](../../docs/workflow-improvement-plan.md) describes proposed process changes, and [testing and release](../../docs/testing-and-release.md) distinguishes inspected checks from unverified or missing automation.
+For the current explanation of a task from start to finish, read the [workflow walkthrough](../../docs/workflow-walkthrough.md). The [workflow improvement plan](../../improvement-plans/ai-workflow.md) describes proposed process changes, and [testing and release](../../docs/testing-and-release.md) distinguishes inspected checks from unverified or missing automation.
 
 The original page called itself active and claimed precedence over module guidance. That claim cannot settle its own conflicting instructions: the all-phases rule versus the tier table, the 18-agent review versus the older 13-agent list, and the lab-first rule versus release-only browser checks. The founder must reconcile those policies explicitly. This editorial correction selects no reduced workflow and does not waive the standing full-review or coordinator's final-audit requirements. The local notes below identify the conflicts where a reader would otherwise encounter them.
 
@@ -56,7 +56,7 @@ The required sequence in that amendment was:
 - The handoff **must include an explicit NOT COVERED section**: for example, untested rejection of stale signed session tokens, missing load or concurrency cases, or limitations of testing on one shared stack. A passing result must be accompanied by its known gaps.
 - **Terminology:** this is an *automated pre-review gate*, **not** a "deterministic" gate. The lab is black-box against one shared dev stack and is **order/load-sensitive** (documented 429 rate-limiter cascades, connection-pool exhaustion, a warm-up race). The durable fix (in-process fresh-database Testcontainers layer) was **de-scoped by the founder** ("don't need fresh db, dev anyway"), so the substrate stays non-deterministic and the flake protocol below is the only mitigation.
 
-**Historical flake protocol:** The original reset step affected shared rate-limit and account-lock state. It is retained here as historical intent, not permission to reset unrelated records. The [current maintenance proposal](../../docs/workflow-improvement-plan.md#maintain-the-lab-with-each-change) requires ownership and target checks; the founder must reconcile the old reset and retry policy before it is used as current operating guidance.
+**Historical flake protocol:** The original reset step affected shared rate-limit and account-lock state. It is retained here as historical intent, not permission to reset unrelated records. The [current maintenance proposal](../../improvement-plans/ai-workflow.md#maintain-the-lab-with-each-change) requires ownership and target checks; the founder must reconcile the old reset and retry policy before it is used as current operating guidance.
 
 1. Reset rate-limit counters, clear failed-login counts and remove account-lock expiry values for the intended test accounts.
 2. On an **environmental** RED (429 cascade / connection-pool exhaustion — the documented signatures only), **one automatic retry**.

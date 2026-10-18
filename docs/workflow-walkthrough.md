@@ -2,7 +2,7 @@
 
 This is the intended project delivery loop: how AI work is organised through specifications, assigned tasks, tests and review. It summarizes written obligations, not proof that every historical task followed them. The roles are responsibilities in an AI-assisted project, not employees. InTuition remains unlaunched.
 
-**Status, 18 October 2026:** W01's conflicting historical review instructions remain unresolved. This page does not waive standing full review or the coordinator's final evidence audit. Proposed automation in the [improvement plan](workflow-improvement-plan.md) is not established as installed. Product journeys are separate in [User flows](user-flows.md).
+**Status, 18 October 2026:** W01's conflicting historical review instructions remain unresolved. This page does not waive standing full review or the coordinator's final evidence audit. Proposed automation in the [improvement plan](../improvement-plans/ai-workflow.md) is not established as installed. Product journeys are separate in [User flows](user-flows.md).
 
 ## Intended AI coding workflow
 

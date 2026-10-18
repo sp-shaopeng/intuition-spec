@@ -14,7 +14,7 @@ The written method connects a business need to a versioned specification, accept
 
 AI reviewers are assigned to compare claims with the actual specifications, implementation and results. The reviewer should inspect the evidence and challenge an important failure case. Independent review here means a separate AI execution, not a different human team or organisation. A role name alone does not demonstrate independence, and the author does not approve their own work.
 
-These are operating rules, not proof of universal historical compliance. The [development workflow](../specs/domain/dev-workflow.md) retains conflicting older procedures under W01. The [improvement plan](workflow-improvement-plan.md) proposes a founder-approved reconciliation; it does not silently reduce existing review obligations or claim new automation is installed.
+These are operating rules, not proof of universal historical compliance. The [development workflow](../specs/domain/dev-workflow.md) retains conflicting older procedures under W01. The [improvement plan](../improvement-plans/ai-workflow.md) proposes a founder-approved reconciliation; it does not silently reduce existing review obligations or claim new automation is installed.
 
 ## Example: a review step that submitted too early
 
@@ -55,6 +55,6 @@ The regression lab needs maintenance when specifications, application files, tes
 
 The inspected combined workflow attempts version checks, but incompatible build paths and a protected identity endpoint prevent relying on it to reach testing. It also selects moving branches. The proposed first engineering task is to get the test lab to start and check the application version, followed by tests tied to the exact source and built version. Billing stays a blocked planning row while its decisions remain open.
 
-The [testing guide](testing-and-release.md) records the separate limited backend baseline, the unfinished frontend run and other lab limits. The [improvement plan](workflow-improvement-plan.md) covers owned test data, skipped cases, retries, retained evidence, founder effort and complete-journey checks. These improvements remain proposals until implemented and demonstrated.
+The [testing guide](testing-and-release.md) records the separate limited backend baseline, the unfinished frontend run and other lab limits. The [improvement plan](../improvement-plans/ai-workflow.md) covers owned test data, skipped cases, retries, retained evidence, founder effort and complete-journey checks. These improvements remain proposals until implemented and demonstrated.
 
 This portfolio shows deliverables, corrections and unfinished work. It does not establish measured AI productivity savings or readiness for customers. The evidence, including its limits, is what makes the project inspectable.

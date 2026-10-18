@@ -100,7 +100,7 @@ Read-only GitHub checks on 18 October found neither classic branch protection no
 
 These limits are retained to make the specification useful to a reviewer. Read the [current requirements](../specs/CURRENT-REQUIREMENTS.md), [development workflow history](../specs/domain/dev-workflow.md) and [historical test strategy](../specs/domain/backend/test-strategy.md) with their status notes.
 
-The [project workflow improvement plan](workflow-improvement-plan.md) explains how the regression lab should be maintained as part of development: who owns its fixtures and failures, how AI updates tests against approved rules, which versions must run together and what evidence is needed before closing an issue.
+The [project workflow improvement plan](../improvement-plans/ai-workflow.md) explains how the regression lab should be maintained as part of development: who owns its fixtures and failures, how AI updates tests against approved rules, which versions must run together and what evidence is needed before closing an issue.
 
 ## Why more than one kind of test matters
 
