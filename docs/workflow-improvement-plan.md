@@ -1,111 +1,118 @@
-# Running the project with AI, specifications and a maintained test lab
+# A practical plan for running the project with AI
 
-Draft proposal, revised 18 October 2026. This plan is about how the founder runs the project: choosing work, assigning AI tasks, reviewing specifications, maintaining tests and deciding when a change is finished. The [user-flow guide](user-flows.md) separately explains the product journeys.
+Draft proposal, 18 October 2026. The founder owns priorities, business decisions and release approval. AI investigates, writes specifications, implements bounded changes, tests and reviews. The roles below are responsibilities, not hired staff. This plan proposes changes to the [existing working method](how-i-work.md); the [user-flow guide](user-flows.md) describes the product. It adds no mandatory ceremony or installed controls by itself.
 
-The founder owns priorities, business decisions and release approval. AI helps investigate, write specifications, implement bounded changes, test and review. The role names below describe responsibilities, not employed staff. This proposal does not claim new automation is installed or waive existing review requirements.
+## What to improve first
 
-## What exists today
-
-Project instructions already require specifications before code, independent review, test-first development, a durable task board and evidence before completion. They also require lessons from failures. These are documented operating rules; they do not prove that every historical task followed them.
-
-The inspected end-to-end lab has browser and API tests, shared setup helpers, a seed-manifest check, failure traces, one CI retry and a combined application workflow. That workflow records application revisions and checks backend build identity. However, it selects moving application branches; some tests need optional database access; the declared browser matrix exceeds the browsers installed by CI. The main matching scenario performs its business steps through API calls. [Testing and release](testing-and-release.md) describes these limits and a separate limited backend baseline. This plan's source audit did not execute tests.
-
-The [alignment review](current-file-alignment.md) also found tests preserving older behaviour. The improvement is to make the existing process dependable, with explicit owners and evidence at each handoff.
-
-## 1. Choose a small amount of work
-
-Proposed rule: put each request, defect or review finding on one private board. Record the affected person, expected outcome, severity, requirement link, dependencies and next action. The founder chooses the order: protect money, access and saved data first; then unblock agreed user journeys; then improve convenience.
-
-Keep the application repair backlog separate from process maintenance. Start with at most two independent implementation tasks, plus review or lab maintenance. This is a proposed starting limit, not a claim about current staffing. Finish or unblock work before starting more. Split a large request into changes that can each be reviewed and verified; Google's guidance explains why small, focused changes are easier to review. [Small changes](https://google.github.io/eng-practices/review/developer/small-cls.html).
-
-## 2. Make the specification ready before asking AI to build
-
-Use [current requirements](../specs/CURRENT-REQUIREMENTS.md) to resolve authority, then link the detailed governing package. Keep requirement IDs stable, including their package prefix. One current rule controls; older descriptions retain their date and a link to the replacement.
-
-A task is ready when it has an owner, scope, written rules, a design, a task list, observable pass/fail examples, dependencies and the evidence needed to finish. Include roles, failure cases and effects on related journeys. An independent specification reviewer challenges those examples before implementation. The author cannot approve their own specification.
-
-Unresolved business decisions stay explicit. AI may research options and recommend one, but existing code does not supply approval. A changed decision updates the specification, examples, affected tests and decision history together. Reopen dependent work and invalidate affected approvals. Preserve the existing local review and final-audit rules; this plan does not replace them with a lighter review.
-
-## 3. Give each AI task clear boundaries
-
-The founder or coordinating AI gives the implementing AI a short handoff: issue and requirement IDs, approved specification version, allowed files, interface contracts, starting versions, acceptance examples, required checks and known limits. Name one accountable owner and a reviewer who did not author the change.
-
-Assign one writer to each shared area. Parallel tasks need separate file ownership and agreed contracts; sequence dependent changes and shared builds. If an AI discovers a contract change or another owner's file needs editing, it reports the dependency and updates the plan before expanding its scope. Follow the authorized repository/branch rules and preserve unrelated edits.
-
-Ask for reviewable artifacts: a diff, a test result, a reproduced failure or a specification change. "Finished" in a message is insufficient. Keep private code, credentials, patches and raw test traces in private repositories or approved private evidence storage.
-
-## 4. Track progress and blockers through artifacts
-
-Use the existing board states consistently:
-
-| State | Evidence or next action |
-|---|---|
-| TODO | Scope and owner recorded; readiness gaps identified |
-| IN-PROGRESS | Owner has a current artifact and a next checkpoint |
-| BLOCKED | Specific dependency, unblock owner and next action recorded |
-| IN-REVIEW | Reviewable change and required results available |
-| DONE | Acceptance and required review checked; release obligations remain explicit |
-
-At each checkpoint, inspect the actual diff, report or running job before updating status. Investigate a stalled process rather than repeatedly waiting or restarting it. A blocker stops its dependent task, not unrelated work. At session end, leave the current revisions, unfinished steps, findings and next actions on the board so another AI can continue without reconstructing the conversation.
-
-## 5. Develop against meaningful regression tests
-
-For a defect, reproduce the failure and identify its cause. Add a focused test that fails for that cause, implement the fix, and show the test passes. For new behaviour, derive the checks from the approved acceptance examples. Test the user's outcome and important rejection paths, not just a successful response or the implementation's internal shape.
-
-A reviewer should check that the test would detect the original defect. Update the relevant existing journey when a feature changes; creating another isolated test is insufficient if the maintained journey still assumes the old rule. Playwright recommends testing visible behaviour with stable, user-facing locators. [Playwright best practices](https://playwright.dev/docs/best-practices).
-
-## 6. Maintain the end-to-end lab as part of the product
-
-Give lab maintenance an owner and reserve work for it alongside features. Each feature task includes its regression impact; the testing owner reviews shared helpers, test-data changes and coverage gaps. Fixtures are the accounts and records a test needs; a seed is a known starting set of that data. A smoke check is a short check of essential behaviour. A gate is a check that must pass before the work moves on.
-
-### Own the fixtures and reset safely
-
-Keep reusable setup in shared helpers. Give each test its own synthetic users and records; own their creation, cleanup and lifecycle. Check the expected seed version and data before running dependent tests. Changes to shared seeds need a reviewed list of affected tests. The existing frozen backend seed is separately staged and default-off; do not assume all suites use it.
-
-Use isolated test environments where available. On a shared development stack, reset only the identified test records or limiter keys that the run owns, after confirming the target and coordinating with other users. Never flush a shared cache or reset unrelated data to make a test pass. Session disposal alone is not database cleanup. Playwright fixtures can keep setup and teardown together. [Fixture guidance](https://playwright.dev/docs/test-fixtures).
-
-### Separate browser, API and delivery evidence
-
-Mark each scenario by its test layer. API setup is useful, but a website claim needs the relevant action through the browser and its visible result. A direct assignment request does not prove the staff assignment screen works. A mocked provider does not prove external delivery. Include mobile, keyboard and timezone cases where the requirement depends on them.
-
-### Reproduce the whole application version
-
-Record the specification, frontend, backend and test revisions, migration state, seed version, browser/toolchain versions and relevant feature settings. Include an identifiable private snapshot of uncommitted changes. Rebuild changed components and verify the running versions before the lab starts. Replace moving-branch assumptions with explicitly selected combined revisions as a proposed improvement.
-
-Confirm that the website and API point to the same intended test environment. The mutation-heavy development suite is not a production smoke check; define a separate, non-mutating production check. Check stack health, browser installation and required fixture access first. Missing prerequisites should produce a clear incomplete run, not a successful empty result. Use the locked dependencies consistently; investigate installation failures rather than silently accepting a different dependency set.
-
-### Treat failures, skips and flaky tests honestly
-
-Separate product defects, requirement mismatches and lab/environment failures. Preserve the first failure and diagnose it. Follow the approved retry rules; a pass on retry remains a flake to investigate, not a clean first-pass result. Playwright reports these outcomes separately. [Retry guidance](https://playwright.dev/docs/test-retries).
-
-Record failed, skipped, aborted and retried cases with reasons. A required journey skipped for missing database access remains unverified. Any temporary quarantine needs an owner, issue, expiry, missing-coverage statement and the required approval; it cannot silently remove a release requirement. The lab README describes quarantine, but inspected configuration does not establish that exclusion as enforced. Reconcile policy and configuration before relying on it.
-
-### Review changes to tests and keep the gates healthy
-
-Review deleted tests, weakened assertions, new skips and refreshed contract snapshots against the requirement they protect. Record a replacement check or an approved retirement of the rule. Do not lower thresholds or add exclusions merely to restore green.
-
-Retain backend coverage of 97.5% lines and branches, and frontend coverage of 97.5% lines and 88% branches, alongside required formatting, lint, build and integration checks. The lab's route/API inventory is useful for finding missing tests, but a referenced endpoint is not a passed journey. Keep static inventory, executed results and requirement acceptance separate.
-
-The inspected combined workflow does not invoke the available lab lint, inventory, contract-comparison or coverage scripts. Reconcile those omissions with the governing requirements before calling them enforced gates. Make the small smoke set dependable, then run the required broader suite and browser matrix. Review toolchain upgrades separately and confirm all declared browsers actually run. Required CI checks and branch protection are proposed enforcement work until their settings and a deliberately blocked failure have been verified. GitHub supports those mechanisms; its documentation does not establish this project's settings. [Protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
-
-## 7. Review, release and reopen when evidence changes
-
-The independent reviewer starts from the rule and actual change, opens the evidence, and challenges a likely failure path. Review specification compliance before implementation quality. Google also asks reviewers whether tests are useful and would fail when behaviour breaks. [Review guidance](https://google.github.io/eng-practices/review/reviewer/looking-for.html).
-
-Before publishing documentation, check local links, preserved business meaning, current versus historical claims and disclosure risks. The public edition remains Markdown-only; application code, private contacts, company identifiers and raw evidence stay out.
-
-Keep the chain traceable: requirement → issue → approved specification → implementation commits → acceptance test → evidence → review decision. Record the states separately: implemented means the files contain the change; verified names passed acceptance evidence; task-done adds the required review and records; released names deployment and post-release evidence. Passing tests in development does not establish production readiness.
-
-The founder approves deployment of the reviewed version after the required tests, migration preparation and recovery checks. Mark it released only after deployment and the required checks of the running version pass. A change to code, fixtures or a material requirement reopens affected verification and review. Reproduce a regression, link it to the missed rule/test and return it to the board. Keep remaining delivery obligations visible.
-
-## 8. Learn and introduce the changes gradually
-
-After a failure or review correction, record the cause, the missing check and a reusable prevention rule. Update the owning guidance or lab helper where appropriate. Avoid lessons that merely say "be careful".
-
-| Proposed rollout | Owner | Acceptance before moving on |
+| Priority | Next action and owner | Evidence needed to pass |
 |---|---|---|
-| First two small changes | Founder/coordinating AI | Use the ready-task handoff, board and evidence chain; another reader can reconstruct both results |
-| Next lab-maintenance pass | Lab owner/testing reviewer | Assign fixture/seed owners, reconcile browser and skip policies, reproduce one combined version and preserve failure evidence |
-| Following release cycle | Founder/release reviewer | Verify required checks actually block failure; review measures and adjust the work limit |
+| 1 | **Make the source rules dependable.** The requirements owner records the billing/expiry conflicts and W01 workflow conflict; the founder decides them when needed. Preserve the admin-panel uptime target without inventing staffed hours. | A reader starting at the register and W01 below finds each conflict, its sources, decision owner and blocked work. The uptime clause describes software availability, not staffed hours. No editorial change chooses business policy. |
+| 2 | **Choose one product outcome within the founder's capacity.** The founder sets the next cycle's objective, available time and spend limit, including review and lab work. | The ordered tasks explain the need or obligation, expected learning, effort limit and stop/continue checkpoint. Unset budgets or targets remain unset. |
+| 3 | **Prepare one task and acceptance record.** The coordinator scopes one startup repair and keeps billing as a blocked planning row, not a second implementation. | Another reader can open the governing rule, approved scope, exact tested version, result and independent review. The billing row cannot appear passed merely because existing tests are green. |
+| 4 | **Make lab startup the first engineering task.** The lab owner repairs build source paths and the identity probe, then proves startup and accurate reporting. | A clean CI-layout run builds both selected apps and runs a non-empty smoke test. Matching identity passes; missing or wrong identity fails. Do this before enforcement. |
+| 5 | **Prove complete journeys and enforce agreed checks.** Product, QA and release owners prepare the required journey list and proposed repository protections. | Every required journey has evidence. Each promoted check rejects its own known-bad example; required merge checks block that failure. Changes remain separately reviewed work. |
+| 6 | **Decide whether to admit trial users.** The founder records the user group, recruitment, operational cover and pause conditions separately from deployment. | Technical readiness and service capacity are demonstrated. The trial can remain “not ready” without preventing useful research or documentation work. |
 
-Collect baselines during that first cycle: time waiting for review/blockers, required journeys skipped, first-pass versus retry results, defects reopened after completion, and changes with complete evidence links. Report the run count and period; do not invent current rates or targets. Use the findings to choose the next improvement, while retaining the governing requirements and review obligations.
+## What is already present, and what is not
+
+The [working method](how-i-work.md) describes existing specification, review, testing and evidence obligations. Their existence does not establish historical compliance. This plan concentrates on changes needed to make them usable.
+
+**W01, unresolved workflow authority:** the [older workflow](../specs/domain/dev-workflow.md) simultaneously requires every phase and allows bug-fix tiers; it names both 18- and 13-agent reviews and mandates Pact, whose installation is not established. The founder must publish one applicable rule, identify superseded clauses and distinguish required, configured and verified tools. The maintainer prepares the comparison; the founder decides. Until then, do not use the contradictory shortcuts to waive standing obligations. A sample ordinary bug fix must identify one applicable procedure before this decision closes.
+
+CI is the automated build-and-test process. The lab contains browser/API tests, setup helpers, seeds and failure traces. Its combined workflow attempts identity checks but cannot be relied on to reach testing: source review found build paths inconsistent with the checkout layout and an anonymous probe of an admin-only endpoint. No runtime rehearsal established a successful current run. It selects moving branches; the main matching scenario uses APIs; some cases require optional database access; CI omits declared browsers and available checks. [Testing and release](testing-and-release.md) separates these limits from the limited backend baseline.
+
+Read-only checks on 18 October found no classic protection or active branch rules on either application development branch, and no deployment environments in either application repository. These scoped settings checks do not establish every possible control. The lab branch has protection but no required status checks. Founder approval remains a written rule, not a configured GitHub deployment gate. No settings changed; enforcement remains proposed work.
+
+## Choose work that earns its place
+
+Keep obligations, learning and lab maintenance within one capacity budget. Protect money, access and saved data first. The founder records available working time, expected review/maintenance time and affordable AI/tool spend before committing. Start with one bounded implementation pilot and one blocked billing planning row. The founder remains accountable for persistent lab maintenance; AI performs bounded tasks. Record an effort estimate, actual human time and deferred work. Role titles do not create extra capacity.
+
+For discretionary work, record the observed need or hypothesis, intended users, cheapest useful check, measure, effort limit and dated continue/change/stop decision. Do not wait for launch to investigate demand, tutor recruitment, fee understanding or coordination effort. Interviews and prototypes can test risky assumptions before building the full service. [GOV.UK's alpha guidance](https://www.gov.uk/service-manual/agile-delivery/how-the-alpha-phase-works) supports that approach; it does not validate this market.
+
+**Learning example:** Ask whether a founder-selected group understands the proposed agency service and whether suitable tutors understand the one-time 50% fee. Prepare a short prototype and research plan. The founder chooses participants, outreach permission, effort budget and decision thresholds before recruitment. Record observed misunderstandings, willingness to continue and coordination effort; stated interest is not payment or proven demand. No user group, target or outcome is approved by this example.
+
+**Required-repair example for a later cycle:** Guest filters must obey C01's public access and result limits. Reproduce the defect, specify the browser outcome and rejection boundary, then repair it. This obligation does not need an invented revenue hypothesis. Required billing, privacy and consent rules cannot be waived to make a trial easier.
+
+## Use one task and acceptance record
+
+Use one issue or board entry for the handoff, acceptance, evidence and outcome, with stable requirement IDs, governing specification version, owner, allowed files, dependencies, budget and next checkpoint. The coordinator names a versioned board location inside the private specification repository; the workspace wrapper is not a Git repository. A changed business rule needs a dated founder decision naming replaced clauses. Code is not decision authority.
+
+The requirements owner keeps the [current register](../specs/CURRENT-REQUIREMENTS.md) explicit about the seven-day confirmation start, permission to override before timeout and submission-versus-approval post expiry. Keep the separate O12 detector/delivery question distinct. Each decision has an options-preparation owner, founder decision owner, affected acceptance rows and a needed-by checkpoint when scheduled. Block dependent acceptance without blocking unrelated investigation.
+
+Add a compact acceptance table to the same record:
+
+| Field | Required content |
+|---|---|
+| Acceptance identity | Stable ID, governing clause/version, affected user flow |
+| Outcome | Observable success and important refusal/failure case |
+| Dependency | Open decision or prerequisite; owner and next action |
+| Proof | Required browser, API, delivery or staff evidence; test and result links |
+| Version | Combined frontend, backend, test and specification revisions |
+| Result and review | Passed, failed, blocked or unverified; independent reviewer and decision |
+
+Derive rows before implementation. The startup pilot uses the pass/fail cases below. The blocked billing planning row includes first-session confirmation, seven-day follow-up and fourteen-day staff escalation without automatic cancellation; timing and override decisions prevent acceptance. A later guest-search repair would include anonymous filtering, at most 20 results per page for pages 0–4, empty later pages and restricted details/actions. The package inventory is not acceptance evidence. [Acceptance-criteria guidance](https://www.gov.uk/service-manual/agile-delivery/writing-user-stories#acceptance-criteria) supports using observable outcomes and linked evidence.
+
+The private pilot draft now has these planning rows. Their IDs identify proposed checks, not approved implementation requirements or executed tests:
+
+| Planning ID and owner | Rule and required observation | Evidence still needed | Current result |
+|---|---|---|---|
+| PL-01, founder accountable; lab owner implements | C16 and the startup findings: a clean CI-layout build reaches a non-empty smoke run; correct version passes, wrong or missing version fails; detailed status remains protected. | Approved repair specification, exact source/build/run record, positive and negative results, independent review. Budget and implementation approval are unset. | UNVERIFIED; preparation only. |
+| PL-02, founder decides; product analyst prepares | C03/C17 and UF16/UF17: first-session confirmation gates invoicing; seven-day follow-up leads to the fourteen-day staff decision, without automatic cancellation. | Resolve O12–O14, approve precise acceptance cases, then obtain browser/API/staff evidence for the selected versions. No run is claimed. | BLOCKED on policy and later implementation. |
+
+## Bound AI work and inspect progress
+
+Keep the existing spec-before-code and independent approval rules. For the pilot, approvals name the exact version; changed rules return for review, and old sign-offs cannot approve them. Give AI the scope, contracts, revisions, acceptance rows and checks. Assign one writer per shared area; sequence shared builds and dependent edits.
+
+Use the existing board states with a current artifact, next action and blocker owner. Inspect the diff, result or running process before changing status. Contract or scope changes return to specification review. Preserve unrelated edits.
+
+Keep test-first repair: demonstrate the original failure and a regression test that catches it, then update the maintained journey. Keep code, credentials, traces and snapshots private. Checkpoint before dispatch, after material changes and after gates, not only at session end. Record the spec/source snapshot, owned files, diff/evidence, last completed command, running work, blockers and next action. Release or reassign writer ownership explicitly. Test interruption before the normal summary: a fresh developer must resume from this record, reconcile conflicting historical statuses and avoid duplicate writers or repeated accepted work.
+
+## Maintain the lab with each change
+
+The founder is accountable for the lab across sessions, including time for upkeep. A named AI or developer may own a bounded repair; feature owners identify affected tests. The founder ensures helpers, seeds and toolchain changes get the required review.
+
+**Own data and reset safely.** Fixtures supply the accounts and records needed by a test; seeds supply a known starting dataset. Record their owners, version, creation and cleanup. Use synthetic data and isolated runs. A shared development reset must first verify its target and remove only identified test-owned records or limiter keys. Never flush unrelated shared data to obtain a pass. Session disposal is not database cleanup. The separately staged, default-off backend seed is not evidence that every suite uses it. [Playwright fixtures](https://playwright.dev/docs/test-fixtures) can keep setup and teardown together.
+
+**Repair startup first.** The lab owner and backend counterpart align build-source directories with the clean CI checkout layout. Use the approved minimal public version response without opening the protected operational endpoint. Rehearse building both selected apps and running a non-empty smoke set. Matching identity must pass; deliberately wrong or missing identity must stop the run; anonymous detailed-status access must remain denied. [Docker build-path rules](https://docs.docker.com/reference/compose-file/build/).
+
+**Identify the complete build.** One private combined-version record names fixed specification, frontend, backend and test revisions, migrations, seed, browsers, toolchain and settings. Include the complete source input snapshot, relevant untracked files, source and built-image fingerprints, and run ID. A fingerprint identifies exact file contents; a supplied commit label does not. Bind those inputs to the built artifact and evidence, excluding secret values. Change one uncommitted file in the pilot: prior evidence must become stale, the rebuilt artifact must differ, and both runs must be reconstructable. Verify running identities and website/API targets.
+
+CI and deployment must consume that same record and reject changed, missing or failed evidence. A passing result for another revision cannot authorize deployment. The founder and technical lead first approve the delivery route and reconcile existing direct-push instructions with any proposed pull-request gate. Reuse existing tools; no new platform is needed.
+
+**Check prerequisites first.** Confirm stack health, dependencies, browsers and required database access. Missing prerequisites make the run incomplete. Define a separate non-mutating production smoke check; the development suite performs mutations. Reconcile the declared browser matrix and available lint, inventory, contract and coverage scripts with what CI actually runs.
+
+**Separate kinds of proof.** Browser evidence demonstrates the visible action and result; direct API calls demonstrate service behaviour. Provider mocks do not demonstrate delivery. Test mobile, keyboard, timezone and staff handoffs where the requirement needs them. Route counts and endpoint references identify inventory gaps, not passed user journeys.
+
+**Correct result reporting.** Source review found the result-based endpoint utility can credit skipped and retry-pass cases as passing. Before using it for acceptance, the lab owner records outcomes by case, browser/project and attempt. QA checks saved examples of all-skipped, mixed pass/skip, retry-pass, expected failure and one-browser failure. Use a versioned acceptance-to-test list with IDs naming both the specification and case, required layers/browser projects, prerequisites and approved exclusions. Reconcile every expected case with results. Deliberately remove, filter out, skip and abort a required case: each must make acceptance incomplete or failed even when remaining tests pass. Independently review changes to this list and tests. Skips earn no executed credit; retries never become first-pass results. [Playwright retry guidance](https://playwright.dev/docs/test-retries).
+
+Classify product, requirement and environment failures and preserve the first failure. Missing database access leaves required work unverified. Temporarily excluding an unreliable test needs the required approval, owner, issue, expiry and explicit missing coverage, reflected in actual execution.
+
+**Protect the tests themselves.** Review deleted tests, weaker assertions, new skips and refreshed contract snapshots against their requirements. Require replacement evidence or an approved rule retirement. Retain backend coverage of 97.5% lines and branches and frontend coverage of 97.5% lines and 88% branches, plus required formatting, lint, build and integration checks. Do not lower thresholds to get green. For each proposed gate, record its requirement, exact check, owner, advisory/blocking status and known-bad example. The inventory utility currently prints drift without failing. It must reject both missing and stale entries and pass a matching example before promotion. Demonstrate the failure of each other promoted check separately, then prove required-check enforcement. [GitHub protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
+
+**Own compatibility.** The current contract utility compares only shallow structures. For each shared interface change, API and frontend owners record request/response/error examples, enum choices, null versus omitted values, affected consumers and deployment/migration order. The database owner joins when storage changes. Test incompatible nested references, enum values, array items, required fields and null behaviour; reject them or record the explicit compatibility decision with both sides' results. Record harmless additions too. Refreshing a snapshot alone cannot release a consumer dependency.
+
+**Retain usable evidence.** Current combined artifacts expire after seven days; application CI uploads only failures and backend upload paths omit integration results. The founder selects private storage and a retention period covering the review/release cycle. The CI owner captures success and failure summaries; the task owner archives accepted evidence before DONE. Keep versions, selected cases, outcomes, commands, review decisions and durable links in a compact evidence index. Raw traces may have shorter recorded retention. QA reconstructs the implementation and blocked planning decisions from retained records, including applicable frontend, backend unit/integration and combined results; explain inapplicable layers. Missing or expired required evidence blocks verification until recovered or rerun.
+
+## Review against a clear record, then separate readiness decisions
+
+The six perspectives are business, product, QA, technical lead, developer and AI skeptic. Consolidate duplicate findings into one owned action and retain sources and responses. Independence means a separate non-author execution, no edits to the reviewed version, first-pass findings before seeing others' verdicts, direct inspection of rules/diffs/evidence and re-review after material changes. Facilitator-voiced perspectives are not independent reviews; AI votes do not approve policy.
+
+**Proposed governance amendment, requiring founder approval:** use an author, independent reviewer and accountable founder for ordinary bounded changes; add consumer, security, data or recovery reviewers when affected. Until explicitly approved and recorded, retain the existing full review and final audit. Apply any approved amendment to the single implementation pilot, retaining its exact reviewed version, original findings, outcome and founder decision. Judge it by evidence quality, defects and founder effort, not agent count.
+
+Keep implemented, verified and task-done separate: files changed; named acceptance evidence passed; required review and records completed. Material code, fixture, contract or requirement changes reopen affected evidence and review. Documentation can be complete while product journeys remain missing.
+
+Before reviewing a release version, the product owner lists its required complete journeys and exception branches. QA links each to the acceptance record and marks passed, failed, blocked or unverified. Include parent, tutor and staff handoffs: selection, assignment, contact gating, first-session follow-up, invoice, actual agency receipt and relevant cancellation. A skipped required row stays unverified; removing a governed obligation requires an explicit decision.
+
+**Deployment readiness** needs a verified human-approval mechanism supported by the actual hosting plan. Refuse an unapproved version in rehearsal. [GitHub environment rules](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments). The release and database owners record previous/new versions, compatible staged migrations, rollback or forward repair, and browser/API checks after deployment. Rolling back application processes does not undo a database migration. Show the previous application still works after migration; rehearse recovery from failed backend canary and frontend release. Use the retained runbook and approved deployment controls, including one deployment at a time, the standard two-hour canary period (a small test deployment) and health/alarm checks. A scratch restore must measure the retained limits: no more than 24 hours' data loss, recovery within four hours, and 30-day backup retention. [AWS recovery testing](https://docs.aws.amazon.com/wellarchitected/latest/framework/rel_planning_for_recovery_dr_tested.html).
+
+**Trial readiness** additionally needs the approved user group and trial limits, recruitment, operational owner/backup, follow-up/dispute handling, measures, review date and pause/expansion conditions. Software uptime is not staffed support. Either decision may remain not ready. [GOV.UK beta guidance](https://www.gov.uk/service-manual/agile-delivery/how-the-beta-phase-works) supports limited exposure with capacity to support users and keep learning; it does not certify this project's readiness.
+
+Before publishing documentation, check links, preserved business meaning, current versus historical claims and privacy. The public edition stays Markdown-only, with no application code, private contacts, company identifiers or raw evidence.
+
+## First cycle and feedback
+
+First, finish source corrections and collect the founder's objective, effort budget and decisions. Use one record to prepare and execute the bounded startup/probe repair; billing remains planning-only and blocked. Prepare a learning question without starting unapproved outreach. Defer guest-search implementation, broader lab automation and new management tools from this pilot. Record deferred improvements and their dependencies; deferral is not permission to claim their release requirements passed. Choose the next task from the observed bottleneck. Complete the later gate and recovery rehearsals before deployment/trial approval.
+
+At cycle end, record active founder time, elapsed time, review rounds, blocker time, measurable AI/tool spend, required journeys skipped, first-pass/retry results and reopened defects. Report the pilot's estimate versus actual founder time and mark missing data. Product measures need actual denominators and observation periods, including unmatched requests. Keep first lessons, agency receipts and coordinator effort separate. No baseline or target is invented here.
+
+Use observed cost and benefit to change task size, preparation and work order. Record each failure's cause, missed check and concrete prevention in the owning guidance or lab helper. Any change to mandatory review policy requires its authorized owner; this plan grants no shortcut.

@@ -20,7 +20,7 @@ A tutor needs a clear request, a fair way to apply and an explanation of the age
 
 InTuition brings those steps into one service. People can browse, post requests, apply and express a preference. Agency staff review listings and confirm assignments. The aim is a useful online service with human responsibility at the points where a decision matters.
 
-That is the product vision. Customer demand, willingness to pay and the amount of staff time needed for each successful arrangement still need to be tested after launch. The first customer group and how to recruit enough suitable parents and tutors are also open decisions. I am not claiming that the business model has already been proven.
+That is the product vision. Customer demand, willingness to pay and the amount of staff time needed for each successful arrangement still need evidence. Research and prototypes can test assumptions before launch; a later, carefully limited trial can test actual use and operating costs. The first customer group and how to recruit enough suitable parents and tutors are also open decisions. I am not claiming that the business model has already been proven.
 
 ## Who it is for
 
@@ -83,21 +83,11 @@ The working process is:
 
 **Business need → specification and pass/fail examples → independent specification approval → tracked issue → failing check → implementation and tests → independent result review → release decision**
 
-| Step | What I expect before moving on |
-|---|---|
-| Define the need | A clear user problem and a reason to change the product |
-| Write the specification | Business rules, limits and examples of what must and must not happen |
-| Approve the specification | Reviewers other than the author approve the corrected plan and examples before building; unresolved business decisions block dependent work |
-| Track the issue | A bounded task connected to those requirements, with dependencies visible |
-| Implement and test | Reproduce the defect or add the acceptance check, make the change, and check both the new behaviour and existing behaviour it might break |
-| Review the result | Reviewers inspect the change and test evidence from the business, product and engineering perspectives, including failure cases |
-| Close and release | Findings resolved, the relevant checks recorded and the documentation updated |
-
 When a review or test fails, the task goes back to the relevant step. A requirements change can require changes to the design and tests as well as the implementation. A passing old test does not prove a newly clarified requirement.
 
 The issue IDs, review records and requirement lists in the specification collection show how that process developed. They also show inconsistencies and follow-up work. They are not all equivalent to a freshly verified result. Named review roles in those working records refer to AI-assisted roles; they should not be read as a claim that I employ a large business or engineering team.
 
-[See the workflow and examples](docs/how-i-work.md), then read the [improvement plan](docs/workflow-improvement-plan.md) for linking each rule to its change, test evidence and independent review.
+[Start with the request-form example and its dated evidence](docs/how-i-work.md#example-a-review-step-that-submitted-too-early). The [workflow walkthrough](docs/workflow-walkthrough.md) explains the steps; the [improvement plan](docs/workflow-improvement-plan.md) lists the changes proposed after review.
 
 ## How I check that changes have not broken the product
 

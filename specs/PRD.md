@@ -682,7 +682,7 @@ No contact information of the other party is included in this notification.
 
 #### 7.7.1 First-Session Confirmation Timeout Job
 
-**Separate unresolved start:** The activation-based seven-day clock below conflicts with AC-05's email-send start and the original BR-010 notification-receipt start. See [AC-05](#ac-05-first-session-confirmation-before-commission-invoice-br-010). No start is selected here; this is distinct from O12's detection-versus-delivery timing question.
+**Separate unresolved start, O13:** The activation-based seven-day clock below conflicts with AC-05's email-send start and the original BR-010 notification-receipt start. See [AC-05](#ac-05-first-session-confirmation-before-commission-invoice-br-010). No start is selected here; this is distinct from O12's detection-versus-delivery timing question.
 
 > **Timing dependency O12:** This retained six-hour detector/window conflicts with the five-minute-from-trigger target when “trigger” means the seven-day threshold. The service-level agreement clock must be reconciled in [CURRENT-REQUIREMENTS md](CURRENT-REQUIREMENTS.md) before timing acceptance is closed. Both values below remain source requirements pending that decision.
 
@@ -699,7 +699,7 @@ No contact information of the other party is included in this notification.
 
 #### 7.7.2 Post Auto-Expiry Cron Job
 
-> **Source conflict still open:** this paragraph measures lifetime from submission, while the retained posting and approval module designs use an approval-based expiry timestamp. Restoring the prose does not decide between those clocks. An explicit decision and matching acceptance example are needed before claiming one consistent expiry rule.
+> **Source conflict O15 remains open in the [decision register](CURRENT-REQUIREMENTS.md#open-decisions):** this paragraph measures lifetime from submission, while the retained posting and approval module designs use an approval-based expiry timestamp. Restoring the prose does not decide between those clocks. An explicit decision and matching acceptance example are needed before claiming one consistent expiry rule.
 
 - **Job name:** post auto expiry
 - **Schedule:** Daily at 02:00 Singapore time (Coordinated Universal Time+8)
@@ -1355,7 +1355,7 @@ The illustration for ac-09: admin session idle timeout contains the following in
 
 ### AC-11: Reminder Email Timing (N-12)
 
-**Separate unresolved start:** This case starts the seven days at activation, while AC-05 starts them at email send and original BR-010 at notification receipt. See [AC-05](#ac-05-first-session-confirmation-before-commission-invoice-br-010). O12 below concerns the later detection and delivery window, not which of these three events starts the seven days.
+**Separate unresolved start, O13:** This case starts the seven days at activation, while AC-05 starts them at email send and original BR-010 at notification receipt. See [AC-05](#ac-05-first-session-confirmation-before-commission-invoice-br-010). O12 below concerns the later detection and delivery window, not which of these three events starts the seven days.
 
 **Feature:** 7-day first-session confirmation reminder timing
 

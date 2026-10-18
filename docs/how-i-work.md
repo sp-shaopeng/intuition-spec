@@ -10,12 +10,7 @@ InTuition is **not live**. Life commitments have delayed launch. The work shown 
 
 The project's written workflow connects a user problem to a requirement, a task, a review and evidence. Its purpose is to make it possible to answer a simple question: what observation shows that this change solved the intended problem?
 
-1. **Describe the problem.** An issue records the expected behaviour, what went wrong and how to reproduce it. A feature starts with the outcome someone needs, including what is outside its scope.
-2. **Write the specification.** Requirements receive identifiers so implementation tasks and evidence can point back to them. The specification records the design, acceptance conditions, open questions and version history. Material changes require an update to that history.
-3. **Review before building.** Relevant perspectives check the proposal: product, interface, server, data, security and testing. The author does not approve their own specification. Work with dependencies is ordered; independent work can proceed in parallel.
-4. **Implement and verify.** For a bug, reproduce the failure before changing it. Add a regression check where the failure can actually be observed, make the change, then run the appropriate checks. A regression check is a test intended to catch the same problem if it returns.
-5. **Review the result twice.** First check whether it satisfies the specification. Then examine implementation quality, risks and effects on related flows. A coordinator role checks that the evidence supports the claims before closing the work.
-6. **Loop back when something fails.** A failed test, incorrect assumption or valid review finding returns the item to investigation or implementation. After the fix, rerun the affected checks and review the result again. Unresolved conditions stay recorded instead of disappearing into a completion message.
+The [step-by-step walkthrough](workflow-walkthrough.md) covers specification approval, bounded AI assignments, tests, independent review and release decisions. This page focuses on what those rules mean in practice and where the evidence is incomplete. A regression test is a check intended to catch a problem if it returns.
 
 The private agent instructions call their coordinator the “Boss” and use specialist AI roles for these perspectives. Those names describe responsibilities in an assisted workflow; they do not represent an independent human engineering team. The public [development workflow](../specs/domain/dev-workflow.md) contains more of the project's history and rules. Where older instructions conflict with the [current requirements](../specs/CURRENT-REQUIREMENTS.md), the current requirements govern the product.
 
@@ -35,7 +30,7 @@ The project has a separate Playwright test repository and backend tests that exe
 
 The lab needs attention whenever the specification, application, fixtures or environment changes. A new acceptance case needs the right test. An intentional rule change needs a reviewed test update. A failure needs investigation before its assertion is removed or weakened. Shared test accounts and skipped prerequisites also need attention, because they can make a passing result misleading.
 
-The inspected combined workflow records application versions and checks the running backend's identity. However, it selects the application development branches rather than establishing a required test of the exact changes in every application pull request. The [testing guide](testing-and-release.md) explains the current boundaries. The [improvement plan](workflow-improvement-plan.md) covers reproducible versions, owned test data, unreliable tests, lab health and the evidence needed to close a task.
+The inspected combined workflow records application versions and attempts to check the running backend's identity. Source review found incompatible build paths and a version request to a protected endpoint, so its current setup cannot be relied on to reach the tests. It also selects moving application development branches; this does not establish a required test of the exact changes being approved. The [testing guide](testing-and-release.md) explains the current boundaries. The [improvement plan](workflow-improvement-plan.md) covers reproducible versions, owned test data, unreliable tests, lab health and the evidence needed to close a task.
 
 ## Example: a review step that submitted too early
 
@@ -46,6 +41,15 @@ The recorded investigation found a browser interaction problem. Advancing the fo
 This was a useful boundary between test types: the simulated browser used for component tests did not reproduce the original click behaviour. A real-browser check was needed. The [requirements](../specs/008-tutee-post-flow-bugfixes/requirements.md) explain the expected behaviour, and the [task record](../specs/008-tutee-post-flow-bugfixes/tasks.md) connects it to verification work.
 
 There is also an explicit limit to the case study. A later correction adds more precise keyboard and input-method requirements. The new file review found that the form still advances on Enter without the required control and composition checks, and the final step still permits implicit submission. The original button fix is present, but it does not satisfy every later acceptance condition. [See the remaining work](current-file-alignment.md).
+
+| Date and record | What it supports | What it does not establish |
+|---|---|---|
+| 21 June 2026, specification 008's original development record | AI-assisted investigation reported the button-identity cause, a change and browser regression coverage. The founder retains decision authority; the named specialist sign-offs are AI roles. | This publication did not independently reconstruct the original human approval or reopen a complete original run bundle. Its reported result remains historical. |
+| 5 September 2026, private specification 008 version 1.3 | The corrected requirement covers deliberate submission, keyboard input and text composition. | An old sign-off or passing test does not approve or verify the added cases. |
+| 18 October 2026, source snapshot SRC-2026-10-18-A | Reviewers inspected the identified frontend and browser-test revisions. The button separation and a test for entering Review without submitting are present. The broader keyboard guards are missing. | Reading the test does not execute it. No fresh browser pass is claimed. |
+| Current disposition | Keep the narrow historical fix and reopen the missing acceptance cases under G07. The private repair plan remains a draft. | No claim of complete form compliance or launch readiness. |
+
+The private evidence index maps the source label to exact repository revisions and records unchanged tracked source. Source, raw reports and account details stay private. This short trail is deliberately incomplete where original evidence was not independently rechecked; AI did not fill those gaps with an invented result.
 
 ## Example: review after tests found more work
 
