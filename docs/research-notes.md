@@ -24,5 +24,7 @@ Reviewed for this publication on 18 October 2026:
 | [Docker: build paths](https://docs.docker.com/reference/compose-file/build/) | Check whether the lab's expected source directories match its checkout layout. The reported mismatch is a source finding, not a newly executed failure. |
 | [OpenAPI specification](https://spec.openapis.org/oas/v3.1.1.html) and [Pact guidance](https://docs.pact.io/) | Explain why a shallow interface comparison cannot establish compatibility for the application using that interface. No new tool adoption is claimed. |
 | [AWS: recovery testing](https://docs.aws.amazon.com/wellarchitected/latest/framework/rel_planning_for_recovery_dr_tested.html) | Require observed recovery evidence before launch, while preserving the project's existing recovery targets. |
+| [GitHub: responsible use of agents](https://docs.github.com/en/copilot/responsible-use/agents) | Explain why generated work still needs review and validation. It does not establish that this project uses GitHub's agent products. |
+| [Anthropic: long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) | Inform the explanation of bounded tasks, progress records and checking work across sessions. This is external guidance, not evidence that every proposed control operates in InTuition. |
 
 The final publication is Markdown only. It is read directly on GitHub and includes no website scripts, application source or deployment configuration.

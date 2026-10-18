@@ -1,6 +1,6 @@
 # Review record
 
-**Latest round, 18 October 2026:** a fresh six-role review challenged the workflow plan and selected source claims. Its findings and scope appear in [the latest review section](#fresh-six-role-review-of-the-project-workflow). Earlier approvals below apply only to their dated publication scope; they did not prevent later reviewers from finding defects.
+**Latest scope, 18 October 2026:** the opening pages now focus on how the founder directs AI across project delivery. Six role reviews checked this narrative revision, as recorded below. The [six-role workflow review](#fresh-six-role-review-of-the-project-workflow) remains the record of the preceding corrections. Earlier approvals apply only to their dated publication scope; they did not prevent later reviewers from finding defects.
 
 **Later alignment review:** the six reviews below assessed the original publication. Three new independent AI reviewers subsequently compared it with the current application and source specifications and found real mismatches. Read the [current-file alignment report](current-file-alignment.md) for the corrections and remaining application gaps. The original publication passes were not approval of application compliance.
 
@@ -76,3 +76,15 @@ All six correction rechecks are READY within their stated documentation and prop
 Final collection checks cover 362 Markdown documents, including 346 specifications and 7,115 local document/heading links. There are no broken local links, malformed table widths, non-Markdown publication files, rendered HTML or code blocks. Comparisons found no matches to the 100 private credential candidates or six private company legal/contact values. These remain bounded checks, not a guarantee about unknown secret formats.
 
 The proposed operating controls, unresolved business decisions and application repairs are not approved or completed by this documentation review. The first startup pilot is UNVERIFIED and billing remains BLOCKED. InTuition is still not live.
+
+## AI-assisted project delivery as the main story
+
+The founder clarified that the main purpose is to show how they use AI to deliver project work. The README and working-method page now distinguish founder direction, AI execution, independent review, corrections and observed results. Business context and detailed specifications remain available through their existing guides.
+
+The application example retains its dated historical result and outstanding keyboard requirements. The separate completed example concerns publication of the Markdown specification repository at a04514d; it does not imply that the application has launched. The founder's recorded directions are separated from checks performed by AI assistants.
+
+Six separately briefed AI reviewers checked the two entry pages without reading one another's current reports or editing the pages. Business, product, technical lead, developer and QA returned READY within their respective scopes. The AI skeptic required a plain-English correction: phrases such as "bounded issues" and "installed governance" became "tasks with clear limits" and a description of rules enforced by tools. The skeptic and technical lead independently reread the corrected pages and returned READY. These are AI reviews of the account, not human-team certification or a new application test run.
+
+The coordinator opened all six reports and checked the final files. Collection checks cover 362 Markdown documents, including 346 specifications, 43 numbered sequences and 7,097 local document/heading links. No broken local links, malformed tables, non-Markdown publication files, symbolic links, rendered HTML or code blocks were found. Comparisons found no matches to the 100 private credential candidates or six private company legal/contact values. Those checks cover the described files and values; they do not guarantee detection of every unknown secret format. The 7,115-link figure in the completed case belongs to the earlier a04514d publication.
+
+No application or test-lab code, repository settings or business policies are changed by this revision. The not-live status and outstanding application work remain explicit.
